@@ -1,0 +1,21 @@
+import { Combo } from "./combo.model";
+import { Evidencia } from "./evidencia.model";
+import { Cuotas } from "./cuotas.model";
+
+export class Servicio {
+    id?: number;
+    costo?: number;
+    fecha_inicio?: Date;
+    fecha_fin?: Date;
+    prioridad?: string;
+    tipo?: string;
+    estado?: string;
+    ubicacion?: string;
+    resumen?: string;
+    quota?: Cuotas[];
+    evidencia?: Evidencia[];
+    combo?: Combo;
+    createdAt?: Date;
+    updatedAt?: Date;
+
+}

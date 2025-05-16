@@ -1,0 +1,45 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Maintenances</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Responsible</th>
+                  <th scope="col">Machinery ID</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let maintenance of maintenances">
+                  <td>{{ maintenance.id }}</td>
+                  <td>{{ maintenance.date | date:'yyyy-MM-dd HH:mm' }}</td>
+                  <td>{{ maintenance.status }}</td>
+                  <td>{{ maintenance.responsable }}</td>
+                  <td>{{ maintenance.machinery_id }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-primary" (click)="edit(maintenance.id)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(maintenance.id)">Delete</button>
+                  </td>
+                </tr>
+                <tr *ngIf="maintenances.length === 0">
+                  <td colspan="6" class="text-center">No maintenances available.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

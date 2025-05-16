@@ -1,0 +1,39 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<div class="container-fluid mt--7">
+<div class="row">
+  <div class="col">
+    <div class="card shadow">
+      <div class="card-header bg-transparent">
+        <h3 class="mb-0">Procedimientos de Mantenimiento</h3> </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">ID Vínculo</th> <th scope="col">ID Procedimiento</th>
+                <th scope="col">ID Mantenimiento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mp of maintenanceProcedures"> <td>{{ mp.id }}</td>
+                <td>{{ mp.procedure_id }}</td>
+                <td>{{ mp.maintenance_id }}</td>
+                <td>{{ mp.status }}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" (click)="edit(mp.id)">Editar</button>
+                  <button class="btn btn-sm btn-danger" (click)="delete(mp.id)">Eliminar</button>
+                </td>
+              </tr>
+              <tr *ngIf="maintenanceProcedures.length === 0"> <td colspan="5" class="text-center">No hay vínculos de procedimientos de mantenimiento disponibles.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
