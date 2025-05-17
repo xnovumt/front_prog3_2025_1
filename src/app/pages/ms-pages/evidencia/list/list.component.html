@@ -20,17 +20,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let evidence of evidences">
-                <td>{{ evidence.id }}</td>
-                <td>{{ evidence.file_type }}</td>
-                <td>{{ evidence.load_date | date:'yyyy-MM-dd HH:mm' }}</td> <td>{{ evidence.service_id }}</td>
-                <td>{{ evidence.novelty_id }}</td>
+              <tr *ngFor="let evidencias of evidencias">
+                <td>{{ evidencias.id }}</td>
+                <td>{{ evidencias.file_type }}</td>
+                <td>{{ evidencias.load_date | date:'yyyy-MM-dd HH:mm' }}</td> <td>{{ evidencias.service_id }}</td>
+                <td>{{ evidencias.novelty_id }}</td>
                 <td>
-                  <button class="btn btn-sm btn-primary" (click)="edit(evidence.id)">Editar</button>
-                  <button class="btn btn-sm btn-danger" (click)="delete(evidence.id)">Eliminar</button>
+                  <button class="btn btn-sm btn-primary" (click)="edit(evidencia.id)">Editar</button>
+                  <button class="btn btn-sm btn-danger" (click)="delete(evidencias.id)">Eliminar</button>
                 </td>
               </tr>
-              <tr *ngIf="evidences.length === 0"> <td colspan="6" class="text-center">No hay evidencias disponibles.</td>
+              <tr *ngIf="evidencias.length === 0"> <td colspan="6" class="text-center">No hay evidencias disponibles.</td>
               </tr>
             </tbody>
           </table>

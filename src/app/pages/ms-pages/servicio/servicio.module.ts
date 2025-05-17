@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { ListServicioComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicioRoutingModule } from './servicio-routing.module';
 
 
@@ -14,6 +13,6 @@ import { ServicioRoutingModule } from './servicio-routing.module';
     ManageComponent
 
   ],
-  imports:[CommonModule, FormsModule, ServicioRoutingModule]
+  imports:[CommonModule, FormsModule, ServicioRoutingModule, ReactiveFormsModule]
 })
 export class ServicioModule {}

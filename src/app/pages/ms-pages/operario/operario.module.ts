@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ListOperarioComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OperarioRoutingModule } from 'src/app/ms-pages/operario/operario-routing.module';
 
 
 
@@ -13,7 +15,10 @@ import { ManageComponent } from './manage/manage.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    OperarioRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [RouterModule]
 })

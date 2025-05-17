@@ -3,11 +3,11 @@ import { Municipio } from "./municipio.model";
 
 export class Gobernante {
     id?: number;
-    user_id?: string;
-    start_period?: Date;
-    end_period?: Date;
+    id_usuario?: string;
+    periodo_inicio?: Date;
+    periodo_final?: Date;
     departamentos?: Departamento[];
-    municipalities?: Municipio[];
+    municipios?: Municipio[];
     createdAt?: Date;
     updatedAt?: Date;
 }

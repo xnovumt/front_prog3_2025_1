@@ -4,7 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 @NgModule({
-  imports: [RouterModule],
-  exports: [RouterModule]
+  declarations: [
+    ListFacturaComponent,
+    ManageComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    FacturaRoutingModule
+  ]
 })
 export class GobernanteModule {}

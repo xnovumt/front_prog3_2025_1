@@ -1,11 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ListMaquinaComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
+import { MaquinaRoutingModule } from './maquina-routing.module';
 
 
 
 
 @NgModule({
-  imports: [RouterModule],
-  exports: [RouterModule]
+  declarations: [
+    ListMaquinaComponent,
+    ManageComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MaquinaRoutingModule
+  ]
 })
 export class MaquinaModule {}

@@ -1,9 +1,12 @@
+import { Gobernante } from "./gobernante.model";
+import { Municipio } from "./municipio.model";
+
 export class GobernanteMunicipio {
     id?: number;
-    start_date?: Date;
-    end_date?: Date;
-    ruler_id?: number;
-    municipality_id?: number;
+    fecha_inicio?: Date;
+    fecha_fin?: Date;
+    gobernante_id?: Gobernante;
+    municipio_id?: Municipio;
     createdAt?: Date;
     updatedAt?: Date;
 }

@@ -3,15 +3,15 @@ import { Servicio } from "./servicio.model";
 
 export class Cuotas {
     id?: number;
-    service_id?: number;
-    quantity?: number;
+    id_servicio?: number;
+    cantidad?: number;
     email?: string;
-    client_name?: string;
-    payment_reference?: string;
-    expiration_date?: Date;
-    paid?: boolean;
+    nombre_cliente?: string;
+    referencia_pago?: string;
+    fecha_expiracion?: Date;
+    pago?: boolean;
     factura?: Factura
-    service?: Servicio;
+    servicio?: Servicio;
     createdAt?: Date;
     updatedAt?: Date;
 }

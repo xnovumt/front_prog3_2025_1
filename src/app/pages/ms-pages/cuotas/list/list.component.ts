@@ -8,7 +8,7 @@ import { CuotasService } from 'src/app/services/cuotasService/cuotas.service'; /
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListQuotaComponent implements OnInit {
+export class ListCuotaComponent implements OnInit {
 
   cuotas: Cuotas[] = []; // Arreglo para almacenar cuotas, tipado con el modelo Quota
 

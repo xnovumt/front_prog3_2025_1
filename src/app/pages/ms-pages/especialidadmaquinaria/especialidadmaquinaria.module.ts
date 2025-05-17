@@ -1,11 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { EspecialidadMaquinariaRoutingModule } from './especialidadmaquinaria-routing.module';
+import { ListEspecialidadMaquinariaComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
 
 
 
 
 @NgModule({
-  imports: [RouterModule],
-  exports: [RouterModule]
+  declarations:[
+    ListEspecialidadMaquinariaComponent,
+    ManageComponent
+
+  ],
+  imports:[CommonModule, FormsModule, EspecialidadMaquinariaRoutingModule]
 })
 export class EspecialidadMaquinariaModule {}

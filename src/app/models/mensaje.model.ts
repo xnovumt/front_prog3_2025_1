@@ -2,10 +2,10 @@ import { Chat } from "./chat.model";
 
 export class Mensaje {
     id?: number;
-    content?: string;
-    date?: string;
-    chat_id?: number;
-    user_id?: number;
+    contenido?: string;
+    fecha?: Date;
+    id_chat?: number;
+    id_usuario?: number;
     chat?: Chat;
     createdAt?: Date;
     updatedAt?: Date;

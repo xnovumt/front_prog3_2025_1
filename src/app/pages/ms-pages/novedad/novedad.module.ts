@@ -1,10 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListNovedadComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
+import { NovedadRoutingModule } from './novedad-routing.module';
 
 
 
 @NgModule({
-  imports: [RouterModule],
-  exports: [RouterModule]
+  declarations:[
+    ListNovedadComponent,
+    ManageComponent
+
+  ],
+  imports:[CommonModule, FormsModule, NovedadRoutingModule, ReactiveFormsModule]
 })
 export class NovedadModule {}

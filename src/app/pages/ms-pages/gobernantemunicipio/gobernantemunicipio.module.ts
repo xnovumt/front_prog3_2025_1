@@ -1,10 +1,21 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { GobernanteMunicipioRoutingModule } from './gobernantemunicipio-routing.module';
+import { ListGobernanteMunicipioComponent } from 'src/app/ms-pages/gobernantemunicipio/list/list.component';
+import { ManageComponent } from './manage/manage.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  imports: [RouterModule],
-  exports: [RouterModule]
+  declarations: [
+    ListGobernanteMunicipioComponent,
+    ManageComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    GobernanteMunicipioRoutingModule
+  ]
 })
 export class GobernanteMunicipioModule {}

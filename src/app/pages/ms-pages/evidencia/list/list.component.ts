@@ -8,7 +8,7 @@ import { EvidenciaService } from 'src/app/services/evidenciaService/evidencia.se
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListEvidenceComponent implements OnInit {
+export class ListEvidenciaComponent implements OnInit {
 
   evidencias: Evidencia[] = []; // Arreglo para almacenar evidencias, tipado con el modelo Evidence
 
