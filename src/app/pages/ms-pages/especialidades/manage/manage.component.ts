@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Especialidad } from 'src/app/models/especialidad.model';
+import { EspecialidadesService } from 'src/app/services/especialidadesService/especialidades.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-manage',
@@ -7,9 +11,99 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageComponent implements OnInit {
 
-  constructor() { }
+ mode: number; //1->View, 2->Create, 3-> Update
+  especialidad: Especialidad;
 
-  ngOnInit(): void {
+  constructor(private activateRoute: ActivatedRoute,
+    private someEspecialidad: EspecialidadesService,
+    private router: Router
+  ) {
+    this.especialidad = { id: 0 }
   }
 
+  ngOnInit(): void {
+    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    if (currentUrl.includes('view')) {
+      this.mode = 1;
+    } else if (currentUrl.includes('create')) {
+      this.mode = 2;
+    } else if (currentUrl.includes('update')) {
+      this.mode = 3;
+    }
+    if (this.activateRoute.snapshot.params.id) {
+      this.especialidad.id = this.activateRoute.snapshot.params.id  
+      this.getEspecialidad(this.especialidad.id)
+    }
+  }
+  getEspecialidad(id: number) {
+    this.someEspecialidad.view(id).subscribe({
+      next: (especialidad) => {
+        this.especialidad = especialidad;
+        console.log('especialidad fetched successfully:', this.especialidad);
+      },
+      error: (error) => {
+        console.error('Error fetching especialidad:', error);
+      }
+    });
+  }
+  back() {
+    this.router.navigate(['especialidad/list'])
+  }
+  create() {
+    this.someEspecialidad.create(this.especialidad).subscribe({
+      next: (especialidad) => {
+        console.log('especialidad created successfully:', especialidad);
+        Swal.fire({
+          title: 'Creado!',
+          text: 'Registro creado correctamente.',
+          icon: 'success',
+        })
+        this.router.navigate(['/especialidad/list']);
+      },
+      error: (error) => {
+        console.error('Error creating especialidad:', error);
+      }
+    });
+  }
+  update() {
+    this.someEspecialidad.update(this.especialidad).subscribe({
+      next: (especialidad) => {
+        console.log('especialidad updated successfully:', especialidad);
+        Swal.fire({
+          title: 'Actualizado!',
+          text: 'Registro actualizado correctamente.',
+          icon: 'success',
+        })
+        this.router.navigate(['/especialidad/list']);
+      },
+      error: (error) => {
+        console.error('Error updating especialidad:', error);
+      }
+    });
+  }
+  delete(id: number) {
+    console.log("Delete especialidad with id:", id);
+    Swal.fire({
+      title: 'Eliminar',
+      text: "Está especialidad que quiere eliminar el registro?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) { 
+        this.someEspecialidad.delete(id).
+          subscribe(data => {
+            Swal.fire(
+              'Eliminado!',
+              'Registro eliminado correctamente.',
+              'success'
+            )
+            this.ngOnInit();
+          });
+      }
+    })
+}
 }

@@ -6,9 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicioRoutingModule } from './servicio-routing.module';
 
-const routes: Routes = [
 
-];
 
 @NgModule({
   declarations:[

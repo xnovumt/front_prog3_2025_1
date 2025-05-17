@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListTipoServicioComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TipoServicioRoutingModule } from './tiposervicio-routing.module';
+
 
 const routes: Routes = [
   { path: 'list', component: ListTipoServicioComponent },
@@ -11,7 +15,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  declarations:[
+    ListTipoServicioComponent,
+    ManageComponent
+
+  ],
+  imports:[CommonModule, FormsModule, TipoServicioRoutingModule]
 })
+
 export class TipoServicioModule {}

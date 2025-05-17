@@ -40,7 +40,7 @@ export class ListServicioComponent implements OnInit {
   }
 
   delete(id: number) {
-    console.log('Deleting Service ID:', id);
+    this.router.navigate(['/servicio/delete', id])
     // Implement call to the delete service method
   }
   view(id: number) {

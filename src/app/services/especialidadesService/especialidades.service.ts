@@ -7,7 +7,7 @@ import { Especialidad } from '../../models/especialidad.model';
 @Injectable({
   providedIn: 'root'
 })
-export class especialidadesService {
+export class EspecialidadesService {
 
   constructor(private http: HttpClient) { }
 
