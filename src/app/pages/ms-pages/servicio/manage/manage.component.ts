@@ -57,9 +57,8 @@ export class ManageComponent implements OnInit {
           title: 'Creado!',
           text: 'Registro creado correctamente.',
           icon: 'success',
-        }).then(() => {
-          this.router.navigate(['/servicios/list']); // Navigate after the alert is closed
-        });
+        })
+        this.router.navigate(['/servicios/list']);
       },
       error: (error) => {
         console.error('Error creating servicio', error);
@@ -83,7 +82,7 @@ export class ManageComponent implements OnInit {
     });
   }
   delete(id: number) {
-    console.log("Delete theater with id:", id);
+    console.log("Delete servicio with id:", id);
     Swal.fire({
       title: 'Eliminar',
       text: "Está seguro que quiere eliminar el registro?",

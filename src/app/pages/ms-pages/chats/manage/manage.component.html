@@ -11,8 +11,9 @@
           <h3 class="mb-0" *ngIf="mode==2">Creación</h3>
           <h3 class="mb-0" *ngIf="mode==3">Actualización</h3>
 
-
         </div>
+
+        <form class="form" [formGroup]="theFormGroup">
         <div class="card-body container">
           <div class="row">
             <div class="col-3">ID</div>
@@ -20,16 +21,33 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Nombre</div>
+            <div class="col-3">Titulo</div>
             <div class="col-9"><input type="text" class="form-control" [(ngModel)]="chat.titulo" [disabled]="mode==1">
-            </div>
           </div>
+          <div
+              *ngIf="getTheFormGroup.titulo.errors && (getTheFormGroup.titulo.dirty || getTheFormGroup.titulo.touched || trySend)">
+                  <strong *ngIf="getTheFormGroup.titulo.errors.required"
+                      class="msnError">Requerido</strong>
+                  <strong *ngIf="getTheFormGroup.titulo.errors.minlength" class="msnError">Inválido
+                  </strong>
+          </div>
+
+
+          </div>
+
+
           <br>
           <div class="row">
-            <div class="col-3">Descripción</div>
-            <div class="col-9">
-              <input type="date" class="form-control" [(ngModel)]="chat.tipo" [disabled]="mode==1">
-            </div>
+            <div class="col-3">Tipo</div>
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="chat.tipo" [disabled]="mode==1">
+          </div>
+          <div
+              *ngIf="getTheFormGroup.tipo.errors && (getTheFormGroup.tipo.dirty || getTheFormGroup.tipo.touched || trySend)">
+                  <strong *ngIf="getTheFormGroup.tipo.errors.required"
+                      class="msnError">Requerido</strong>
+                  <strong *ngIf="getTheFormGroup.tipo.errors.minlength" class="msnError">Inválido
+                  </strong>
+          </div>
           </div>
           <br>
           <div class="row">
@@ -40,9 +58,9 @@
               <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Update</button>
             </div>
           </div>
-        </div>
-
-      </div>
+          </div>    
+        
+      </form>
     </div>
   </div>
 </div>

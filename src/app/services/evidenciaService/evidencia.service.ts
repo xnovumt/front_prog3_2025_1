@@ -12,22 +12,22 @@ export class EvidenciaService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Evidencia[]> {
-    return this.http.get<Evidencia[]>(`${environment.url_ms_cinema}/evidencia`);
+    return this.http.get<Evidencia[]>(`${environment.url_ms_cinema}/evidencias`);
   }
 
   view(id: number): Observable<Evidencia> {
-    return this.http.get<Evidencia>(`${environment.url_ms_cinema}/evidencia/${id}`);
+    return this.http.get<Evidencia>(`${environment.url_ms_cinema}/evidencias/${id}`);
   }
 
   create(newEvidencia: Evidencia): Observable<Evidencia> {
-    return this.http.post<Evidencia>(`${environment.url_ms_cinema}/evidencia`, newEvidencia);
+    return this.http.post<Evidencia>(`${environment.url_ms_cinema}/evidencias`, newEvidencia);
   }
 
   update(theEvidencia: Evidencia): Observable<Evidencia> {
-    return this.http.put<Evidencia>(`${environment.url_ms_cinema}/evidencia/${theEvidencia.id}`, theEvidencia);
+    return this.http.put<Evidencia>(`${environment.url_ms_cinema}/evidencias/${theEvidencia.id}`, theEvidencia);
   }
 
   delete(id: number) {
-    return this.http.delete<Evidencia>(`${environment.url_ms_cinema}/evidencia/${id}`);
+    return this.http.delete<Evidencia>(`${environment.url_ms_cinema}/evidencias/${id}`);
   }
 }

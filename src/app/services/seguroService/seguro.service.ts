@@ -12,22 +12,22 @@ export class SeguroService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Seguro[]> {
-    return this.http.get<Seguro[]>(`${environment.url_ms_cinema}/seguro`);
+    return this.http.get<Seguro[]>(`${environment.url_ms_cinema}/seguros`);
   }
 
   view(id: number): Observable<Seguro> {
-    return this.http.get<Seguro>(`${environment.url_ms_cinema}/seguro/${id}`);
+    return this.http.get<Seguro>(`${environment.url_ms_cinema}/seguros/${id}`);
   }
 
   create(newSeguro: Seguro): Observable<Seguro> {
-    return this.http.post<Seguro>(`${environment.url_ms_cinema}/seguro`, newSeguro);
+    return this.http.post<Seguro>(`${environment.url_ms_cinema}/seguros`, newSeguro);
   }
 
   update(theSeguro: Seguro): Observable<Seguro> {
-    return this.http.put<Seguro>(`${environment.url_ms_cinema}/seguro/${theSeguro.id}`, theSeguro);
+    return this.http.put<Seguro>(`${environment.url_ms_cinema}/seguros/${theSeguro.id}`, theSeguro);
   }
 
   delete(id: number) {
-    return this.http.delete<Seguro>(`${environment.url_ms_cinema}/seguro/${id}`);
+    return this.http.delete<Seguro>(`${environment.url_ms_cinema}/seguros/${id}`);
   }
 }

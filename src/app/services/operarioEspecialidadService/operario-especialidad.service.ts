@@ -12,22 +12,22 @@ export class OperarioEspecialidadService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<OperarioEspecialidad[]> {
-    return this.http.get<OperarioEspecialidad[]>(`${environment.url_ms_cinema}/operarioespecialidad`);
+    return this.http.get<OperarioEspecialidad[]>(`${environment.url_ms_cinema}/operario_especialidades`);
   }
 
   view(id: number): Observable<OperarioEspecialidad> {
-    return this.http.get<OperarioEspecialidad>(`${environment.url_ms_cinema}/operarioespecialidad/${id}`);
+    return this.http.get<OperarioEspecialidad>(`${environment.url_ms_cinema}/operario_especialidades/${id}`);
   }
 
   create(newSpecialtyOperator: OperarioEspecialidad): Observable<OperarioEspecialidad> {
-    return this.http.post<OperarioEspecialidad>(`${environment.url_ms_cinema}/operarioespecialidad`, newSpecialtyOperator);
+    return this.http.post<OperarioEspecialidad>(`${environment.url_ms_cinema}/operario_especialidades`, newSpecialtyOperator);
   }
 
   update(theSpecialtyOperator: OperarioEspecialidad): Observable<OperarioEspecialidad> {
-    return this.http.put<OperarioEspecialidad>(`${environment.url_ms_cinema}/operarioespecialidad/${theSpecialtyOperator.id}`, theSpecialtyOperator);
+    return this.http.put<OperarioEspecialidad>(`${environment.url_ms_cinema}/operario_especialidades/${theSpecialtyOperator.id}`, theSpecialtyOperator);
   }
 
   delete(id: number) {
-    return this.http.delete<OperarioEspecialidad>(`${environment.url_ms_cinema}/operarioespecialidad/${id}`);
+    return this.http.delete<OperarioEspecialidad>(`${environment.url_ms_cinema}/operario_especialidades/${id}`);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chat } from 'src/app/models/chat.model';
 import { ChatsService } from 'src/app/services/chatService/chats.service';
@@ -12,12 +13,17 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; //1->View, 2->Create, 3-> Update
   chat: Chat;
+  theFormGroup: FormGroup; // Form Police
+  trySend: boolean
 
   constructor(private activateRoute: ActivatedRoute,
     private someChat: ChatsService,
-    private router: Router
+    private router: Router,
+    private theFormBuilder: FormBuilder,
   ) {
     this.chat = { id: 0 }
+    this.configFormGroup();
+    this.trySend = false
   }
 
   ngOnInit(): void {
@@ -62,6 +68,7 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['chat/list'])
   }
   create() {
+    this.trySend = true;
     this.someChat.create(this.chat).subscribe({
       next: (chat) => {
         console.log('chat created successfully:', chat);
@@ -125,4 +132,14 @@ export class ManageComponent implements OnInit {
       }
     })
   }
+  get getTheFormGroup() {
+    return this.theFormGroup.controls
+  }
+
+configFormGroup() {
+  this.theFormGroup = this.theFormBuilder.group({
+    titulo: ['', [Validators.required, Validators.minLength(3)]],
+    tipo: ['', [Validators.required, Validators.minLength(2)]]
+  })
+}
 }

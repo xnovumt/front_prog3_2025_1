@@ -21,20 +21,20 @@
           <br>
           <div class="row">
             <div class="col-3">ID Maquina</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="poliza.maquinaria_id"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="poliza.maquinaria_id"
                 [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">ID Operario</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="poliza.operario_id"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="poliza.operario_id"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">ID Seguro</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="poliza.seguro_id"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="poliza.seguro_id"
                 [disabled]="mode==1"></div>
           </div>
           <br>
@@ -52,22 +52,27 @@
           <br>
           <div class="row">
             <div class="col-3">Operario</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="poliza.operario"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="poliza.operario"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Maquina</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="poliza.maquinaria"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="poliza.maquina"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Seguro</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="poliza.seguro"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="poliza.seguro"
                 [disabled]="mode==1"></div>
           </div>
           <br>
+          <div class="row">
+            <div class="col-3">Tipo Poliza</div>
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="poliza.tipo_poliza"
+                [disabled]="mode==1"></div>
+          </div>
           <div class="row">
             <div class="col-3"></div>
             <div class="col-9">

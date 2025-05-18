@@ -9,8 +9,9 @@ export class Poliza {
     seguro_id?: number;
     fecha_inicio?: Date;
     fecha_fin?: Date;
+    tipo_poliza?: number;
     operario?: Operario;
-    maquinaria?: Maquina;
+    maquina?: Maquina;
     seguro?: Seguro;
     creadoEn?: Date;
     actualizadoEn?: Date;

@@ -16,7 +16,7 @@
         <div class="card-body container">
           <div class="row">
             <div class="col-3">ID</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="obra.id" disabled></div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="obra.id" disabled></div>
           </div>
           <br>
           <div class="row">
@@ -27,17 +27,22 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-3">ID Paquete</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="obra.paquete_id"
+            <div class="col-3">Combo</div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="obra.combo"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Municipio</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="obra.municipio"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="obra.municipios"
                 [disabled]="mode==1"></div>
           </div>
           <br>
+          <div class="row">
+            <div class="col-3">ID Combo</div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="obra.combo_id"
+                [disabled]="mode==1"></div>
+          </div>
           <div class="row">
             <div class="col-3"></div>
             <div class="col-9">

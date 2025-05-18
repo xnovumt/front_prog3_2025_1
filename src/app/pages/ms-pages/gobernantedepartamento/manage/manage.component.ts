@@ -48,7 +48,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['gobernantedepartamento/list'])
+    this.router.navigate(['gobernante-departamento/list'])
   }
   create() {
     this.someGobernanteDepartamento.create(this.gobernantedepartamento).subscribe({
@@ -59,7 +59,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/gobernantedepartamento/list']);
+        this.router.navigate(['/gobernante-departamento/list']);
       },
       error: (error) => {
         console.error('Error creating gobernantedepartamento:', error);
@@ -75,7 +75,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/gobernantedepartamento/list']);
+        this.router.navigate(['/gobernante-departamento/list']);
       },
       error: (error) => {
         console.error('Error updating gobernantedepartamento:', error);

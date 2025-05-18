@@ -12,22 +12,22 @@ export class ProcedimientoService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Procedimiento[]> {
-    return this.http.get<Procedimiento[]>(`${environment.url_ms_cinema}/procedimiento`);
+    return this.http.get<Procedimiento[]>(`${environment.url_ms_cinema}/procedimientos`);
   }
 
   view(id: number): Observable<Procedimiento> {
-    return this.http.get<Procedimiento>(`${environment.url_ms_cinema}/procedimiento/${id}`);
+    return this.http.get<Procedimiento>(`${environment.url_ms_cinema}/procedimientos/${id}`);
   }
 
   create(newProcedimiento: Procedimiento): Observable<Procedimiento> {
-    return this.http.post<Procedimiento>(`${environment.url_ms_cinema}/procedimiento`, newProcedimiento);
+    return this.http.post<Procedimiento>(`${environment.url_ms_cinema}/procedimientos`, newProcedimiento);
   }
 
   update(theProcedimiento: Procedimiento): Observable<Procedimiento> {
-    return this.http.put<Procedimiento>(`${environment.url_ms_cinema}/procedimiento/${theProcedimiento.id}`, theProcedimiento);
+    return this.http.put<Procedimiento>(`${environment.url_ms_cinema}/procedimientos/${theProcedimiento.id}`, theProcedimiento);
   }
 
   delete(id: number) {
-    return this.http.delete<Procedimiento>(`${environment.url_ms_cinema}/procedimiento/${id}`);
+    return this.http.delete<Procedimiento>(`${environment.url_ms_cinema}/procedimientos/${id}`);
   }
 }

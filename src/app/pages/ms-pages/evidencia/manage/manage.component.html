@@ -16,49 +16,49 @@
         <div class="card-body container">
           <div class="row">
             <div class="col-3">ID</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="evidencia.id" disabled></div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="evidencia.id" disabled></div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">ID Tipo Servicio</div>
+            <div class="col-3">Tipo Archivo</div>
             <div class="col-9"><input type="text" class="form-control" [(ngModel)]="evidencia.tipo_archivo"
                 [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Tipo Trabajo</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="evidencia.contenido_archivo"
+            <div class="col-3">Contenido Archivo</div>
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="evidencia.contenido_archivo"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Tipo Trabajo</div>
+            <div class="col-3">Fecha Carga</div>
             <div class="col-9"><input type="date" class="form-control" [(ngModel)]="evidencia.fecha_carga"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Tipo Trabajo</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="evidencia.servicio_id"
+            <div class="col-3">ID Servicio</div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="evidencia.servicio_id"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Tipo Trabajo</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="evidencia.novedad_id"
+            <div class="col-3">ID Novedad</div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="evidencia.novedad_id"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Tipo Trabajo</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="evidencia.servicio"
+            <div class="col-3">Servicio</div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="evidencia.servicio"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">Tipo Trabajo</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="evidencia.novedad"
+            <div class="col-3">Novedad</div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="evidencia.novedad"
                 [disabled]="mode==1"></div>
           </div>
           <br>

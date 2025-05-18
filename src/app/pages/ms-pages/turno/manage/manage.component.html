@@ -21,26 +21,26 @@
           <br>
           <div class="row">
             <div class="col-3">Fecha</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="turno.fecha" [disabled]="mode==1">
+            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="turno.fecha" [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Operario ID</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="turno.id_operador"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="turno.operario_id"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Maquina ID</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="turno.id_maquinaria"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="turno.maquina_id  "
                 [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Novedades</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="turno.novedades"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="turno.novedades"
                 [disabled]="mode==1"></div>
           </div>
           <div class="row">

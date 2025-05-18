@@ -12,3 +12,4 @@ export class GobernanteDepartamento {
     creadoEn?: Date;
     actualizadoEn?: Date;
 }
+    

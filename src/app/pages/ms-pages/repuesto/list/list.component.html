@@ -21,9 +21,9 @@
             <tbody>
               <tr *ngFor="let spare of spares">
                 <td>{{ spare.id }}</td>
-                <td>{{ spare.name }}</td>
-                <td>{{ spare.brand }}</td>
-                <td>{{ spare.description }}</td>
+                <td>{{ spare.nombre }}</td>
+                <td>{{ spare.marca }}</td>
+                <td>{{ spare.descripcion }}</td>
                 <td>
                   <button class="btn btn-sm btn-primary" (click)="edit(spare.id)">Editar</button>
                   <button class="btn btn-sm btn-danger" (click)="delete(spare.id)">Eliminar</button>

@@ -25,6 +25,8 @@
                   <td>{{ gobernante.id_usuario }}</td>
                   <td>{{ gobernante.periodo_inicio | date:'yyyy-MM-dd' }}</td>
                   <td>{{ gobernante.periodo_final | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ gobernante.departamentos }}</td>
+                  <td>{{ gobernante.municipios }}</td>
                   <td>
                     <button class="btn btn-sm btn-primary" (click)="edit(gobernante.id)">Editar</button>
                     <button class="btn btn-sm btn-danger" (click)="delete(gobernante.id)">Eliminar</button>

@@ -12,21 +12,25 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">ID Enlace</th>
+                  <th scope="col">ID</th>
                   <th scope="col">ID Gobernante</th>
                   <th scope="col">ID Departamento</th>
                   <th scope="col">Fecha Inicio</th>
                   <th scope="col">Fecha Fin</th>
+                  <th scope="col">Departamento</th>
+                  <th scope="col">Gobernante</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of gobernanteDepartamentos">
                   <td>{{ item.id }}</td>
-                  <td>{{ item.ruler_id }}</td>
-                  <td>{{ item.departament_id }}</td>
-                  <td>{{ item.start_date | date:'yyyy-MM-dd' }}</td>
-                  <td>{{ item.end_date | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ item.gobernante_id }}</td>
+                  <td>{{ item.departamento_id }}</td>
+                  <td>{{ item.fecha_inicio | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ item.fecha_fin | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ item.departamento }}</td>
+                  <td>{{ item.gobernante }}</td>
                   <td>
                     <button class="btn btn-sm btn-primary" (click)="edit(item.id)">Editar</button>
                     <button class="btn btn-sm btn-danger" (click)="delete(item.id)">Eliminar</button>

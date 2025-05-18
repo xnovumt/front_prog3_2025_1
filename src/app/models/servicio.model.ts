@@ -12,7 +12,7 @@ export class Servicio {
     estado?: string;
     ubicacion?: string;
     resumen?: string;
-    quota?: Cuotas[];
+    cuota?: Cuotas[];
     evidencia?: Evidencia[];
     combo?: Combo;
     createdAt?: Date;

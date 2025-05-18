@@ -5,4 +5,6 @@ export class Chat {
     titulo?: string;
     tipo?: string;
     mensajes?: Mensaje[];
+    creadoEn?: Date;
+    actualizadoEn?: Date;
 }

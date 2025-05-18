@@ -16,22 +16,22 @@ export class MaquinaService { // <--- Nombre de la clase del servicio cambiado a
   // para tipar tus datos, como ya lo estás haciendo correctamente:
 
   list(): Observable<Maquina[]> {
-    return this.http.get<Maquina[]>(`${environment.url_ms_cinema}/maquina`);
+    return this.http.get<Maquina[]>(`${environment.url_ms_cinema}/maquinas`);
   }
 
   view(id: number): Observable<Maquina> {
-    return this.http.get<Maquina>(`${environment.url_ms_cinema}/maquina/${id}`);
+    return this.http.get<Maquina>(`${environment.url_ms_cinema}/maquinas/${id}`);
   }
 
   create(newMaquina: Maquina): Observable<Maquina> {
-    return this.http.post<Maquina>(`${environment.url_ms_cinema}/maquina`, newMaquina);
+    return this.http.post<Maquina>(`${environment.url_ms_cinema}/maquinas`, newMaquina);
   }
 
   update(theMaquina: Maquina): Observable<Maquina> {
-    return this.http.put<Maquina>(`${environment.url_ms_cinema}/maquina/${theMaquina.id}`, theMaquina);
+    return this.http.put<Maquina>(`${environment.url_ms_cinema}/maquinas/${theMaquina.id}`, theMaquina);
   }
 
   delete(id: number) {
-    return this.http.delete<Maquina>(`${environment.url_ms_cinema}/maquina/${id}`);
+    return this.http.delete<Maquina>(`${environment.url_ms_cinema}/maquinas/${id}`);
   }
 }

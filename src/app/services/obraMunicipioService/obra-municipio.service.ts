@@ -12,22 +12,22 @@ export class ObraMunicipioService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<ObraMunicipio[]> {
-    return this.http.get<ObraMunicipio[]>(`${environment.url_ms_cinema}/obramunicipio`);
+    return this.http.get<ObraMunicipio[]>(`${environment.url_ms_cinema}/obras_municipios`);
   }
 
   view(id: number): Observable<ObraMunicipio> {
-    return this.http.get<ObraMunicipio>(`${environment.url_ms_cinema}/obramunicipio/${id}`);
+    return this.http.get<ObraMunicipio>(`${environment.url_ms_cinema}/obras_municipios/${id}`);
   }
 
   create(newObraMunicipio: ObraMunicipio): Observable<ObraMunicipio> {
-    return this.http.post<ObraMunicipio>(`${environment.url_ms_cinema}/obramunicipio`, newObraMunicipio);
+    return this.http.post<ObraMunicipio>(`${environment.url_ms_cinema}/obras_municipios`, newObraMunicipio);
   }
 
   update(theObraMunicipio: ObraMunicipio): Observable<ObraMunicipio> {
-    return this.http.put<ObraMunicipio>(`${environment.url_ms_cinema}/obramunicipio/${theObraMunicipio.id}`, theObraMunicipio);
+    return this.http.put<ObraMunicipio>(`${environment.url_ms_cinema}/obras_municipios/${theObraMunicipio.id}`, theObraMunicipio);
   }
 
   delete(id: number) {
-    return this.http.delete<ObraMunicipio>(`${environment.url_ms_cinema}/obramunicipio/${id}`);
+    return this.http.delete<ObraMunicipio>(`${environment.url_ms_cinema}/obras_municipios/${id}`);
   }
 }

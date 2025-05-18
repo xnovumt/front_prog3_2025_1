@@ -12,22 +12,22 @@ export class NovedadService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Novedad[]> {
-    return this.http.get<Novedad[]>(`${environment.url_ms_cinema}/novedad`);
+    return this.http.get<Novedad[]>(`${environment.url_ms_cinema}/novedades`);
   }
 
   view(id: number): Observable<Novedad> {
-    return this.http.get<Novedad>(`${environment.url_ms_cinema}/novedad/${id}`);
+    return this.http.get<Novedad>(`${environment.url_ms_cinema}/novedades/${id}`);
   }
 
   create(newNovedad: Novedad): Observable<Novedad> {
-    return this.http.post<Novedad>(`${environment.url_ms_cinema}/novedad`, newNovedad);
+    return this.http.post<Novedad>(`${environment.url_ms_cinema}/novedades`, newNovedad);
   }
 
   update(theNovedad: Novedad): Observable<Novedad> {
-    return this.http.put<Novedad>(`${environment.url_ms_cinema}/novedad/${theNovedad.id}`, theNovedad);
+    return this.http.put<Novedad>(`${environment.url_ms_cinema}/novedades/${theNovedad.id}`, theNovedad);
   }
 
   delete(id: number) {
-    return this.http.delete<Novedad>(`${environment.url_ms_cinema}/novedad/${id}`);
+    return this.http.delete<Novedad>(`${environment.url_ms_cinema}/novedades/${id}`);
   }
 }

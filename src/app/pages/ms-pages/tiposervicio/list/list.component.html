@@ -20,9 +20,10 @@
               </thead>
               <tbody>
                 <tr *ngFor="let tiposervicio of TipoServicios">
-                  <td>{{ tiposervicio.id }}</td>
-                  <td>{{ tiposervicio.name }}</td>
-                  <td>{{ tiposervicio.description }}</td>
+                  <td>{{ tiposervicio.id }}</td>  
+                  <td>{{ tiposervicio.nombre }}</td>
+                  <td>{{ tiposervicio.descripcion }}</td>
+                  <td>{{ tiposervicio.maquinarias }}</td>
                   <td>
                     <button class="btn btn-sm btn-primary" (click)="edit(tiposervicio.id)">Edit</button>
                     <button class="btn btn-sm btn-danger" (click)="delete(tiposervicio.id)">Delete</button>

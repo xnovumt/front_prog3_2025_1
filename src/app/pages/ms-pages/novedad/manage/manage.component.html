@@ -16,7 +16,7 @@
         <div class="card-body container">
           <div class="row">
             <div class="col-3">ID</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="novedad.id" disabled></div>
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="novedad.id" disabled></div>
           </div>
           <br>
           <div class="row">
@@ -28,31 +28,31 @@
           <br>
           <div class="row">
             <div class="col-3">Descripción</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="novedad.descripcion"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="novedad.descripcion"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Evidencia</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="novedad.evidencia"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="novedad.evidencias"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Gravedad</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="novedad.gravedad"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="novedad.gravedad"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">ID Turno</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="novedad.id_turno"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="novedad.turno_id"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Turno</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="novedad.turno"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="novedad.turno"
                 [disabled]="mode==1"></div>
           </div>
           <br>
