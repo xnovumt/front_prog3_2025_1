@@ -8,11 +8,11 @@ import { ServicioRoutingModule } from './servicio-routing.module';
 
 
 @NgModule({
-  declarations:[
+  declarations: [
     ListServicioComponent,
     ManageComponent
 
   ],
-  imports:[CommonModule, FormsModule, ServicioRoutingModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ServicioRoutingModule, ReactiveFormsModule]
 })
-export class ServicioModule {}
+export class ServicioModule { }

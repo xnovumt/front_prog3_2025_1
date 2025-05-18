@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListEvidenceComponent } from './list/list.component';
+import { ListEvidenciaComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
-  { path: 'list', component: ListEvidenceComponent },
+  { path: 'list', component: ListEvidenciaComponent },
   { path: 'create', component: ManageComponent },
   { path: 'update/:id', component: ManageComponent },
   { path: 'view/:id', component: ManageComponent },

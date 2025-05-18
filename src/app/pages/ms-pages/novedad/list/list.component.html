@@ -21,7 +21,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let novelty of novelties">
+                <tr *ngFor="let novelty of novedades">
                   <td>{{ novelty.id }}</td>
                   <td>{{ novelty.date | date:'yyyy-MM-dd' }}</td>
                   <td>{{ novelty.description }}</td>
@@ -32,7 +32,7 @@
                     <button class="btn btn-sm btn-danger" (click)="delete(novelty.id)">Delete</button>
                   </td>
                 </tr>
-                <tr *ngIf="novelties.length === 0">
+                <tr *ngIf="novedades.length === 0">
                   <td colspan="6" class="text-center">No novelties available.</td>
                 </tr>
               </tbody>

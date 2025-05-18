@@ -12,26 +12,24 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Link ID</th>
-                  <th scope="col">Service Type ID</th>
-                  <th scope="col">Machinery ID</th>
-                  <th scope="col">Work Type</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">ID Tipo Servicio</th>
+                  <th scope="col">Tipo Trabajo</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of machinerySpecialities">
+                <tr *ngFor="let item of especialidadesmaquinaria">
                   <td>{{ item.id }}</td>
-                  <td>{{ item.type_service_id }}</td>
-                  <td>{{ item.machinery_id }}</td>
-                  <td>{{ item.type_work }}</td>
+                  <td>{{ item.tipo_servicio_id }}</td>
+                  <td>{{ item.tipo_trabajo }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(item.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(item.id)">Delete</button>
+                    <button class="btn btn-sm btn-primary" (click)="edit(item.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(item.id)">Eliminar</button>
                   </td>
                 </tr>
-                <tr *ngIf="machinerySpecialities.length === 0">
-                  <td colspan="5" class="text-center">No Machinery-Speciality links available.</td>
+                <tr *ngIf="especialidadesmaquinaria.length === 0">
+                  <td colspan="4" class="text-center">No hay especialidades de maquinaria disponibles.</td>
                 </tr>
               </tbody>
             </table>

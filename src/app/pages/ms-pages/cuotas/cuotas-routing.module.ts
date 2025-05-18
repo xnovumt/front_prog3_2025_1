@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListQuotaComponent } from './list/list.component';
+import { ListCuotaComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
-  { path: 'list', component: ListQuotaComponent },
+  { path: 'list', component: ListCuotaComponent },
   { path: 'create', component: ManageComponent },
   { path: 'update/:id', component: ManageComponent },
   { path: 'view/:id', component: ManageComponent },

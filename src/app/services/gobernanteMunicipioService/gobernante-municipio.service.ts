@@ -12,22 +12,22 @@ export class GobernanteMunicipioService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<GobernanteMunicipio[]> {
-    return this.http.get<GobernanteMunicipio[]>(`${environment.url_ms_cinema}/municipalities_rulers`);
+    return this.http.get<GobernanteMunicipio[]>(`${environment.url_ms_cinema}/gobernantes_municipios`);
   }
 
   view(id: number): Observable<GobernanteMunicipio> {
-    return this.http.get<GobernanteMunicipio>(`${environment.url_ms_cinema}/municipalities_rulers/${id}`);
+    return this.http.get<GobernanteMunicipio>(`${environment.url_ms_cinema}/gobernantes_municipios/${id}`);
   }
 
   create(newGobernanteMunicipio: GobernanteMunicipio): Observable<GobernanteMunicipio> {
-    return this.http.post<GobernanteMunicipio>(`${environment.url_ms_cinema}/municipalities_rulers`, newGobernanteMunicipio);
+    return this.http.post<GobernanteMunicipio>(`${environment.url_ms_cinema}/gobernantes_municipios`, newGobernanteMunicipio);
   }
 
   update(theGobernanteMunicipio: GobernanteMunicipio): Observable<GobernanteMunicipio> {
-    return this.http.put<GobernanteMunicipio>(`${environment.url_ms_cinema}/municipalities_rulers/${theGobernanteMunicipio.id}`, theGobernanteMunicipio);
+    return this.http.put<GobernanteMunicipio>(`${environment.url_ms_cinema}/gobernantes_municipios/${theGobernanteMunicipio.id}`, theGobernanteMunicipio);
   }
 
   delete(id: number) {
-    return this.http.delete<GobernanteMunicipio>(`${environment.url_ms_cinema}/municipalities_rulers/${id}`);
+    return this.http.delete<GobernanteMunicipio>(`${environment.url_ms_cinema}/gobernantes_municipios/${id}`);
   }
 }

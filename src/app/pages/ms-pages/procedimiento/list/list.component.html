@@ -13,23 +13,23 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let procedure of procedures">
-                  <td>{{ procedure.id }}</td>
-                  <td>{{ procedure.name }}</td>
-                  <td>{{ procedure.description }}</td>
+                <tr *ngFor="let procedimiento of procedimientos">
+                  <td>{{ procedimiento.id }}</td>
+                  <td>{{ procedimiento.nombre }}</td>
+                  <td>{{ procedimiento.descripcion }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(procedure.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(procedure.id)">Delete</button>
+                    <button class="btn btn-sm btn-primary" (click)="edit(procedimiento.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(procedimiento.id)">Eliminar</button>
                   </td>
                 </tr>
-                <tr *ngIf="procedures.length === 0">
-                  <td colspan="4" class="text-center">No procedures available.</td>
+                <tr *ngIf="procedimientos.length === 0">
+                  <td colspan="4" class="text-center">No hay procedimientos disponibles.</td>
                 </tr>
               </tbody>
             </table>

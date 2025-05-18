@@ -40,9 +40,19 @@ export class ManageComponent implements OnInit {
       next: (service) => {
         this.servicio = service;
         console.log('Service fetched successfully:', this.servicio);
+        Swal.fire({
+          icon: 'success',
+          title: 'Servicio cargado',
+          text: 'Los datos del servicio se han cargado correctamente.'
+        });
       },
       error: (error) => {
         console.error('Error fetching service:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo cargar los datos del servicio. Por favor, inténtelo de nuevo.'
+        });
       }
     });
   }

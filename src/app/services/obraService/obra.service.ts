@@ -12,22 +12,22 @@ export class ObraService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Obra[]> {
-    return this.http.get<Obra[]>(`${environment.url_ms_cinema}/Obra`);
+    return this.http.get<Obra[]>(`${environment.url_ms_cinema}/obras`);
   }
 
   view(id: number): Observable<Obra> {
-    return this.http.get<Obra>(`${environment.url_ms_cinema}/Obra/${id}`);
+    return this.http.get<Obra>(`${environment.url_ms_cinema}/obras/${id}`);
   }
 
   create(newObra: Obra): Observable<Obra> {
-    return this.http.post<Obra>(`${environment.url_ms_cinema}/Obra`, newObra);
+    return this.http.post<Obra>(`${environment.url_ms_cinema}/obras`, newObra);
   }
 
   update(theObra: Obra): Observable<Obra> {
-    return this.http.put<Obra>(`${environment.url_ms_cinema}/Obra/${theObra.id}`, theObra);
+    return this.http.put<Obra>(`${environment.url_ms_cinema}/obras/${theObra.id}`, theObra);
   }
 
   delete(id: number) {
-    return this.http.delete<Obra>(`${environment.url_ms_cinema}/Obra/${id}`);
+    return this.http.delete<Obra>(`${environment.url_ms_cinema}/obras/${id}`);
   }
 }

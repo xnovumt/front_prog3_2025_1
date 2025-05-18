@@ -13,23 +13,25 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Combo ID</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">ID Paquete</th>
+                  <th scope="col">Municipio</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let construction of constructions">
-                  <td>{{ construction.id }}</td>
-                  <td>{{ construction.name }}</td>
-                  <td>{{ construction.combo_id }}</td>
+                <tr *ngFor="let obra of obras">
+                  <td>{{ obra.id }}</td>
+                  <td>{{ obra.nombre }}</td>
+                  <td>{{ obra.paquete_id }}</td>
+                  <td>{{ obra.municipio.nombre }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(construction.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(construction.id)">Delete</button>
+                    <button class="btn btn-sm btn-primary" (click)="edit(obra.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(obra.id)">Eliminar</button>
                   </td>
                 </tr>
-                <tr *ngIf="constructions.length === 0">
-                  <td colspan="4" class="text-center">No constructions available.</td>
+                <tr *ngIf="obras.length === 0">
+                  <td colspan="5" class="text-center">No hay obras disponibles.</td>
                 </tr>
               </tbody>
             </table>

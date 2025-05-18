@@ -12,22 +12,22 @@ export class MaquinaComboService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<MaquinaCombo[]> {
-    return this.http.get<MaquinaCombo[]>(`${environment.url_ms_cinema}/maquinacombo`);
+    return this.http.get<MaquinaCombo[]>(`${environment.url_ms_cinema}/maquina_combos`);
   }
 
   view(id: number): Observable<MaquinaCombo> {
-    return this.http.get<MaquinaCombo>(`${environment.url_ms_cinema}/maquinacombo/${id}`);
+    return this.http.get<MaquinaCombo>(`${environment.url_ms_cinema}/maquina_combos/${id}`);
   }
 
   create(newMaquinaCombo: MaquinaCombo): Observable<MaquinaCombo> {
-    return this.http.post<MaquinaCombo>(`${environment.url_ms_cinema}/maquinacombo`, newMaquinaCombo);
+    return this.http.post<MaquinaCombo>(`${environment.url_ms_cinema}/maquina_combos`, newMaquinaCombo);
   }
 
   update(theMaquinaCombo: MaquinaCombo): Observable<MaquinaCombo> {
-    return this.http.put<MaquinaCombo>(`${environment.url_ms_cinema}/maquinacombo/${theMaquinaCombo.id}`, theMaquinaCombo);
+    return this.http.put<MaquinaCombo>(`${environment.url_ms_cinema}/maquina_combos/${theMaquinaCombo.id}`, theMaquinaCombo);
   }
 
   delete(id: number) {
-    return this.http.delete<MaquinaCombo>(`${environment.url_ms_cinema}/maquinacombo/${id}`);
+    return this.http.delete<MaquinaCombo>(`${environment.url_ms_cinema}/maquina_combos/${id}`);
   }
 }

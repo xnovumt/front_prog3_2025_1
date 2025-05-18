@@ -13,22 +13,22 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">Link ID</th>
-                  <th scope="col">Construction ID</th>
-                  <th scope="col">Municipality ID</th>
+                  <th scope="col">Obra ID</th>
+                  <th scope="col">Municipio ID</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of municipalityConstructions">
+                <tr *ngFor="let item of obramunicipios">
                   <td>{{ item.id }}</td>
-                  <td>{{ item.construction_id }}</td>
-                  <td>{{ item.municipality_id }}</td>
+                  <td>{{ item.id_obra }}</td>
+                  <td>{{ item.id_municipio }}</td>
                   <td>
                     <button class="btn btn-sm btn-primary" (click)="edit(item.id)">Edit</button>
                     <button class="btn btn-sm btn-danger" (click)="delete(item.id)">Delete</button>
                   </td>
                 </tr>
-                <tr *ngIf="municipalityConstructions.length === 0">
+                <tr *ngIf="obramunicipios.length === 0">
                   <td colspan="4" class="text-center">No Municipality-Construction links available.</td>
                 </tr>
               </tbody>

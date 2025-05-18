@@ -6,7 +6,5 @@ export class Procedimiento {
     descripcion?: string;
     mantenimientos?: Mantenimiento[];
     creadoEn?: Date;
-    actualizadoEn?: Date
-
-    
+    actualizadoEn?: Date;
 }

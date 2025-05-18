@@ -13,26 +13,28 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Content</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Chat ID</th>
-                  <th scope="col">User ID</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col">Contenido</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">ID Chat</th>
+                  <th scope="col">ID Usuario</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let mensaje of mensajes">
                   <td>{{ mensaje.id }}</td>
-                  <td>{{ mensaje.content ? (mensaje.content.length > 50 ? mensaje.content.substring(0, 50) + '...' : mensaje.content) : '' }}</td> <td>{{ mensaje.date | date:'yyyy-MM-dd HH:mm' }}</td>
-                  <td>{{ mensaje.chat_id }}</td>
-                  <td>{{ mensaje.user_id }}</td>
+                  <td>{{ mensaje.contenido ? (mensaje.contenido.length > 50 ? mensaje.contenido.substring(0, 50) + '...'
+                    : mensaje.contenido) : '' }}</td>
+                  <td>{{ mensaje.fecha | date:'yyyy-MM-dd HH:mm' }}</td>
+                  <td>{{ mensaje.id_chat }}</td>
+                  <td>{{ mensaje.id_usuario }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(mensaje.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(mensaje.id)">Delete</button>
+                    <button class="btn btn-sm btn-primary" (click)="edit(mensaje.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(mensaje.id)">Eliminar</button>
                   </td>
                 </tr>
                 <tr *ngIf="mensajes.length === 0">
-                  <td colspan="6" class="text-center">No mensajes available.</td>
+                  <td colspan="6" class="text-center">No hay mensajes disponibles.</td>
                 </tr>
               </tbody>
             </table>

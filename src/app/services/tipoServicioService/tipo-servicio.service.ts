@@ -12,22 +12,22 @@ export class TipoServicioService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<TipoServicio[]> {
-    return this.http.get<TipoServicio[]>(`${environment.url_ms_cinema}/tiposervicios`);
+    return this.http.get<TipoServicio[]>(`${environment.url_ms_cinema}/tipo_servicios`);
   }
 
   view(id: number): Observable<TipoServicio> {
-    return this.http.get<TipoServicio>(`${environment.url_ms_cinema}/tiposervicios/${id}`);
+    return this.http.get<TipoServicio>(`${environment.url_ms_cinema}/tipo_servicios/${id}`);
   }
 
   create(newTipoServicio: TipoServicio): Observable<TipoServicio> {
-    return this.http.post<TipoServicio>(`${environment.url_ms_cinema}/tiposervicios`, newTipoServicio);
+    return this.http.post<TipoServicio>(`${environment.url_ms_cinema}/tipo_servicios`, newTipoServicio);
   }
 
   update(theTipoServicio: TipoServicio): Observable<TipoServicio> {
-    return this.http.put<TipoServicio>(`${environment.url_ms_cinema}/tiposervicios/${theTipoServicio.id}`, theTipoServicio);
+    return this.http.put<TipoServicio>(`${environment.url_ms_cinema}/tipo_servicios/${theTipoServicio.id}`, theTipoServicio);
   }
 
   delete(id: number) {
-    return this.http.delete<TipoServicio>(`${environment.url_ms_cinema}/tiposervicios/${id}`);
+    return this.http.delete<TipoServicio>(`${environment.url_ms_cinema}/tipo_servicios/${id}`);
   }
 }

@@ -1,5 +1,6 @@
 // typeservice/list/list.component.ts
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TipoServicio } from 'src/app/models/tipo-servicio.model';
 import { TipoServicioService } from 'src/app/services/tipoServicioService/tipo-servicio.service';
 // import { Router } from '@angular/router'; // Import Router if you need navigation
@@ -14,7 +15,7 @@ export class ListTipoServicioComponent implements OnInit {
   TipoServicios: TipoServicio[] = []; // Array to store service types
 
   // Inject the service and Router (if needed)
-  constructor(private TipoServicioService: TipoServicioService /*, private router: Router*/) { }
+  constructor(private TipoServicioService: TipoServicioService, private router: Router) { }
 
   ngOnInit(): void {
     // Call the service to get the list
@@ -25,7 +26,7 @@ export class ListTipoServicioComponent implements OnInit {
 
   // Methods for edit and delete (adjust ID type based on your model)
   edit(id: number) {
-    console.log('Editing Service Type ID:', id);
+    this.router.navigate(['/tiposervicio/update', id])
     // Implement navigation
   }
 

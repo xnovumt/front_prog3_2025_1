@@ -1,7 +1,7 @@
 // specialities/list/list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Especialidad } from 'src/app/models/especialidad.model';
-import { especialidadesService } from 'src/app/services/especialidadesService/especialidades.service';
+import { EspecialidadesService } from 'src/app/services/especialidadesService/especialidades.service';
 // import { Router } from '@angular/router'; // Import Router if you need navigation
 
 @Component({
@@ -14,7 +14,7 @@ export class ListSpecialityComponent implements OnInit {
   especialidades: Especialidad[] = []; // Array to store specialities
 
   // Inject the service and Router (if needed)
-  constructor(private especialidadesService: especialidadesService /*, private router: Router*/) { }
+  constructor(private especialidadesService: EspecialidadesService /*, private router: Router*/) { }
 
   ngOnInit(): void {
     // Call the service to get the list

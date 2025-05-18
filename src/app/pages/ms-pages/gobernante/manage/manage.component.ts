@@ -14,6 +14,7 @@ export class ManageComponent implements OnInit {
 
   mode: number; //1->View, 2->Create, 3-> Update
   gobernante: Gobernante;
+  gobernantedepartamentos: any; // Agregué la propiedad para evitar errores en el template
 
   constructor(private activateRoute: ActivatedRoute,
     private someGobernante: GobernanteService,
@@ -32,7 +33,7 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.gobernante.id = this.activateRoute.snapshot.params.id  
+      this.gobernante.id = this.activateRoute.snapshot.params.id
       this.getGobernante(this.gobernante.id)
     }
   }
@@ -94,7 +95,7 @@ export class ManageComponent implements OnInit {
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.someGobernante.delete(id).
           subscribe(data => {
             Swal.fire(
@@ -106,6 +107,6 @@ export class ManageComponent implements OnInit {
           });
       }
     })
-}
+  }
 
 }

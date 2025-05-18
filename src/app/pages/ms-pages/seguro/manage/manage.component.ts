@@ -18,7 +18,7 @@ export class ManageComponent implements OnInit {
     private someSeguro: SeguroService,
     private router: Router
   ) {
-    this.seguro = { id: 0 }
+    this.seguro = { id: 0, poliza: [] };
   }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.seguro.id = this.activateRoute.snapshot.params.id  
+      this.seguro.id = this.activateRoute.snapshot.params.id
       this.getSeguro(this.seguro.id)
     }
   }
@@ -47,7 +47,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['seguro/list'])
+    this.router.navigate(['seguros/list'])
   }
   create() {
     this.someSeguro.create(this.seguro).subscribe({
@@ -58,7 +58,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/seguro/list']);
+        this.router.navigate(['/seguros/list']);
       },
       error: (error) => {
         console.error('Error creating seguro:', error);
@@ -74,7 +74,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/seguro/list']);
+        this.router.navigate(['/seguros/list']);
       },
       error: (error) => {
         console.error('Error updating seguro:', error);

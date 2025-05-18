@@ -7,12 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TipoServicioRoutingModule } from './tiposervicio-routing.module';
 
 
-const routes: Routes = [
-  { path: 'list', component: ListTipoServicioComponent },
-  { path: 'create', component: ManageComponent },
-  { path: 'update/:id', component: ManageComponent },
-  { path: 'view/:id', component: ManageComponent },
-];
+
 
 @NgModule({
   declarations:[

@@ -47,7 +47,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['service/list'])
+    this.router.navigate(['servicios/list'])
   }
   create() {
     this.someServicio.create(this.servicio).subscribe({
@@ -58,10 +58,10 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/services/list']);
+        this.router.navigate(['/servicios/list']);
       },
       error: (error) => {
-        console.error('Error creating service:', error);
+        console.error('Error creating servicio', error);
       }
     });
   }
@@ -74,7 +74,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/services/list']);
+        this.router.navigate(['/servicios/list']);
       },
       error: (error) => {
         console.error('Error updating service:', error);
@@ -82,7 +82,7 @@ export class ManageComponent implements OnInit {
     });
   }
   delete(id: number) {
-    console.log("Delete theater with id:", id);
+    console.log("Delete servicio with id:", id);
     Swal.fire({
       title: 'Eliminar',
       text: "Está seguro que quiere eliminar el registro?",

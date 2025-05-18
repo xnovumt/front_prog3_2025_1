@@ -5,14 +5,14 @@ import { Cuotas } from "./cuotas.model";
 export class Servicio {
     id?: number;
     costo?: number;
-    fecha_inicio?: Date;
-    fecha_fin?: Date;
+    f_inicio?: Date;
+    f_fin?: Date;
     prioridad?: string;
     tipo?: string;
     estado?: string;
     ubicacion?: string;
     resumen?: string;
-    quota?: Cuotas[];
+    cuota?: Cuotas[];
     evidencia?: Evidencia[];
     combo?: Combo;
     createdAt?: Date;

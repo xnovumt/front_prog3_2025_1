@@ -16,25 +16,25 @@
         <div class="card-body container">
           <div class="row">
             <div class="col-3">ID</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="servicio.id" disabled></div>
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="servicio.id"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Costo</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="servicio.costo"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="servicio.costo"
                 [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Fecha inicio</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="servicio.fecha_inicio"
+            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="servicio.f_inicio"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Fecha fin</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="servicio.fecha_fin"
+            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="servicio.f_fin"
                 [disabled]="mode==1">
             </div>
           </div>

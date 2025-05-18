@@ -5,7 +5,7 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <h3 class="mb-0">Insurances</h3>
+          <h3 class="mb-0">Seguros</h3>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -13,23 +13,23 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let insurance of insurances">
-                  <td>{{ insurance.id }}</td>
-                  <td>{{ insurance.name }}</td>
-                  <td>{{ insurance.description }}</td>
+                <tr *ngFor="let seguro of seguros">
+                  <td>{{ seguro.id }}</td>
+                  <td>{{ seguro.nombre }}</td>
+                  <td>{{ seguro.descripcion }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(insurance.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(insurance.id)">Delete</button>
+                    <button class="btn btn-sm btn-primary" (click)="edit(seguro.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(seguro.id)">Eliminar</button>
                   </td>
                 </tr>
-                <tr *ngIf="insurances.length === 0">
-                  <td colspan="4" class="text-center">No insurances available.</td>
+                <tr *ngIf="seguros.length === 0">
+                  <td colspan="4" class="text-center">No hay seguros disponibles.</td>
                 </tr>
               </tbody>
             </table>

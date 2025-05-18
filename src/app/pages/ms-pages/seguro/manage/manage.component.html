@@ -21,21 +21,19 @@
           <br>
           <div class="row">
             <div class="col-3">Nombre</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="seguro.name"
-                [disabled]="mode==1">
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="seguro.nombre" [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Descripción</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="seguro.description"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="seguro.descripcion"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Pólizas</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="seguro.policies"
-                [disabled]="mode==1">
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="seguro.poliza" [disabled]="mode==1">
             </div>
           </div>
           <div class="row">

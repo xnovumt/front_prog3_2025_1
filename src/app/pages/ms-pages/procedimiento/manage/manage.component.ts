@@ -58,7 +58,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/procedimiento/list']);
+        this.router.navigate(['/procedimientos/list']);
       },
       error: (error) => {
         console.error('Error creating procedimiento:', error);

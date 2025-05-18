@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
- mode: number; //1->View, 2->Create, 3-> Update
+  mode: number; //1->View, 2->Create, 3-> Update
   chat: Chat;
 
   constructor(private activateRoute: ActivatedRoute,
@@ -30,7 +30,7 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.chat.id = this.activateRoute.snapshot.params.id  
+      this.chat.id = this.activateRoute.snapshot.params.id
       this.getChat(this.chat.id)
     }
   }
@@ -61,7 +61,14 @@ export class ManageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error creating chat:', error);
-      }
+        const errorMessage = error.error?.message || 'Error desconocido';
+        const errorDetails = error.error?.errors ? JSON.stringify(error.error.errors) : '';
+        Swal.fire({
+          title: 'Error!',
+          text: `${errorMessage}\n${errorDetails}`,
+          icon: 'error',
+        });
+      },
     });
   }
   update() {
@@ -92,7 +99,7 @@ export class ManageComponent implements OnInit {
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.someChat.delete(id).
           subscribe(data => {
             Swal.fire(
@@ -104,5 +111,5 @@ export class ManageComponent implements OnInit {
           });
       }
     })
-}
+  }
 }

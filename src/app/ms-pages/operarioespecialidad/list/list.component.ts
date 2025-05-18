@@ -10,15 +10,15 @@ import { OperarioEspecialidadService } from 'src/app/services/operarioEspecialid
 })
 export class ListOperarioEspecialidadComponent implements OnInit {
 
-  OperarioEspecialidads: OperarioEspecialidad[] = []; // Arreglo para almacenar vínculos, tipado con el modelo OperarioEspecialidad
+  specialityOperators: OperarioEspecialidad[] = []; // Renombré la propiedad para que coincida con el HTML
 
   // Inyecta el servicio OperarioEspecialidadService y Router (si lo necesitas)
-  constructor(private OperarioEspecialidadService: OperarioEspecialidadService /*, private router: Router*/) { }
+  constructor(private operarioEspecialidadService: OperarioEspecialidadService /*, private router: Router*/) { }
 
   ngOnInit(): void {
     // Llama al servicio para obtener la lista de vínculos
-    this.OperarioEspecialidadService.list().subscribe(data => {
-      this.OperarioEspecialidads = data; // Asigna los datos a la propiedad OperarioEspecialidads
+    this.operarioEspecialidadService.list().subscribe(data => {
+      this.specialityOperators = data; // Asigna los datos a la propiedad renombrada
     });
   }
 

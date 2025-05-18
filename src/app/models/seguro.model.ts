@@ -2,9 +2,9 @@ import { Poliza } from "./poliza.model";
 
 export class Seguro {
     id?: number;
-    name?: string;
-    description?: string;
-    policies: Poliza[];
+    nombre?: string;
+    descripcion?: string;
+    poliza: Poliza[];
     createdAt?: Date;
     updatedAt?: Date;
 }

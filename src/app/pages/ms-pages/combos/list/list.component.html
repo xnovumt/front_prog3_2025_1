@@ -13,21 +13,21 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Service ID</th>
-                  <th scope="col">Actions</th>
+                  <th scope="col">ID Servicio</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let combo of combos">
                   <td>{{ combo.id }}</td>
-                  <td>{{ combo.service_id }}</td>
+                  <td>{{ combo.servicio_id }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(combo.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(combo.id)">Delete</button>
+                    <button class="btn btn-sm btn-primary" (click)="edit(combo.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(combo.id)">Eliminar</button>
                   </td>
                 </tr>
                 <tr *ngIf="combos.length === 0">
-                  <td colspan="3" class="text-center">No combos available.</td>
+                  <td colspan="3" class="text-center">No hay combos disponibles.</td>
                 </tr>
               </tbody>
             </table>

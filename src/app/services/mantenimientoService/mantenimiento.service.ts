@@ -12,22 +12,22 @@ export class MantenimientoService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Mantenimiento[]> {
-    return this.http.get<Mantenimiento[]>(`${environment.url_ms_cinema}/mantenimiento`);
+    return this.http.get<Mantenimiento[]>(`${environment.url_ms_cinema}/mantenimientos`);
   }
 
   view(id: number): Observable<Mantenimiento> {
-    return this.http.get<Mantenimiento>(`${environment.url_ms_cinema}/mantenimiento/${id}`);
+    return this.http.get<Mantenimiento>(`${environment.url_ms_cinema}/mantenimientos/${id}`);
   }
 
   create(newMantenimiento: Mantenimiento): Observable<Mantenimiento> {
-    return this.http.post<Mantenimiento>(`${environment.url_ms_cinema}/mantenimiento`, newMantenimiento);
+    return this.http.post<Mantenimiento>(`${environment.url_ms_cinema}/mantenimientos`, newMantenimiento);
   }
 
   update(theMantenimiento: Mantenimiento): Observable<Mantenimiento> {
-    return this.http.put<Mantenimiento>(`${environment.url_ms_cinema}/mantenimiento/${theMantenimiento.id}`, theMantenimiento);
+    return this.http.put<Mantenimiento>(`${environment.url_ms_cinema}/mantenimientos/${theMantenimiento.id}`, theMantenimiento);
   }
 
   delete(id: number) {
-    return this.http.delete<Mantenimiento>(`${environment.url_ms_cinema}/mantenimiento/${id}`);
+    return this.http.delete<Mantenimiento>(`${environment.url_ms_cinema}/mantenimientos/${id}`);
   }
 }

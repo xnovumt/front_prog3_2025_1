@@ -19,7 +19,11 @@ export class ManageComponent implements OnInit {
     private someObra: ObraService,
     private router: Router
   ) {
-    this.obra = { id: 0 }
+    this.obra = {
+      id: 0,
+      combo: 1, // Default value for paquete_id
+      municipios: ''  // Default value for municipio
+    };
   }
 
   ngOnInit(): void {
@@ -32,7 +36,7 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.obra.id = this.activateRoute.snapshot.params.id  
+      this.obra.id = this.activateRoute.snapshot.params.id
       this.getObra(this.obra.id)
     }
   }
@@ -94,7 +98,7 @@ export class ManageComponent implements OnInit {
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.someObra.delete(id).
           subscribe(data => {
             Swal.fire(
@@ -106,6 +110,6 @@ export class ManageComponent implements OnInit {
           });
       }
     })
-}
+  }
 
 }

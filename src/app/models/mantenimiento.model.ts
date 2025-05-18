@@ -5,9 +5,10 @@ export class Mantenimiento {
     id?: number;
     fecha?: Date;
     estado?: string;
-    maquinaria_id?: number;
+    maquina_id?: number;
+    responsable?: string;
     procedimientos?: Procedimiento[];
-    maquinaria?: Maquina;
+    maquina?: Maquina;
     creadoEn?: Date;
     actualizadoEn?: Date;
 }

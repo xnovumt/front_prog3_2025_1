@@ -21,20 +21,20 @@
           <br>
           <div class="row">
             <div class="col-3">Nombre</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="tiposervicio.name"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="tiposervicio.nombre"
                 [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Descripción</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="tiposervicio.description"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="tiposervicio.descripcion"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Maquinas</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="tiposervicio.machineries"
+            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="tiposervicio.maquinarias"
                 [disabled]="mode==1">
             </div>
           </div>

@@ -12,22 +12,22 @@ export class GPSService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<GPS[]> {
-    return this.http.get<GPS[]>(`${environment.url_ms_cinema}/GPS`);
+    return this.http.get<GPS[]>(`${environment.url_ms_cinema}/gps`);
   }
 
   view(id: number): Observable<GPS> {
-    return this.http.get<GPS>(`${environment.url_ms_cinema}/GPS/${id}`);
+    return this.http.get<GPS>(`${environment.url_ms_cinema}/gps/${id}`);
   }
 
   create(newGPS: GPS): Observable<GPS> {
-    return this.http.post<GPS>(`${environment.url_ms_cinema}/GPS`, newGPS);
+    return this.http.post<GPS>(`${environment.url_ms_cinema}/gps`, newGPS);
   }
 
   update(theGPS: GPS): Observable<GPS> {
-    return this.http.put<GPS>(`${environment.url_ms_cinema}/GPS/${theGPS.id}`, theGPS);
+    return this.http.put<GPS>(`${environment.url_ms_cinema}/gps/${theGPS.id}`, theGPS);
   }
 
   delete(id: number) {
-    return this.http.delete<GPS>(`${environment.url_ms_cinema}/GPS/${id}`);
+    return this.http.delete<GPS>(`${environment.url_ms_cinema}/gps/${id}`);
   }
 }

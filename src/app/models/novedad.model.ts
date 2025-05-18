@@ -4,9 +4,9 @@ export class Novedad {
     id?: number;
     tipo?: string;
     descripcion?: string;
-    evidencia?: string;
+    evidencias?: string;
     gravedad?: string;
-    id_turno?: Turno;
+    turno_id?: Turno;
     turno?: Turno;
     createdAt?: Date;
     updatedAt?: Date;

@@ -12,22 +12,22 @@ export class ProcedimientoMantenimientoService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<ProcedimientoMantenimiento[]> {
-    return this.http.get<ProcedimientoMantenimiento[]>(`${environment.url_ms_cinema}/procedimientomantenimiento`);
+    return this.http.get<ProcedimientoMantenimiento[]>(`${environment.url_ms_cinema}/procedimiento_mantenimientos`);
   }
 
   view(id: number): Observable<ProcedimientoMantenimiento> {
-    return this.http.get<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimientomantenimiento/${id}`);
+    return this.http.get<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimiento_mantenimientos/${id}`);
   }
 
   create(newProcedimientoMantenimiento: ProcedimientoMantenimiento): Observable<ProcedimientoMantenimiento> {
-    return this.http.post<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimientomantenimiento`, newProcedimientoMantenimiento);
+    return this.http.post<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimiento_mantenimientos`, newProcedimientoMantenimiento);
   }
 
   update(theProcedimientoMantenimiento: ProcedimientoMantenimiento): Observable<ProcedimientoMantenimiento> {
-    return this.http.put<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimientomantenimiento/${theProcedimientoMantenimiento.id}`, theProcedimientoMantenimiento);
+    return this.http.put<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimiento_mantenimientos/${theProcedimientoMantenimiento.id}`, theProcedimientoMantenimiento);
   }
 
   delete(id: number) {
-    return this.http.delete<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimientomantenimiento/${id}`);
+    return this.http.delete<ProcedimientoMantenimiento>(`${environment.url_ms_cinema}/procedimiento_mantenimientos/${id}`);
   }
 }

@@ -18,7 +18,12 @@ export class ManageComponent implements OnInit {
     private someMaquina: MaquinaService,
     private router: Router
   ) {
-    this.maquina = { id: 0 }
+    this.maquina = {
+      id: 0,
+      operarios: [], // Default value for operarios
+      mantenimientos: [], // Default value for mantenimientos
+      seguros: [] // Default value for seguros
+    };
   }
 
   ngOnInit(): void {
@@ -31,7 +36,7 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.maquina.id = this.activateRoute.snapshot.params.id  
+      this.maquina.id = this.activateRoute.snapshot.params.id
       this.getMaquina(this.maquina.id)
     }
   }
@@ -93,7 +98,7 @@ export class ManageComponent implements OnInit {
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.someMaquina.delete(id).
           subscribe(data => {
             Swal.fire(
@@ -105,6 +110,6 @@ export class ManageComponent implements OnInit {
           });
       }
     })
-}
+  }
 
 }

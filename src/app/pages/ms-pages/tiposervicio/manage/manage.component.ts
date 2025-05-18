@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoServicio } from 'src/app/models/tipo-servicio.model';
 import { TipoServicioService } from 'src/app/services/tipoServicioService/tipo-servicio.service';
+import { SeguroService } from 'src/app/services/seguroService/seguro.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +19,7 @@ export class ManageComponent implements OnInit {
     private someTipoServicio: TipoServicioService,
     private router: Router
   ) {
-    this.tiposervicio = { id: 0 }
+    this.tiposervicio = { id: 0 };
   }
 
   ngOnInit(): void {
