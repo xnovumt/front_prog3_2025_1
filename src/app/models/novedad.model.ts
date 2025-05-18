@@ -8,6 +8,4 @@ export class Novedad {
     gravedad?: string;
     turno_id?: Turno;
     turno?: Turno;
-    createdAt?: Date;
-    updatedAt?: Date;
 }

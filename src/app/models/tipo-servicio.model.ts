@@ -5,7 +5,4 @@ export class TipoServicio {
     nombre?: string;
     descripcion?: number;
     maquinarias?: Maquina[];
-    creadoEn?: Date;
-    actualizadoEn?: Date;
-
 }

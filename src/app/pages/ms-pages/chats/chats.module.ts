@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ChatsRoutingModule } from './chats-routing.module';
 import { ListChatComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
@@ -14,6 +14,6 @@ import { ManageComponent } from './manage/manage.component';
     ManageComponent
 
   ],
-  imports:[CommonModule, FormsModule, ChatsRoutingModule, ReactiveFormsModule]
+  imports:[CommonModule, FormsModule, ChatsRoutingModule]
 })
 export class ChatsModule {}

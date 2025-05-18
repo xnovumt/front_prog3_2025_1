@@ -7,7 +7,4 @@ export class Mensaje {
     id_chat?: number;
     id_usuario?: number;
     chat?: Chat;
-    createdAt?: Date;
-    updatedAt?: Date;
-    
 }

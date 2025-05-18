@@ -5,6 +5,4 @@ export class Procedimiento {
     nombre?: string;
     descripcion?: string;
     mantenimientos?: Mantenimiento[];
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

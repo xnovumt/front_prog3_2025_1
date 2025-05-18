@@ -9,7 +9,4 @@ export class GobernanteDepartamento {
     departamento_id?: Departamento;
     departamento?: Departamento;
     gobernante?: Gobernante;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }
-    

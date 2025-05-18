@@ -16,13 +16,14 @@
         <div class="card-body container">
           <div class="row">
             <div class="col-3">ID</div>
-            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="especialidadmaquinaria.id" disabled></div>
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="especialidadmaquinaria.id" disabled>
+            </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">ID Tipo Servicio</div>
-            <div class="col-9"><input type="number" class="form-control" [(ngModel)]="especialidadmaquinaria.tipo_servicio_id"
-                [disabled]="mode==1">
+            <div class="col-9"><input type="text" class="form-control"
+                [(ngModel)]="especialidadmaquinaria.tipo_servicio_id" [disabled]="mode==1">
             </div>
           </div>
           <br>
@@ -30,6 +31,22 @@
             <div class="col-3">Tipo Trabajo</div>
             <div class="col-9"><input type="text" class="form-control" [(ngModel)]="especialidadmaquinaria.tipo_trabajo"
                 [disabled]="mode==1"></div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-3">ID Máquina</div>
+            <div class="col-9">
+              <input type="text" class="form-control" [(ngModel)]="especialidadmaquinaria.maquina_id"
+                [disabled]="mode==1">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-3">ID Especialidad</div>
+            <div class="col-9">
+              <input type="text" class="form-control" [(ngModel)]="especialidadmaquinaria.especialidad_id"
+                [disabled]="mode==1">
+            </div>
           </div>
           <br>
           <div class="row">

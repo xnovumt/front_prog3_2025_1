@@ -2,10 +2,8 @@ import { Cuotas } from "./cuotas.model";
 
 
 export class Factura {
-    id?: number; 
+    id?: number;
     detalle?: string;
     cuota_id?: number;
     cuota?: Cuotas;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

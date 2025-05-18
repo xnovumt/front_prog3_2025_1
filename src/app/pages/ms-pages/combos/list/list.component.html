@@ -14,7 +14,7 @@
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Servicio ID</th>
-                  <th scope="col">Obras</th>
+
                   <th scope="col">Creado En</th>
                   <th scope="col">Actualizado En</th>
                   <th scope="col">Acciones</th>
@@ -24,9 +24,9 @@
                 <tr *ngFor="let combo of combos">
                   <td>{{ combo.id }}</td>
                   <td>{{ combo.servicio_id }}</td>
-                  <td>{{ combo.obras?.length || 0 }}</td>
-                  <td>{{ combo.creado_en | date:'yyyy-MM-dd' }}</td>
-                  <td>{{ combo.actualizado_en | date:'yyyy-MM-dd' }}</td>
+
+                  <td>{{ combo.created_at | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ combo.updated_at | date:'yyyy-MM-dd' }}</td>
                   <td>
                     <button class="btn btn-sm btn-primary" (click)="edit(combo.id)">Editar</button>
                     <button class="btn btn-sm btn-danger" (click)="delete(combo.id)">Eliminar</button>

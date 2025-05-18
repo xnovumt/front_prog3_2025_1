@@ -3,6 +3,4 @@ export class GPS {
     latitud?: string;
     longitud?: string;
     maquinaria_id?: number;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

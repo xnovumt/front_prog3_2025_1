@@ -15,7 +15,5 @@ export class Servicio {
     cuota?: Cuotas[];
     evidencia?: Evidencia[];
     combo?: Combo;
-    createdAt?: Date;
-    updatedAt?: Date;
 
 }

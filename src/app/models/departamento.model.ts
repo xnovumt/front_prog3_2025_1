@@ -6,6 +6,4 @@ export class Departamento {
     nombre?: string;
     gobernantes?: Gobernante[];
     municipios?: Municipio[];
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

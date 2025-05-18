@@ -10,6 +10,4 @@ export class Evidencia {
     novedad_id?: number;
     servicio?: Servicio;
     novedad?: Novedad;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

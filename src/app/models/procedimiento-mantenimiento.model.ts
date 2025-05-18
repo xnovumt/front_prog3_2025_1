@@ -7,6 +7,4 @@ export class ProcedimientoMantenimiento {
     procedimiento_id?: Procedimiento;
     mantenimiento_id?: Mantenimiento;
     estado?: string;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

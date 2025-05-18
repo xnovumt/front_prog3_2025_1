@@ -13,8 +13,4 @@ export class Poliza {
     operario?: Operario;
     maquina?: Maquina;
     seguro?: Seguro;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
-
-
 }

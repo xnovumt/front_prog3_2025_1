@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chat } from 'src/app/models/chat.model';
 import { ChatsService } from 'src/app/services/chatService/chats.service';
@@ -13,17 +12,12 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; //1->View, 2->Create, 3-> Update
   chat: Chat;
-  theFormGroup: FormGroup; // Form Police
-  trySend: boolean
 
   constructor(private activateRoute: ActivatedRoute,
     private someChat: ChatsService,
-    private router: Router,
-    private theFormBuilder: FormBuilder,
+    private router: Router
   ) {
     this.chat = { id: 0 }
-    this.configFormGroup();
-    this.trySend = false
   }
 
   ngOnInit(): void {
@@ -68,42 +62,36 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['chat/list'])
   }
   create() {
-    this.trySend = true;
     this.someChat.create(this.chat).subscribe({
-      next: (chat) => {
-        console.log('chat created successfully:', chat);
+      next: () => {
         Swal.fire({
           title: 'Creado!',
           text: 'Registro creado correctamente.',
-          icon: 'success',
-        })
-        this.router.navigate(['/chats/list']);
-      },
-      error: (error) => {
-        console.error('Error creating chat:', error);
-        const errorMessage = error.error?.message || 'Error desconocido';
-        const errorDetails = error.error?.errors ? JSON.stringify(error.error.errors) : '';
-        Swal.fire({
-          title: 'Error!',
-          text: `${errorMessage}\n${errorDetails}`,
-          icon: 'error',
+          icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/chats/list']); // Redirigir a la lista
         });
       },
+      error: (error) => {
+        console.error('Error al crear:', error);
+        Swal.fire('Error', 'No se pudo crear el registro.', 'error');
+      }
     });
   }
   update() {
     this.someChat.update(this.chat).subscribe({
-      next: (chat) => {
-        console.log('cuota updated successfully:', chat);
+      next: () => {
         Swal.fire({
           title: 'Actualizado!',
           text: 'Registro actualizado correctamente.',
-          icon: 'success',
-        })
-        this.router.navigate(['/chats/list']);
+          icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/chats/list']); // Redirigir a la lista
+        });
       },
       error: (error) => {
-        console.error('Error updating chat:', error);
+        console.error('Error al actualizar:', error);
+        Swal.fire('Error', 'No se pudo actualizar el registro.', 'error');
       }
     });
   }
@@ -132,14 +120,4 @@ export class ManageComponent implements OnInit {
       }
     })
   }
-  get getTheFormGroup() {
-    return this.theFormGroup.controls
-  }
-
-configFormGroup() {
-  this.theFormGroup = this.theFormBuilder.group({
-    titulo: ['', [Validators.required, Validators.minLength(3)]],
-    tipo: ['', [Validators.required, Validators.minLength(2)]]
-  })
-}
 }

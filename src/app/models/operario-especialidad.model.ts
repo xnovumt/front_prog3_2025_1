@@ -5,6 +5,4 @@ export class OperarioEspecialidad {
     id_operario?: number;
     id_especialidad?: Especialidad;
     nivel_experiencia?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
 }

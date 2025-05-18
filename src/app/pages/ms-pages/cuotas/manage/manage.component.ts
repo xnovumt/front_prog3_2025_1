@@ -71,17 +71,20 @@ export class ManageComponent implements OnInit {
 
   update() {
     this.cuotasService.update(this.cuota).subscribe({
-      next: (cuota) => {
-        console.log('Cuota updated successfully:', cuota);
+      next: () => {
         Swal.fire({
           title: 'Actualizado!',
           text: 'Registro actualizado correctamente.',
-          icon: 'success',
+          icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/cuotas/list']).then(() => {
+            // Emitir un evento o llamar a un servicio compartido para notificar al componente de la lista
+          });
         });
-        this.router.navigate(['/cuotas/list']);
       },
       error: (error) => {
-        console.error('Error updating cuota:', error);
+        console.error('Error al actualizar la cuota:', error);
+        Swal.fire('Error', 'No se pudo actualizar el registro.', 'error');
       }
     });
   }

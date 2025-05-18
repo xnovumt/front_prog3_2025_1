@@ -1,6 +1,5 @@
 // service/list/list.component.ts
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Servicio } from 'src/app/models/servicio.model';
 import { ServicioService } from 'src/app/services/servicioService/servicio.service';
@@ -13,21 +12,10 @@ import Swal from 'sweetalert2'; // Asegúrate de que la ruta de importación es 
 })
 export class ListServicioComponent implements OnInit {
 
-  servicios: Servicio[];
-  theFormGroup: FormGroup; // Form Police
-  trySend: boolean // Array to store servicios
+  servicios: Servicio[]; // Array to store servicios
 
   // Inject the service and Router (if needed)
-  constructor(
-    private servicioService: ServicioService, 
-    private router: Router,
-    private theFormBuilder: FormBuilder,
-    private cdr: ChangeDetectorRef
-  
-  ) {
-    this.configFormGroup();
-    this.trySend = false
-   }
+  constructor(private servicioService: ServicioService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     console.log('Componente ListServiceComponent inicializado'); // <-- Opcional: confirma que ngOnInit se ejecuta
@@ -84,31 +72,31 @@ export class ListServicioComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar este servicio?')) {
-      this.servicioService.delete(id).subscribe(
-        () => {
-          alert('Servicio eliminado con éxito.');
-          this.servicios = this.servicios.filter(servicio => servicio.id !== id);
-        },
-        error => {
-          console.error('Error al eliminar el servicio:', error);
-          alert('Hubo un error al intentar eliminar el servicio.');
-        }
-      );
-    }
-  }
-  get getTheFormGroup() {
-    return this.theFormGroup.controls
-  }
-  configFormGroup() {
-    this.theFormGroup = this.theFormBuilder.group({
-      // primer elemento del vector, valor por defecto
-      // lista, serán las reglas
-      priority: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
-      location: ['', [Validators.required, Validators.minLength(2)]]
-    })
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicioService.delete(id).subscribe({
+          next: () => {
+            Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
+            this.ngOnInit(); // Recargar la lista después de eliminar
+          },
+          error: (error) => {
+            console.error('Error al eliminar:', error);
+            Swal.fire('Error', 'No se pudo eliminar el registro.', 'error');
+          }
+        });
+      }
+    });
   }
   view(id: number) {
-    this.router.navigate(['/servicio/list', id])
+    this.router.navigate(['/servicio/list'])
   }
 }

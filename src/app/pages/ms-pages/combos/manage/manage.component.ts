@@ -58,7 +58,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/combo/list']);
+        this.router.navigate(['/combos/list']);
       },
       error: (error) => {
         console.error('Error creating combo:', error);
@@ -74,7 +74,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/combo/list']);
+        this.router.navigate(['/combos/list']);
       },
       error: (error) => {
         console.error('Error updating combo:', error);

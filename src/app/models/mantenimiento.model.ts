@@ -9,6 +9,4 @@ export class Mantenimiento {
     responsable?: string;
     procedimientos?: Procedimiento[];
     maquina?: Maquina;
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

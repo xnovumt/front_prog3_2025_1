@@ -7,6 +7,4 @@ export class GobernanteMunicipio {
     fecha_fin?: Date;
     gobernante_id?: Gobernante;
     municipio_id?: Municipio;
-    createdAt?: Date;
-    updatedAt?: Date;
 }

@@ -51,33 +51,35 @@ export class ManageComponent implements OnInit {
   }
   create() {
     this.someServicio.create(this.servicio).subscribe({
-      next: (service) => {
-        console.log('service created successfully:', service);
+      next: () => {
         Swal.fire({
           title: 'Creado!',
           text: 'Registro creado correctamente.',
-          icon: 'success',
-        })
-        this.router.navigate(['/servicios/list']);
+          icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/servicio/list']); // Redirigir a la lista
+        });
       },
       error: (error) => {
-        console.error('Error creating servicio', error);
+        console.error('Error al crear:', error);
+        Swal.fire('Error', 'No se pudo crear el registro.', 'error');
       }
     });
   }
   update() {
     this.someServicio.update(this.servicio).subscribe({
-      next: (servicio) => {
-        console.log('service updated successfully:', servicio);
+      next: () => {
         Swal.fire({
           title: 'Actualizado!',
           text: 'Registro actualizado correctamente.',
-          icon: 'success',
-        })
-        this.router.navigate(['/servicios/list']);
+          icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/servicio/list']); // Redirigir a la lista
+        });
       },
       error: (error) => {
-        console.error('Error updating service:', error);
+        console.error('Error al actualizar:', error);
+        Swal.fire('Error', 'No se pudo actualizar el registro.', 'error');
       }
     });
   }

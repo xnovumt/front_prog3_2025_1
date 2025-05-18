@@ -13,23 +13,18 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tipo Archivo</th>
-                <th scope="col">Contenido Archivo</th>
                 <th scope="col">Fecha Carga</th>
                 <th scope="col">ID Servicio</th>
                 <th scope="col">ID Novedad</th>
-                <th scope="col">Servicio</th>
-                <th scope="col">Novedad</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let evidencias of evidencias">
                 <td>{{ evidencias.id }}</td>
-                <td>{{ evidencias.tipo_archivo }}</td>
-                <td>{{ evidencias.contenido_archivo }}</td>
-                <td>{{ evidencias.fecha_carga | date:'yyyy-MM-dd HH:mm' }}</td> <td>{{ evidencias.service_id }}</td>
-                <td>{{ evidencias.servicio_id }}</td>
-                <td>{{ evidencias.novedad_id }}</td>
+                <td>{{ evidencias.file_type }}</td>
+                <td>{{ evidencias.load_date | date:'yyyy-MM-dd HH:mm' }}</td> <td>{{ evidencias.service_id }}</td>
+                <td>{{ evidencias.novelty_id }}</td>
                 <td>
                   <button class="btn btn-sm btn-primary" (click)="edit(evidencia.id)">Editar</button>
                   <button class="btn btn-sm btn-danger" (click)="delete(evidencias.id)">Eliminar</button>

@@ -6,6 +6,4 @@ export class Turno {
     operario_id?: number;
     maquina_id?: number;
     novedades?: Novedad[];
-    creadoEn?: Date;
-    actualizadoEn?: Date;
 }

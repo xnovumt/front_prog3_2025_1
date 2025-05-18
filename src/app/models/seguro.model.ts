@@ -5,6 +5,4 @@ export class Seguro {
     nombre?: string;
     descripcion?: string;
     poliza: Poliza[];
-    createdAt?: Date;
-    updatedAt?: Date;
 }

@@ -37,7 +37,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'gobernantes', loadChildren: () => import('src/app/pages/ms-pages/gobernante/gobernante-routing.module').then(m => m.GobernanteRoutingModule) },
   { path: 'servicio', loadChildren: () => import('src/app/pages/ms-pages/servicio/servicio-routing.module').then(m => m.ServicioRoutingModule) },
   { path: 'turnos', loadChildren: () => import('src/app/pages/ms-pages/turno/turno-routing.module').then(m => m.TurnoRoutingModule) },
-  { path: 'repuesto', loadChildren: () => import('src/app/pages/ms-pages/repuesto/repuesto-routing.module').then(m => m.RepuestoRoutingModule) },
   { path: 'especialidad-operarios', loadChildren: () => import('src/app/pages/ms-pages/operarioespecialidad/operarioespecialidad-routing.module').then(m => m.OperarioEspecialidadRoutingModule) },
   { path: 'especialidades', loadChildren: () => import('src/app/pages/ms-pages/especialidades/especialidades-routing.module').then(m => m.EspecialidadesRoutingModule) },
   { path: 'tiposervicio', loadChildren: () => import('src/app/pages/ms-pages/tiposervicio/tiposervicio-routing.module').then(m => m.TipoServicioRoutingModule) }

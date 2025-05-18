@@ -39,7 +39,13 @@ export class ListCuotaComponent implements OnInit {
 
     this.router.navigate([`/cuotas/update`, id]).then(
       success => {
-        if (!success) {
+        if (success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Redirigido',
+            text: 'Navegación exitosa al formulario de edición.'
+          });
+        } else {
           Swal.fire({
             icon: 'error',
             title: 'Error',

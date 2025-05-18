@@ -8,6 +8,4 @@ export class Gobernante {
     periodo_final?: Date;
     departamentos?: Departamento[];
     municipios?: Municipio[];
-    createdAt?: Date;
-    updatedAt?: Date;
 }

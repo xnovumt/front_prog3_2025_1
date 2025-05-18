@@ -20,7 +20,5 @@ export class Maquina {
     combos?: Combo[];
     mantenimientos: Mantenimiento[];
     seguros: Seguro[];
-    createdAt?: Date;
-    updatedAt?: Date;
 
 }
