@@ -1,0 +1,51 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Cuotas</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">ID Servicio</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nombre Cliente</th>
+                  <th scope="col">Referencia Pago</th>
+                  <th scope="col">Fecha Expiración</th>
+                  <th scope="col">Pagado</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cuota of cuotas">
+                  <td>{{ cuota.id }}</td>
+                  <td>{{ cuota.id_servicio }}</td>
+                  <td>{{ cuota.cantidad }}</td>
+                  <td>{{ cuota.email }}</td>
+                  <td>{{ cuota.nombre_cliente }}</td>
+                  <td>{{ cuota.referencia_pago }}</td>
+                  <td>{{ cuota.fecha_expiracion | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ cuota.pago ? 'Sí' : 'No' }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-primary" (click)="edit(cuota.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(cuota.id)">Eliminar</button>
+                  </td>
+                </tr>
+                <tr *ngIf="cuotas.length === 0">
+                  <td colspan="9" class="text-center">No hay cuotas disponibles.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

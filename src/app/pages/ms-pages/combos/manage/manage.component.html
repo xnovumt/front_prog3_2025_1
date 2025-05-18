@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <h2 class="text-center">Gestión de Combo</h2>
+    <form>
+        <div class="form-group">
+            <label for="servicioId">Servicio ID</label>
+            <input type="number" id="servicioId" class="form-control" placeholder="Ingrese el ID del servicio"
+                [(ngModel)]="combo.servicio_id" name="servicioId" />
+        </div>
+
+        <div class="form-group">
+            <label for="obras">Obras</label>
+            <textarea id="obras" class="form-control" placeholder="Ingrese las obras asociadas"
+                [(ngModel)]="combo.obras" name="obras"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="creadoEn">Creado En</label>
+            <input type="date" id="creadoEn" class="form-control" [(ngModel)]="combo.creadoEn" name="creadoEn" />
+        </div>
+
+        <div class="form-group">
+            <label for="actualizadoEn">Actualizado En</label>
+            <input type="date" id="actualizadoEn" class="form-control" [(ngModel)]="combo.actualizadoEn"
+                name="actualizadoEn" />
+        </div>
+
+        <button type="button" class="btn btn-primary" *ngIf="mode === 2" (click)="create()">Guardar</button>
+        <button type="button" class="btn btn-primary" *ngIf="mode === 3" (click)="update()">Actualizar</button>
+        <button type="button" class="btn btn-secondary" (click)="back()">Volver</button>
+    </form>
+</div>
