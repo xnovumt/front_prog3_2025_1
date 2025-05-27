@@ -6,34 +6,35 @@
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <h3 class="mb-0">Enlaces de Maquinaria-Combo</h3>
+          <button class="btn btn-primary float-right" (click)="navigateToCreate()">Crear maquina-combo</button>
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">ID Maquinaria</th>
-                  <th scope="col">ID Combo</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of maquinacombos">
-                  <td>{{ item.id }}</td>
-                  <td>{{ item.maquinaria_id }}</td>
-                  <td>{{ item.combo_id }}</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(item.id)">Editar</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(item.id)">Eliminar</button>
-                  </td>
-                </tr>
-                <tr *ngIf="maquinacombos.length === 0">
-                  <td colspan="4" class="text-center">No hay enlaces de maquinaria y combo disponibles.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ID Maquinaria</th>
+                <th scope="col">ID Combo</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of maquinacombos">
+                <td>{{ item.id }}</td>
+                <td>{{ item.maquina_id }}</td>
+                <td>{{ item.combo_id }}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" (click)="edit(item.id)">Editar</button>
+                  <button class="btn btn-sm btn-danger" (click)="delete(item.id)">Eliminar</button>
+                </td>
+              </tr>
+              <tr *ngIf="maquinacombos.length === 0">
+                <td colspan="4" class="text-center">No hay enlaces de maquinaria y combo disponibles.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

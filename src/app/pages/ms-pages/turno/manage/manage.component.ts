@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Turno } from 'src/app/models/turno.model';
 import { TurnoService } from 'src/app/services/turnoService/turno.service';
@@ -13,12 +14,17 @@ export class ManageComponent implements OnInit {
 
   mode: number; //1->View, 2->Create, 3-> Update
   turno: Turno;
+    theFormGroup: FormGroup; // Form Police
+  trySend: boolean
 
   constructor(private activateRoute: ActivatedRoute,
     private someTurno: TurnoService,
-    private router: Router
+    private router: Router,
+    private theFormBuilder: FormBuilder,
   ) {
-    this.turno = { id: 0 }
+    this.turno = { id: 0 };
+    this.configFormGroup();
+    this.trySend = false
   }
 
   ngOnInit(): void {
@@ -47,9 +53,10 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['turno/list'])
+    this.router.navigate(['turnos/list'])
   }
   create() {
+    this.trySend = true;
     this.someTurno.create(this.turno).subscribe({
       next: (turno) => {
         console.log('turno created successfully:', turno);
@@ -58,7 +65,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/turno/list']);
+        this.router.navigate(['/turnos/list']);
       },
       error: (error) => {
         console.error('Error creating turno:', error);
@@ -74,7 +81,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/turno/list']);
+        this.router.navigate(['/turnos/list']);
       },
       error: (error) => {
         console.error('Error updating turno:', error);
@@ -106,4 +113,16 @@ export class ManageComponent implements OnInit {
       }
     })
   }
+  configFormGroup() {
+  this.theFormGroup = this.theFormBuilder.group({
+    fecha: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
+    operario_id: ['', [Validators.required, Validators.minLength(2)]],
+    maquina_id: ['', [Validators.required, Validators.minLength(2)]],
+    novedades: ['', [Validators.required, Validators.minLength(2)]]
+  })
+}
+
+get getTheFormGroup() {
+  return this.theFormGroup.controls
+}
 }

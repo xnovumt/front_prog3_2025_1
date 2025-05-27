@@ -15,7 +15,7 @@ export class ListPolizaComponent implements OnInit {
   polizas: Poliza[] = []; // Cambié 'policies' a 'polizas' para reflejar el cambio al español
 
   // Inyecta el servicio PolicyService y Router (si lo necesitas)
-  constructor(private polizaService: PolizaService , private router: Router) { }
+  constructor(private polizaService: PolizaService, private router: Router) { }
 
   ngOnInit(): void {
     // Llama al servicio para obtener la lista de pólizas
@@ -34,7 +34,7 @@ export class ListPolizaComponent implements OnInit {
   }
 
   delete(id: number) {
-  console.log("Delete poliza with id:", id);
+    console.log("Delete poliza with id:", id);
     Swal.fire({
       title: 'Eliminar',
       text: "Está poliza que quiere eliminar el registro?",
@@ -45,7 +45,7 @@ export class ListPolizaComponent implements OnInit {
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.polizaService.delete(id).
           subscribe(data => {
             Swal.fire(
@@ -57,5 +57,32 @@ export class ListPolizaComponent implements OnInit {
           });
       }
     })
+  }
+  navigateToCreate() {
+    this.router.navigate(['/polizas/create']).then(
+      success => {
+        if (success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Redirigido',
+            text: 'Navegación exitosa al formulario de creación.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar al formulario de creación.'
+          });
+        }
+      },
+      error => {
+        console.error('Error al navegar:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al intentar navegar al formulario de creación.'
+        });
+      }
+    );
   }
 }

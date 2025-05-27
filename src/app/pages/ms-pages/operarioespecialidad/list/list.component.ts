@@ -15,7 +15,7 @@ export class ListOperarioEspecialidadComponent implements OnInit {
   OperarioEspecialidads: OperarioEspecialidad[] = []; // Arreglo para almacenar vínculos, tipado con el modelo OperarioEspecialidad
 
   // Inyecta el servicio OperarioEspecialidadService y Router (si lo necesitas)
-  constructor(private OperarioEspecialidadService: OperarioEspecialidadService , private router: Router) { }
+  constructor(private OperarioEspecialidadService: OperarioEspecialidadService, private router: Router) { }
 
   ngOnInit(): void {
     // Llama al servicio para obtener la lista de vínculos
@@ -31,28 +31,55 @@ export class ListOperarioEspecialidadComponent implements OnInit {
   }
 
   delete(id: number) {
-console.log("Delete operario especialidad with id:", id);
+    console.log("Delete operario especialidad with id:", id);
+    Swal.fire({
+      title: 'Eliminar',
+      text: "Está seguro que quiere eliminar el registro?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.OperarioEspecialidadService.delete(id).
+          subscribe(data => {
+            Swal.fire(
+              'Eliminado!',
+              'Registro eliminado correctamente.',
+              'success'
+            )
+            this.ngOnInit();
+          });
+      }
+    })
+  }
+  navigateToCreate() {
+    this.router.navigate(['/especialidad-operarios/create']).then(
+      success => {
+        if (success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Redirigido',
+            text: 'Navegación exitosa al formulario de creación.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar al formulario de creación.'
+          });
+        }
+      },
+      error => {
+        console.error('Error al navegar:', error);
         Swal.fire({
-          title: 'Eliminar',
-          text: "Está seguro que quiere eliminar el registro?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.OperarioEspecialidadService.delete(id).
-              subscribe(data => {
-                Swal.fire(
-                  'Eliminado!',
-                  'Registro eliminado correctamente.',
-                  'success'
-                )
-                this.ngOnInit();
-              });
-          }
-        })
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al intentar navegar al formulario de creación.'
+        });
+      }
+    );
   }
 }

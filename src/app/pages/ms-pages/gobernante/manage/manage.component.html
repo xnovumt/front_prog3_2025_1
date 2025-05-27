@@ -39,29 +39,41 @@
           </div>
           <br>
           <div class="row">
+            <div class="col-3">Tipo</div>
+            <div class="col-9">
+              <select class="form-control" [(ngModel)]="gobernante.tipo" [disabled]="mode==1">
+                <option value="municipio">Municipio</option>
+                <option value="departamento">Departamento</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row" *ngIf="gobernante.tipo === 'municipio'">
+            <div class="col-3">Municipio</div>
+            <div class="col-9">
+              <input type="text" class="form-control" [(ngModel)]="gobernante.territorio.municipio_id"
+                [disabled]="mode==1">
+            </div>
+          </div>
+          <div class="row" *ngIf="gobernante.tipo === 'departamento'">
             <div class="col-3">Departamento</div>
             <div class="col-9">
-              <input type="date" class="form-control" [(ngModel)]="gobernante.departamentos" [disabled]="mode==1">
+              <input type="text" class="form-control" [(ngModel)]="gobernante.territorio.departamento_id"
+                [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3">municipios/div>
-              <div class="col-9"><input type="date" class="form-control" [(ngModel)]="gobernante.municipios"
-                  [disabled]="mode==1"></div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-3"></div>
-              <div class="col-9">
-                <button *ngIf="mode==1" class="btn btn-primary btn-block" (click)="back()">Volver</button>
-                <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
-                <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Update</button>
-              </div>
+            <div class="col-3"></div>
+            <div class="col-9">
+              <button *ngIf="mode==1" class="btn btn-primary btn-block" (click)="back()">Volver</button>
+              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Update</button>
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
   </div>
+</div>

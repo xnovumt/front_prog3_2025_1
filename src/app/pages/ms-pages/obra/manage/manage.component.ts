@@ -20,9 +20,7 @@ export class ManageComponent implements OnInit {
     private router: Router
   ) {
     this.obra = {
-      id: 0,
-      combo: 1, // Default value for paquete_id
-      municipios: ''  // Default value for municipio
+      id: 0 // Default value for paquete_id// Default value for municipio
     };
   }
 

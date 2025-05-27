@@ -6,6 +6,9 @@ export class Gobernante {
     id_usuario?: string;
     periodo_inicio?: Date;
     periodo_final?: Date;
-    departamentos?: Departamento[];
-    municipios?: Municipio[];
+    tipo?: 'municipio' | 'departamento';
+    territorio?: {
+        municipio_id?: string;
+        departamento_id?: string;
+    };
 }

@@ -6,6 +6,7 @@
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <h3 class="mb-0">Facturas</h3>
+          <button class="btn btn-success float-right" (click)="navigateToCreate()">Crear Factura</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -26,6 +27,7 @@
                   <td>
                     <button class="btn btn-sm btn-primary" (click)="edit(factura.id)">Editar</button>
                     <button class="btn btn-sm btn-danger" (click)="delete(factura.id)">Eliminar</button>
+                    <button class="btn btn-sm btn-success" (click)="navigateToCreate()">Crear</button>
                   </td>
                 </tr>
                 <tr *ngIf="facturas.length === 0">

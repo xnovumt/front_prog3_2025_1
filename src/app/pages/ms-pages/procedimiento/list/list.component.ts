@@ -16,7 +16,7 @@ export class ListProcedimientoComponent implements OnInit {
   procedimientos: Procedimiento[] = []; // Renombré la propiedad para que sea consistente con el HTML y esté en minúsculas
 
   // Inject the service and Router (if needed)
-  constructor(private procedimientoService: ProcedimientoService , private router: Router) { }
+  constructor(private procedimientoService: ProcedimientoService, private router: Router) { }
 
   ngOnInit(): void {
     // Call the service to get the list
@@ -27,33 +27,60 @@ export class ListProcedimientoComponent implements OnInit {
 
   // Methods for edit and delete (adjust ID type based on your model)
   edit(id: number) {
-   this.router.navigate(['procedimientos/update', id])
+    this.router.navigate(['procedimientos/update', id])
     // Implement navigation
   }
 
   delete(id: number) {
     console.log("Delete procedimiento with id:", id);
+    Swal.fire({
+      title: 'Eliminar',
+      text: "Está procedimiento que quiere eliminar el registro?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.procedimientoService.delete(id).
+          subscribe(data => {
+            Swal.fire(
+              'Eliminado!',
+              'Registro eliminado correctamente.',
+              'success'
+            )
+            this.ngOnInit();
+          });
+      }
+    })
+  }
+  navigateToCreate() {
+    this.router.navigate(['/procedimientos/create']).then(
+      success => {
+        if (success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Redirigido',
+            text: 'Navegación exitosa al formulario de creación.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar al formulario de creación.'
+          });
+        }
+      },
+      error => {
+        console.error('Error al navegar:', error);
         Swal.fire({
-          title: 'Eliminar',
-          text: "Está procedimiento que quiere eliminar el registro?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) { 
-            this.procedimientoService.delete(id).
-              subscribe(data => {
-                Swal.fire(
-                  'Eliminado!',
-                  'Registro eliminado correctamente.',
-                  'success'
-                )
-                this.ngOnInit();
-              });
-          }
-        })
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al intentar navegar al formulario de creación.'
+        });
+      }
+    );
   }
 }

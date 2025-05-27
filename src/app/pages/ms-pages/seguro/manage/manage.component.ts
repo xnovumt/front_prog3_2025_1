@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Seguro } from 'src/app/models/seguro.model';
 import { SeguroService } from 'src/app/services/seguroService/seguro.service';
@@ -10,15 +11,20 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
-
+  
   mode: number; //1->View, 2->Create, 3-> Update
   seguro: Seguro;
+  theFormGroup: FormGroup; // Form Police
+        trySend: boolean
 
   constructor(private activateRoute: ActivatedRoute,
     private someSeguro: SeguroService,
-    private router: Router
+    private router: Router,
+    private theFormBuilder: FormBuilder,
   ) {
-    this.seguro = { id: 0, poliza: [] };
+    this.seguro = { id: 0 };
+    this.configFormGroup();
+    this.trySend = false
   }
 
   ngOnInit(): void {
@@ -50,6 +56,7 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['seguros/list'])
   }
   create() {
+    this.trySend = true;
     this.someSeguro.create(this.seguro).subscribe({
       next: (seguro) => {
         console.log('seguro created successfully:', seguro);
@@ -106,4 +113,17 @@ export class ManageComponent implements OnInit {
       }
     })
   }
+
+
+    configFormGroup(): FormGroup {
+        return this.theFormBuilder.group({ 
+          nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+          descripcion: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+  
+        });
+      }
+    
+    get getTheFormGroup() {
+      return this.theFormGroup.controls
+    }
 }

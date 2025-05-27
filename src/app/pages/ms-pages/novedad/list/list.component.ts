@@ -16,7 +16,7 @@ export class ListNovedadComponent implements OnInit {
   novedades: Novedad[] = []; // Array to store novedades
 
   // Inject the service and Router (if needed)
-  constructor(private NovedadService: NovedadService , private router: Router) { }
+  constructor(private NovedadService: NovedadService, private router: Router) { }
 
   ngOnInit(): void {
     // Call the service to get the list
@@ -32,28 +32,55 @@ export class ListNovedadComponent implements OnInit {
   }
 
   delete(id: number) {
-  console.log("Delete seguro with id:", id);
+    console.log("Delete seguro with id:", id);
+    Swal.fire({
+      title: 'Eliminar',
+      text: "Está seguro que quiere eliminar el registro?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.NovedadService.delete(id).
+          subscribe(data => {
+            Swal.fire(
+              'Eliminado!',
+              'Registro eliminado correctamente.',
+              'success'
+            )
+            this.ngOnInit();
+          });
+      }
+    })
+  }
+  navigateToCreate() {
+    this.router.navigate(['/novedades/create']).then(
+      success => {
+        if (success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Redirigido',
+            text: 'Navegación exitosa al formulario de creación.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar al formulario de creación.'
+          });
+        }
+      },
+      error => {
+        console.error('Error al navegar:', error);
         Swal.fire({
-          title: 'Eliminar',
-          text: "Está seguro que quiere eliminar el registro?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.NovedadService.delete(id).
-              subscribe(data => {
-                Swal.fire(
-                  'Eliminado!',
-                  'Registro eliminado correctamente.',
-                  'success'
-                )
-                this.ngOnInit();
-              });
-          }
-        })
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al intentar navegar al formulario de creación.'
+        });
+      }
+    );
   }
 }

@@ -33,7 +33,7 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.obramunicipio.id = this.activateRoute.snapshot.params.id  
+      this.obramunicipio.id = this.activateRoute.snapshot.params.id
       this.getObraMunicipio(this.obramunicipio.id)
     }
   }
@@ -49,7 +49,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['obramunicipio/list'])
+    this.router.navigate(['obra-municipio/list'])
   }
   create() {
     this.someObraMunicipio.create(this.obramunicipio).subscribe({
@@ -60,7 +60,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/obramunicipio/list']);
+        this.router.navigate(['/obra-municipio/list']);
       },
       error: (error) => {
         console.error('Error creating obramunicipio:', error);
@@ -76,7 +76,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/obramunicipio/list']);
+        this.router.navigate(['/obra-municipio/list']);
       },
       error: (error) => {
         console.error('Error updating obramunicipio:', error);
@@ -95,7 +95,7 @@ export class ManageComponent implements OnInit {
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.someObraMunicipio.delete(id).
           subscribe(data => {
             Swal.fire(
@@ -107,6 +107,6 @@ export class ManageComponent implements OnInit {
           });
       }
     })
-}
+  }
 
 }

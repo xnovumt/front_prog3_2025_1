@@ -4,6 +4,4 @@ export class Obra {
     id?: number;
     nombre?: string;
     combo_id?: string;
-    combo: number;
-    municipios: Municipio;
 }

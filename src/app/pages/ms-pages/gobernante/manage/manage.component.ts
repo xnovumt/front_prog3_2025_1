@@ -20,7 +20,11 @@ export class ManageComponent implements OnInit {
     private someGobernante: GobernanteService,
     private router: Router
   ) {
-    this.gobernante = { id: 0 }
+    this.gobernante = {
+      id: 0,
+      tipo: 'municipio', // Default type
+      territorio: {} // Initialize territorio object
+    };
   }
 
   ngOnInit(): void {
@@ -49,7 +53,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['gobernante/list'])
+    this.router.navigate(['gobernantes/list'])
   }
   create() {
     this.someGobernante.create(this.gobernante).subscribe({
@@ -60,7 +64,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/gobernante/list']);
+        this.router.navigate(['/gobernantes/list']);
       },
       error: (error) => {
         console.error('Error creating gobernante:', error);
@@ -76,7 +80,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/gobernante/list']);
+        this.router.navigate(['/gobernantes/list']);
       },
       error: (error) => {
         console.error('Error updating gobernante:', error);

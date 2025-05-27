@@ -25,6 +25,11 @@
             <div class="col-9"><input type="text" class="form-control"
                 [(ngModel)]="especialidadmaquinaria.tipo_servicio_id" [disabled]="mode==1">
             </div>
+            <div class="col-8">
+              <select class="form-control" formControlName="idTipoServicio"  [(ngModel)="especialidadmaquinaria.tipo_servicio_id.id"]>
+                <option *ngFor="let option of tipo_servicios" [value]="option.id"></option>
+              </select>
+            </div>
           </div>
           <br>
           <div class="row">

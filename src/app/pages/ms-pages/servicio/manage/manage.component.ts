@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Servicio } from 'src/app/models/servicio.model';
 import { ServicioService } from 'src/app/services/servicioService/servicio.service';
@@ -13,12 +14,17 @@ export class ManageComponent implements OnInit {
 
   mode: number; //1->View, 2->Create, 3-> Update
   servicio: Servicio;
+  theFormGroup: FormGroup; // Form Police
+      trySend: boolean
 
   constructor(private activateRoute: ActivatedRoute,
     private someServicio: ServicioService,
-    private router: Router
+    private router: Router,
+    private theFormBuilder: FormBuilder,
   ) {
-    this.servicio = { id: 0 }
+    this.servicio = { id: 0 };
+    this.configFormGroup();
+    this.trySend = false
   }
 
   ngOnInit(): void {
@@ -50,6 +56,7 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['servicios/list'])
   }
   create() {
+    this.trySend = true;
     this.someServicio.create(this.servicio).subscribe({
       next: () => {
         Swal.fire({
@@ -107,5 +114,23 @@ export class ManageComponent implements OnInit {
           });
       }
     })
+  }
+
+  configFormGroup(): FormGroup {
+      return this.theFormBuilder.group({ 
+        costo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+        f_inicio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+        f_fin: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+        prioridad: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+        tipo: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+        estado: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+        ubicacion: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+        resumen: ['', [Validators.minLength(2), Validators.maxLength(255)]]
+
+      });
+    }
+  
+  get getTheFormGroup() {
+    return this.theFormGroup.controls
   }
 }

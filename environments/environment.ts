@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url_ms_cinema: 'http://localhost:3333'
+  url_ms_cinema: 'http://ms-negocio:3001'
 };
 
 /*

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EspecialidadMaquinaria } from 'src/app/models/especialidad-maquinaria.model';
+import { TipoServicio } from 'src/app/models/tipo-servicio.model';
 import { EspecialidadMaquinariaService } from 'src/app/services/especialidadMaquinariaService/especialidad-maquina.service';
+import { TipoServicioService } from 'src/app/services/tipoServicioService/tipo-servicio.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,12 +16,27 @@ export class ManageComponent implements OnInit {
 
   mode: number; //1->View, 2->Create, 3-> Update
   especialidadmaquinaria: EspecialidadMaquinaria;
+              theFormGroup: FormGroup; // Form Police
+              trySend: boolean;
+              tipo_servicios: TipoServicio[]
 
   constructor(private activateRoute: ActivatedRoute,
     private someEspecialidadMaquinaria: EspecialidadMaquinariaService,
-    private router: Router
+    private router: Router,
+    private theFormBuilder: FormBuilder,
+    private tipoServicioService: TipoServicioService
   ) {
-    this.especialidadmaquinaria = { id: 0 }
+    this.tipo_servicios=[];
+    this.especialidadmaquinaria = { id: 0, tipo_servicio_id: { id: 0}};
+            this.configFormGroup();
+    this.trySend = false
+  }
+
+
+  tipoServiciosList() {
+    this.tipoServicioService.list().subscribe(data=>{
+      this.tipo_servicios=data
+    })
   }
 
   ngOnInit(): void {
@@ -50,6 +68,7 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['especialidad-maquinaria/list'])
   }
   create() {
+    this.trySend = true
     this.someEspecialidadMaquinaria.create(this.especialidadmaquinaria).subscribe({
       next: (especialidadmaquinaria) => {
         console.log('especialidadmaquinaria created successfully:', especialidadmaquinaria);
@@ -145,6 +164,18 @@ export class ManageComponent implements OnInit {
         });
       }
     );
+  }
+
+                          get getTheFormGroup() {
+                            return this.theFormGroup.controls
+                          }
+                        
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      tipo_servicio_id: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
+      tipo_trabajo: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
+      idTipoServicio:[null, Validators.required],
+    })
   }
 
 }

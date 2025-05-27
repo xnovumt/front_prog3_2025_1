@@ -4,6 +4,7 @@ import { TipoServicio } from 'src/app/models/tipo-servicio.model';
 import { TipoServicioService } from 'src/app/services/tipoServicioService/tipo-servicio.service';
 import { SeguroService } from 'src/app/services/seguroService/seguro.service';
 import Swal from 'sweetalert2';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-manage',
@@ -14,12 +15,18 @@ export class ManageComponent implements OnInit {
 
   mode: number; //1->View, 2->Create, 3-> Update
   tiposervicio: TipoServicio;
+      theFormGroup: FormGroup; // Form Police
+    trySend: boolean
+  
 
   constructor(private activateRoute: ActivatedRoute,
     private someTipoServicio: TipoServicioService,
-    private router: Router
+    private router: Router,
+    private theFormBuilder: FormBuilder,
   ) {
     this.tiposervicio = { id: 0 };
+        this.configFormGroup();
+    this.trySend = false
   }
 
   ngOnInit(): void {
@@ -51,6 +58,7 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['tiposervicio/list'])
   }
   create() {
+    this.trySend = true;
     this.someTipoServicio.create(this.tiposervicio).subscribe({
       next: (tiposervicio) => {
         console.log('tiposervicio created successfully:', tiposervicio);
@@ -107,4 +115,15 @@ export class ManageComponent implements OnInit {
       }
     })
   }
+configFormGroup(): FormGroup {
+    return this.theFormBuilder.group({ 
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      descripcion: ['', [Validators.minLength(2), Validators.maxLength(255)]]
+    });
+  }
+
+get getTheFormGroup() {
+  return this.theFormGroup.controls
+}
+
 }
