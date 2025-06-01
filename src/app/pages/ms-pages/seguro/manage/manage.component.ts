@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
-  
+
   mode: number; //1->View, 2->Create, 3-> Update
   seguro: Seguro;
   theFormGroup: FormGroup; // Form Police
-        trySend: boolean
+  trySend: boolean;
 
   constructor(private activateRoute: ActivatedRoute,
     private someSeguro: SeguroService,
@@ -23,28 +23,34 @@ export class ManageComponent implements OnInit {
     private theFormBuilder: FormBuilder,
   ) {
     this.seguro = { id: 0 };
-    this.configFormGroup();
-    this.trySend = false
+    this.theFormGroup = this.configFormGroup(); // Inicializa el FormGroup
+    this.trySend = false;
   }
 
   ngOnInit(): void {
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
+      this.theFormGroup.disable(); // Deshabilitar el formulario en modo vista
+      this.getSeguro(this.seguro.id);
     } else if (currentUrl.includes('create')) {
       this.mode = 2;
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
+      this.getSeguro(this.seguro.id);
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.seguro.id = this.activateRoute.snapshot.params.id
-      this.getSeguro(this.seguro.id)
+      this.seguro.id = this.activateRoute.snapshot.params.id;
+      if (this.mode === 3) {
+        this.getSeguro(this.seguro.id);
+      }
     }
   }
   getSeguro(id: number) {
     this.someSeguro.view(id).subscribe({
       next: (seguro) => {
         this.seguro = seguro;
+        this.theFormGroup.patchValue(seguro); // Carga los datos en el formulario
         console.log('seguro fetched successfully:', this.seguro);
       },
       error: (error) => {
@@ -53,46 +59,51 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['seguros/list'])
+    this.router.navigate(['seguros/list']);
   }
   create() {
     this.trySend = true;
-    this.someSeguro.create(this.seguro).subscribe({
-      next: (seguro) => {
-        console.log('seguro created successfully:', seguro);
-        Swal.fire({
-          title: 'Creado!',
-          text: 'Registro creado correctamente.',
-          icon: 'success',
-        })
-        this.router.navigate(['/seguros/list']);
-      },
-      error: (error) => {
-        console.error('Error creating seguro:', error);
-      }
-    });
+    if (this.theFormGroup.valid) {
+      this.someSeguro.create(this.theFormGroup.value).subscribe({ // Usa theFormGroup.value
+        next: (seguro) => {
+          console.log('seguro created successfully:', seguro);
+          Swal.fire({
+            title: 'Creado!',
+            text: 'Registro creado correctamente.',
+            icon: 'success',
+          });
+          this.router.navigate(['/seguros/list']);
+        },
+        error: (error) => {
+          console.error('Error creating seguro:', error);
+        }
+      });
+    }
   }
   update() {
-    this.someSeguro.update(this.seguro).subscribe({
-      next: (seguro) => {
-        console.log('seguro updated successfully:', seguro);
-        Swal.fire({
-          title: 'Actualizado!',
-          text: 'Registro actualizado correctamente.',
-          icon: 'success',
-        })
-        this.router.navigate(['/seguros/list']);
-      },
-      error: (error) => {
-        console.error('Error updating seguro:', error);
-      }
-    });
+    this.trySend = true;
+    if (this.theFormGroup.valid) {
+      this.someSeguro.update(this.theFormGroup.value).subscribe({ // Usa theFormGroup.value
+        next: (seguro) => {
+          console.log('seguro updated successfully:', seguro);
+          Swal.fire({
+            title: 'Actualizado!',
+            text: 'Registro actualizado correctamente.',
+            icon: 'success',
+          });
+          this.router.navigate(['/seguros/list']);
+        },
+        error: (error) => {
+          console.error('Error updating seguro:', error);
+        }
+      });
+    }
   }
   delete(id: number) {
     console.log("Delete seguro with id:", id);
     Swal.fire({
       title: 'Eliminar',
-      text: "Está seguro que quiere eliminar el registro?",
+      text: "¿Está seguro que quiere eliminar el registro?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -107,23 +118,22 @@ export class ManageComponent implements OnInit {
               'Eliminado!',
               'Registro eliminado correctamente.',
               'success'
-            )
+            );
             this.ngOnInit();
           });
       }
-    })
+    });
   }
 
+  configFormGroup(): FormGroup {
+    return this.theFormBuilder.group({
+      id: [{ value: 0, disabled: true }], // Incluye el ID en el FormGroup
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      descripcion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    });
+  }
 
-    configFormGroup(): FormGroup {
-        return this.theFormBuilder.group({ 
-          nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-          descripcion: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-  
-        });
-      }
-    
-    get getTheFormGroup() {
-      return this.theFormGroup.controls
-    }
+  get getTheFormGroup() {
+    return this.theFormGroup.controls;
+  }
 }

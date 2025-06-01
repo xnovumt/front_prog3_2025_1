@@ -95,6 +95,7 @@
                 <input type="text" class="form-control" [(ngModel)]="servicio.ubicacion"
                        formControlName="ubicacion" [disabled]="mode==1">
                 <div *ngIf="theFormGroup.get('ubicacion')?.errors && (theFormGroup.get('ubicacion')?.dirty || theFormGroup.get('ubicacion')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('ubicacion')?.errors?.['required']" class="msnError">Requerido</strong>
                   <strong *ngIf="theFormGroup.get('ubicacion')?.errors?.['minlength']" class="msnError">Mínimo {{ theFormGroup.get('ubicacion')?.errors?.['minlength']?.requiredLength }} caracteres</strong>
                   <strong *ngIf="theFormGroup.get('ubicacion')?.errors?.['maxlength']" class="msnError">Máximo {{ theFormGroup.get('ubicacion')?.errors?.['maxlength']?.requiredLength }} caracteres</strong>
                 </div>
@@ -106,6 +107,7 @@
               <div class="col-9">
                 <input type="text" class="form-control" [(ngModel)]="servicio.resumen"
                        formControlName="resumen" [disabled]="mode==1">
+                       <strong *ngIf="theFormGroup.get('resumen')?.errors?.['required']" class="msnError">Requerido</strong>
                 <div *ngIf="theFormGroup.get('resumen')?.errors && (theFormGroup.get('resumen')?.dirty || theFormGroup.get('resumen')?.touched || trySend)">
                   <strong *ngIf="theFormGroup.get('resumen')?.errors?.['minlength']" class="msnError">Mínimo {{ theFormGroup.get('resumen')?.errors?.['minlength']?.requiredLength }} caracteres</strong>
                   <strong *ngIf="theFormGroup.get('resumen')?.errors?.['maxlength']" class="msnError">Máximo {{ theFormGroup.get('resumen')?.errors?.['maxlength']?.requiredLength }} caracteres</strong>

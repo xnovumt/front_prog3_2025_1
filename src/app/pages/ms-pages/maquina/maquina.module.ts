@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListMaquinaComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 import { MaquinaRoutingModule } from './maquina-routing.module';
@@ -16,7 +16,8 @@ import { MaquinaRoutingModule } from './maquina-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    MaquinaRoutingModule
+    MaquinaRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class MaquinaModule {}

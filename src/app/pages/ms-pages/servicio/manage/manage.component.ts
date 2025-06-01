@@ -70,7 +70,7 @@ getService(id: number) {
             text: 'Registro creado correctamente.',
             icon: 'success'
           }).then(() => {
-            this.router.navigate(['/servicio/list']); // Redirigir a la lista
+            this.router.navigate(['/servicios/list']); // Redirigir a la lista
           });
         },
         error: (error) => {
@@ -94,7 +94,7 @@ update() {
             text: 'Registro actualizado correctamente.',
             icon: 'success'
           }).then(() => {
-            this.router.navigate(['/servicio/list']);
+            this.router.navigate(['/servicios/list']);
           });
         },
         error: (error) => {
@@ -139,8 +139,8 @@ configFormGroup(): FormGroup {
     prioridad: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     tipo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     estado: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
-    ubicacion: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-    resumen: ['', [Validators.minLength(2), Validators.maxLength(255)]]
+    ubicacion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    resumen: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]]
   });
 }
 

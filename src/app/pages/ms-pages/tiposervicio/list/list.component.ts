@@ -26,7 +26,7 @@ export class ListTipoServicioComponent implements OnInit {
 
   // Methods for edit and delete (adjust ID type based on your model)
   edit(id: number) {
-    this.router.navigate(['/tiposervicio/update', id])
+    this.router.navigate(['/tiposervicios/update', id])
     // Implement navigation
   }
 
@@ -56,7 +56,7 @@ export class ListTipoServicioComponent implements OnInit {
     });
   }
   navigateToCreate() {
-    this.router.navigate(['/tiposervicio/create']).then(
+    this.router.navigate(['/tiposervicios/create']).then(
       success => {
         if (success) {
           Swal.fire({

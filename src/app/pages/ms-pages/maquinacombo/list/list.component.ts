@@ -36,7 +36,7 @@ export class ListMaquinaComboComponent implements OnInit {
       return;
     }
 
-    this.router.navigate([`/maquina-combo/update`, id]).then(
+    this.router.navigate([`/maquina-combos/update`, id]).then(
       success => {
         if (success) {
           Swal.fire({
@@ -89,7 +89,7 @@ export class ListMaquinaComboComponent implements OnInit {
     });
   }
   navigateToCreate() {
-    this.router.navigate(['maquina-combo/create']).then(
+    this.router.navigate(['maquina-combos/create']).then(
       success => {
         if (success) {
           Swal.fire({

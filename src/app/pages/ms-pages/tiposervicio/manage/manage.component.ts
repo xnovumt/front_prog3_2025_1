@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
     private theFormBuilder: FormBuilder,
   ) {
     this.tiposervicio = { id: 0 };
-        this.configFormGroup();
+    this.theFormGroup = this.configFormGroup(); 
     this.trySend = false
   }
 
@@ -55,7 +55,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['tiposervicio/list'])
+    this.router.navigate(['tiposervicios/list'])
   }
   create() {
     this.trySend = true;
@@ -67,7 +67,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/tiposervicio/list']);
+        this.router.navigate(['/tiposervicios/list']);
       },
       error: (error) => {
         console.error('Error creating tiposervicio:', error);
@@ -83,7 +83,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         })
-        this.router.navigate(['/tiposervicio/list']);
+        this.router.navigate(['/tiposervicios/list']);
       },
       error: (error) => {
         console.error('Error updating tiposervicio:', error);
@@ -118,7 +118,7 @@ export class ManageComponent implements OnInit {
 configFormGroup(): FormGroup {
     return this.theFormBuilder.group({ 
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-      descripcion: ['', [Validators.minLength(2), Validators.maxLength(255)]]
+      descripcion: ['', [Validators.minLength(2), Validators.maxLength(255), Validators.required]] 
     });
   }
 

@@ -46,7 +46,7 @@ export class ManageComponent implements OnInit {
     });
   }
   back() {
-    this.router.navigate(['maquinacombo/list'])
+    this.router.navigate(['maquina-combos/list'])
   }
   create() {
     this.someMaquinaCombo.create(this.maquinacombo).subscribe({
@@ -57,7 +57,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         }).then(() => {
-          this.router.navigate(['/maquina-combo/list']);
+          this.router.navigate(['/maquina-combos/list']);
         });
       },
       error: (error) => {
@@ -74,7 +74,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         }).then(() => {
-          this.router.navigate(['/maquina-combo/list']);
+          this.router.navigate(['/maquina-combos/list']);
         });
       },
       error: (error) => {

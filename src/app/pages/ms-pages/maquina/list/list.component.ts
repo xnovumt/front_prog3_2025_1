@@ -34,7 +34,7 @@ export class ListMaquinaComponent implements OnInit {
       return;
     }
 
-    this.router.navigate([`/maquina/update`, id]).then(
+    this.router.navigate([`/maquinas/update`, id]).then(
       success => {
         if (success) {
           Swal.fire({
@@ -65,7 +65,7 @@ export class ListMaquinaComponent implements OnInit {
 viewAllMachines(): void {
     console.log('Botón Ver máquina en la cabecera clickeado.');
     if (this.maquinas.length > 0) {
-      this.router.navigate(['/maquina/view', this.maquinas[0].id]);
+      this.router.navigate(['/maquinas/view', this.maquinas[0].id]);
     } else {
       Swal.fire('Información', 'No hay máquinas disponibles para ver.', 'info');
     }
@@ -73,7 +73,7 @@ viewAllMachines(): void {
 
   // Función para ver los detalles de una máquina específica (botón en la fila)
   viewMachineDetails(id: number): void {
-    this.router.navigate(['/maquina/view', id]); // Navega a la página de detalles
+    this.router.navigate(['/maquinas/view', id]); // Navega a la página de detalles
   }
 
   delete(id: number) {
@@ -102,7 +102,7 @@ viewAllMachines(): void {
     });
   }
   navigateToCreate() {
-    this.router.navigate(['/maquina/create']).then(
+    this.router.navigate(['/maquinas/create']).then(
       success => {
         if (success) {
           Swal.fire({

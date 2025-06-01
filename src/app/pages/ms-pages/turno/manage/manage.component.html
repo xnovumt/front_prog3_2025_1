@@ -20,29 +20,35 @@
               <div class="col-3">Fecha</div>
               <div class="col-9">
                 <input type="date" class="form-control" formControlName="fecha" [disabled]="mode==1">
-                 <div *ngIf="theFormGroup.get('fecha')?.errors && (theFormGroup.get('fecha')?.dirty || theFormGroup.get('fecha')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup.get('fecha')?.errors?.['required']" class="msnError">Requerido</strong>
-                   </div>
+                <div *ngIf="theFormGroup?.get('fecha')?.errors && (theFormGroup?.get('fecha')?.dirty || theFormGroup?.get('fecha')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup?.get('fecha')?.errors?.['required']" class="msnError">Requerido</strong>
+                </div>
               </div>
             </div>
             <br>
             <div class="row">
-              <div class="col-3">Operario ID</div>
+              <div class="col-3">Operario</div>
               <div class="col-9">
-                <input type="number" class="form-control" formControlName="operario_id" [disabled]="mode==1">
-                 <div *ngIf="theFormGroup.get('operario_id')?.errors && (theFormGroup.get('operario_id')?.dirty || theFormGroup.get('operario_id')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup.get('operario_id')?.errors?.['required']" class="msnError">Requerido</strong>
-                   </div>
+                <select class="form-control" formControlName="operario_id" [disabled]="mode==1">
+                  <option [value]="null" disabled>Seleccionar Operario</option>
+                  <option *ngFor="let operario of operarios" [value]="operario.id">{{ operario.nombre || operario.id }}</option>
+                </select>
+                <div *ngIf="theFormGroup?.get('operario_id')?.errors && (theFormGroup?.get('operario_id')?.dirty || theFormGroup?.get('operario_id')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup?.get('operario_id')?.errors?.['required']" class="msnError">Requerido</strong>
+                </div>
               </div>
             </div>
             <br>
             <div class="row">
-              <div class="col-3">Maquina ID</div>
+              <div class="col-3">Máquina</div>
               <div class="col-9">
-                <input type="number" class="form-control" formControlName="maquina_id" [disabled]="mode==1">
-                 <div *ngIf="theFormGroup.get('maquina_id')?.errors && (theFormGroup.get('maquina_id')?.dirty || theFormGroup.get('maquina_id')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup.get('maquina_id')?.errors?.['required']" class="msnError">Requerido</strong>
-                   </div>
+                <select class="form-control" formControlName="maquina_id" [disabled]="mode==1">
+                  <option [value]="null" disabled>Seleccionar Máquina</option>
+                  <option *ngFor="let maquina of maquinas" [value]="maquina.id">{{ maquina.especialidad || maquina.id }}</option>
+                </select>
+                <div *ngIf="theFormGroup?.get('maquina_id')?.errors && (theFormGroup?.get('maquina_id')?.dirty || theFormGroup?.get('maquina_id')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup?.get('maquina_id')?.errors?.['required']" class="msnError">Requerido</strong>
+                </div>
               </div>
             </div>
             <br>
@@ -50,12 +56,12 @@
               <div class="col-3">Novedades</div>
               <div class="col-9">
                 <input type="number" class="form-control" formControlName="novedades" [disabled]="mode==1">
-                <div *ngIf="theFormGroup.get('novedades')?.errors && (theFormGroup.get('novedades')?.dirty || theFormGroup.get('novedades')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup.get('novedades')?.errors?.['required']" class="msnError">Requerido</strong>
-                  </div>
+                <div *ngIf="theFormGroup?.get('novedades')?.errors && (theFormGroup?.get('novedades')?.dirty || theFormGroup?.get('novedades')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup?.get('novedades')?.errors?.['required']" class="msnError">Requerido</strong>
+                </div>
               </div>
             </div>
-            </div>
+          </div>
         </form>
         <br>
         <div class="card-footer">
@@ -63,8 +69,8 @@
             <div class="col-3"></div>
             <div class="col-9">
               <button *ngIf="mode==1" class="btn btn-primary" (click)="back()">Volver</button>
-              <button *ngIf="mode==2" class="btn btn-primary" (click)="create()" [disabled]="theFormGroup.invalid && trySend">Crear</button>
-              <button *ngIf="mode==3" class="btn btn-primary" (click)="update()" [disabled]="theFormGroup.invalid && trySend">Update</button>
+              <button *ngIf="mode==2" class="btn btn-primary" (click)="create()" [disabled]="theFormGroup?.invalid && trySend">Crear</button>
+              <button *ngIf="mode==3" class="btn btn-primary" (click)="update()" [disabled]="theFormGroup?.invalid && trySend">Update</button>
             </div>
           </div>
         </div>
