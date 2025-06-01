@@ -7,46 +7,50 @@
         <div class="card-header bg-transparent">
           <h3 class="mb-0">Maquinas</h3>
           <button class="btn btn-primary float-right" (click)="navigateToCreate()">Crear máquina</button>
+          <button class="btn btn-sm btn-success float-right mr-2" (click)="viewAllMachines()">
+            <i class="fas fa-eye"></i> Ver máquina
+          </button>
         </div>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table align-items-center table-flush">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Especialidad</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Ubicación</th>
-                <th scope="col">Disponibilidad</th>
-                <th scope="col">Fecha Asignación</th>
-                <th scope="col">Fecha Retiro</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let machine of maquinas">
-                <td>{{ machine.id }}</td>
-                <td>{{ machine.especialidad }}</td>
-                <td>{{ machine.marca }}</td>
-                <td>{{ machine.modelo }}</td>
-                <td>{{ machine.estado }}</td>
-                <td>{{ machine.ubicacion }}</td>
-                <td>{{ machine.disponibilidad }}</td>
-                <td>{{ machine.fecha_asignacion }}</td>
-                <td>{{ machine.fecha_retiro }}</td>
-                <td>
-                  <button class="btn btn-sm btn-primary" (click)="edit(machine.id)">Editar</button>
-                  <button class="btn btn-sm btn-danger" (click)="delete(machine.id)">Eliminar</button>
-                </td>
-              </tr>
-              <tr *ngIf="maquinas.length === 0">
-                <td colspan="5" class="text-center">No hay maquinarias disponibles.</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Especialidad</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Ubicación</th>
+                  <th scope="col">Disponibilidad</th>
+                  <th scope="col">Fecha Asignación</th>
+                  <th scope="col">Fecha Retiro</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let machine of maquinas">
+                  <td>{{ machine.id }}</td>
+                  <td>{{ machine.especialidad }}</td>
+                  <td>{{ machine.marca }}</td>
+                  <td>{{ machine.modelo }}</td>
+                  <td>{{ machine.estado }}</td>
+                  <td>{{ machine.ubicacion }}</td>
+                  <td>{{ machine.disponibilidad }}</td>
+                  <td>{{ machine.fecha_asignacion }}</td>
+                  <td>{{ machine.fecha_retiro }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-primary" (click)="edit(machine.id)">Editar</button>
+                    <button class="btn btn-sm btn-danger ml-1" (click)="delete(machine.id)">Eliminar</button>
+                    <button class="btn btn-sm btn-info ml-1" (click)="viewMachineDetails(machine.id)">Ver</button>
+                  </td>
+                </tr>
+                <tr *ngIf="maquinas.length === 0">
+                  <td colspan="10" class="text-center">No hay maquinarias disponibles.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export class ManageComponent implements OnInit {
   mode: number; //1->View, 2->Create, 3-> Update
   servicio: Servicio;
   theFormGroup: FormGroup; // Form Police
-      trySend: boolean
+  trySend: boolean
 
   constructor(private activateRoute: ActivatedRoute,
     private someServicio: ServicioService,
@@ -23,7 +23,7 @@ export class ManageComponent implements OnInit {
     private theFormBuilder: FormBuilder,
   ) {
     this.servicio = { id: 0 };
-    this.configFormGroup();
+    this.theFormGroup = this.configFormGroup(); // Asigna el resultado a theFormGroup
     this.trySend = false
   }
 
@@ -41,54 +41,68 @@ export class ManageComponent implements OnInit {
       this.getService(this.servicio.id)
     }
   }
-  getService(id: number) {
-    this.someServicio.view(id).subscribe({
-      next: (service) => {
-        this.servicio = service;
-        console.log('Service fetched successfully:', this.servicio);
-      },
-      error: (error) => {
-        console.error('Error fetching service:', error);
+getService(id: number) {
+  this.someServicio.view(id).subscribe({
+    next: (service) => {
+      this.servicio = service;
+      console.log('Service fetched successfully:', this.servicio);
+      this.theFormGroup.patchValue(this.servicio);
+      // Habilitar el campo ID solo si estamos en modo edición para mostrar el valor
+      if (this.mode === 3) {
+        this.theFormGroup.get('id')?.enable();
       }
-    });
-  }
+    },
+    error: (error) => {
+      console.error('Error fetching service:', error);
+    }
+  });
+}
   back() {
     this.router.navigate(['servicios/list'])
   }
   create() {
     this.trySend = true;
-    this.someServicio.create(this.servicio).subscribe({
-      next: () => {
-        Swal.fire({
-          title: 'Creado!',
-          text: 'Registro creado correctamente.',
-          icon: 'success'
-        }).then(() => {
-          this.router.navigate(['/servicio/list']); // Redirigir a la lista
-        });
-      },
-      error: (error) => {
-        console.error('Error al crear:', error);
-        Swal.fire('Error', 'No se pudo crear el registro.', 'error');
-      }
-    });
+    if (this.theFormGroup.valid) {
+      this.someServicio.create(this.theFormGroup.value).subscribe({ // Usa los valores del formulario
+        next: () => {
+          Swal.fire({
+            title: 'Creado!',
+            text: 'Registro creado correctamente.',
+            icon: 'success'
+          }).then(() => {
+            this.router.navigate(['/servicio/list']); // Redirigir a la lista
+          });
+        },
+        error: (error) => {
+          console.error('Error al crear:', error);
+          Swal.fire('Error', 'No se pudo crear el registro.', 'error');
+        }
+      });
+    }
   }
-  update() {
-    this.someServicio.update(this.servicio).subscribe({
-      next: () => {
-        Swal.fire({
-          title: 'Actualizado!',
-          text: 'Registro actualizado correctamente.',
-          icon: 'success'
-        }).then(() => {
-          this.router.navigate(['/servicio/list']); // Redirigir a la lista
-        });
-      },
-      error: (error) => {
-        console.error('Error al actualizar:', error);
-        Swal.fire('Error', 'No se pudo actualizar el registro.', 'error');
-      }
-    });
+update() {
+    this.trySend = true;
+    if (this.theFormGroup.valid) {
+      // Crea un nuevo objeto con los valores del formulario
+      const updatedData = { ...this.theFormGroup.value };
+
+      // Envía este objeto junto con el ID del servicio que ya tienes
+      this.someServicio.update({ ...updatedData, id: this.servicio.id }).subscribe({
+        next: () => {
+          Swal.fire({
+            title: 'Actualizado!',
+            text: 'Registro actualizado correctamente.',
+            icon: 'success'
+          }).then(() => {
+            this.router.navigate(['/servicio/list']);
+          });
+        },
+        error: (error) => {
+          console.error('Error al actualizar:', error);
+          Swal.fire('Error', 'No se pudo actualizar el registro.', 'error');
+        }
+      });
+    }
   }
   delete(id: number) {
     console.log("Delete servicio with id:", id);
@@ -116,20 +130,20 @@ export class ManageComponent implements OnInit {
     })
   }
 
-  configFormGroup(): FormGroup {
-      return this.theFormBuilder.group({ 
-        costo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-        f_inicio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-        f_fin: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-        prioridad: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-        tipo: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-        estado: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-        ubicacion: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-        resumen: ['', [Validators.minLength(2), Validators.maxLength(255)]]
+configFormGroup(): FormGroup {
+  return this.theFormBuilder.group({
+    id: [{ value: 0, disabled: true }], // Inicializa y deshabilita el campo 'id'
+    costo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    f_inicio: ['', Validators.required],
+    f_fin: ['', Validators.required],
+    prioridad: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    tipo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    estado: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    ubicacion: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+    resumen: ['', [Validators.minLength(2), Validators.maxLength(255)]]
+  });
+}
 
-      });
-    }
-  
   get getTheFormGroup() {
     return this.theFormGroup.controls
   }

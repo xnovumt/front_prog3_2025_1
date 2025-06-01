@@ -15,4 +15,5 @@ export class Maquina {
     disponibilidad?: string;
     fecha_asignacion?: Date;
     fecha_retiro?: Date;
+    gps?: GPS;
 }

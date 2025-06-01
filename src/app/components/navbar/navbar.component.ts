@@ -2,6 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { SecurityService } from 'src/app/services/securityService/security.service';
+import { User } from 'src/app/models/user.model';
+import { WebSocketService } from 'src/app/services/web-socket-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -12,12 +16,24 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  user: User;
+  subscription: Subscription
+  constructor(location: Location,  private element: ElementRef, private router: Router, private securityService: SecurityService, private webSocketService: WebSocketService) {
     this.location = location;
+    this.subscription = this.securityService.getUser().subscribe(user => {
+      
+      this.user = user;
+     }
+    )
   }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.webSocketService.setNameEvent("notifications");
+    this.webSocketService.callback.subscribe((res: any) =>{
+      console.log();
+      
+    })
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());

@@ -51,7 +51,10 @@ export class ManageComponent implements OnInit {
   back() {
     this.router.navigate(['maquina/list'])
   }
-  create() {
+create() {
+    // Antes de enviar, asegúrate de que this.maquina.id sea undefined o null
+    this.maquina.id = undefined; // O this.maquina.id = null;
+
     console.log('Payload enviado al backend:', this.maquina); // Log para depuración
     this.someMaquina.create(this.maquina).subscribe({
       next: (maquina) => {

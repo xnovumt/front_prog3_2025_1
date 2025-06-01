@@ -23,7 +23,6 @@ export class ListMaquinaComponent implements OnInit {
       this.maquinas = data; // Asigna los datos a la propiedad machineries
     });
   }
-
   // Métodos para editar y eliminar (ajusta el tipo de ID según tu modelo Maquina)
   edit(id: number) {
     if (isNaN(id)) {
@@ -60,6 +59,21 @@ export class ListMaquinaComponent implements OnInit {
         });
       }
     );
+  }
+
+  // Nueva función para el botón "Ver máquina" en la cabecera
+viewAllMachines(): void {
+    console.log('Botón Ver máquina en la cabecera clickeado.');
+    if (this.maquinas.length > 0) {
+      this.router.navigate(['/maquina/view', this.maquinas[0].id]);
+    } else {
+      Swal.fire('Información', 'No hay máquinas disponibles para ver.', 'info');
+    }
+  }
+
+  // Función para ver los detalles de una máquina específica (botón en la fila)
+  viewMachineDetails(id: number): void {
+    this.router.navigate(['/maquina/view', id]); // Navega a la página de detalles
   }
 
   delete(id: number) {
