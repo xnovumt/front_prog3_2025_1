@@ -30,4 +30,8 @@ export class GPSService {
   delete(id: number) {
     return this.http.delete<GPS>(`${environment.url_ms_cinema}/gps/${id}`);
   }
+
+  getGPSData(): Observable<GPS[]> {
+    return this.http.get<GPS[]>(`${environment.url_ms_cinema}/gps`);
+  }
 }

@@ -1,0 +1,12 @@
+#sidenav-main {
+  position: fixed;
+  top: 56px; /* Altura de la navbar */
+  bottom: 0;
+  width: 250px;
+  z-index: 1020;
+  background-color: #f8f9fa;
+}
+
+.container-fluid {
+  padding: 0;
+}

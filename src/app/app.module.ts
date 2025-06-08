@@ -25,12 +25,12 @@ import { NonAuthenticatedGuard } from './guards/non-authenticated.guard';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    
+
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent,
+    AuthLayoutComponent
   ],
   providers: [
     {

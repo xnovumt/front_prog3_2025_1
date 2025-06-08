@@ -26,8 +26,31 @@ export class ListTipoServicioComponent implements OnInit {
 
   // Methods for edit and delete (adjust ID type based on your model)
   edit(id: number) {
-    this.router.navigate(['/tiposervicios/update', id])
-    // Implement navigation
+    this.router.navigate(['/tiposervicio/update', id]).then(
+      success => {
+        if (success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Redirigido',
+            text: 'Navegación exitosa al formulario de edición.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar al formulario de edición.'
+          });
+        }
+      },
+      error => {
+        console.error('Error al navegar:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al intentar navegar al formulario de edición.'
+        });
+      }
+    );
   }
 
   delete(id: number) {
@@ -56,7 +79,7 @@ export class ListTipoServicioComponent implements OnInit {
     });
   }
   navigateToCreate() {
-    this.router.navigate(['/tiposervicios/create']).then(
+    this.router.navigate(['/tiposervicio/create']).then(
       success => {
         if (success) {
           Swal.fire({

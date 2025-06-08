@@ -44,7 +44,7 @@ export class ListServicioComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/servicios/update', id]).then(
+    this.router.navigate(['/servicio/update', id]).then(
       success => {
         if (success) {
           Swal.fire({
@@ -97,10 +97,10 @@ export class ListServicioComponent implements OnInit {
     });
   }
   view(id: number) {
-    this.router.navigate(['/servicios/list'])
+    this.router.navigate(['/servicio/list'])
   }
   navigateToCreate() {
-    this.router.navigate(['/servicios/create']).then(
+    this.router.navigate(['/servicio/create']).then(
       success => {
         if (success) {
           Swal.fire({

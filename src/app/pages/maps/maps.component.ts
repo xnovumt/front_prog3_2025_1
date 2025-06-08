@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-declare const google: any;
+import { GPSService } from '../../services/gpsService/gps.service';
+import { GPS } from '../../models/gps.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-maps',
@@ -7,50 +9,44 @@ declare const google: any;
   styleUrls: ['./maps.component.scss']
 })
 export class MapsComponent implements OnInit {
+  gpsData: GPS[] = [];
+  mapUrl: SafeResourceUrl = '';
 
-  constructor() { }
+  constructor(private gpsService: GPSService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    let map = document.getElementById('map-canvas');
-    let lat = map.getAttribute('data-lat');
-    let lng = map.getAttribute('data-lng');
+    // Cargar mapa por defecto primero
+    this.loadDefaultMap();
 
-    var myLatlng = new google.maps.LatLng(lat, lng);
-    var mapOptions = {
-        zoom: 12,
-        scrollwheel: false,
-        center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: [
-          {"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},
-          {"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},
-          {"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},
-          {"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},
-          {"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},
-          {"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},
-          {"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},
-          {"featureType":"water","elementType":"all","stylers":[{"color":'#5e72e4'},{"visibility":"on"}]}]
-    }
-
-    map = new google.maps.Map(map, mapOptions);
-
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: 'Hello World!'
-    });
-
-    var contentString = '<div class="info-window-content"><h2>Argon Dashboard</h2>' +
-        '<p>A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</p></div>';
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map, marker);
-    });
+    // Luego intentar cargar datos GPS
+    this.gpsService.getGPSData().subscribe(
+      data => {
+        this.gpsData = data;
+        console.log('GPS data loaded:', this.gpsData);
+        if (this.gpsData.length > 0) {
+          this.loadMapWithGPS();
+        }
+      },
+      error => {
+        console.error('Error loading GPS data:', error);
+      }
+    );
   }
 
+  loadDefaultMap() {
+    // Mapa por defecto en Manizales
+    const googleMapsUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.178638521779!2d-75.5874126852378!3d5.05977899668375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e47a41948415475%3A0xdd1309595078905!2sLa%20Maquina%20Burger%20Manizales!5e0!3m2!1ses-419!2sco!4v1717218943942!5m2!1ses-419!2sco`;
+    this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(googleMapsUrl);
+    console.log('Default map loaded');
+  }
+
+  loadMapWithGPS() {
+    const firstGPS = this.gpsData[0];
+    console.log('Using GPS coordinates:', firstGPS);
+
+    // Generar URL del mapa embed usando las coordenadas GPS reales
+    const googleMapsUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.178638521779!2d${firstGPS.longitud}!3d${firstGPS.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e47a41948415475%3A0xdd1309595078905!2sMachine%20Location!5e0!3m2!1ses-419!2sco!4v1717218943942!5m2!1ses-419!2sco`;
+    this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(googleMapsUrl);
+    console.log('Map URL generated with GPS:', googleMapsUrl);
+  }
 }
