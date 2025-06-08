@@ -10,25 +10,47 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  user: User
-  constructor(private securityService: SecurityService,private router:Router) {
-    this.user = { email: "", password: "" }
+  user: User;
+  twoFactorCode: string = "";
+  isTwoFactorEnabled: boolean = false;
+  userId: string = ""; // Almacenar el ID del usuario para la segunda etapa
+
+  constructor(private seguridadService: SecurityService, private router: Router) {
+    this.user = { email: "", password: "" };
   }
+
   login() {
-    this.securityService.login(this.user).subscribe({
-      next: (data) => {
-        this.securityService.saveSession(data)
-        this.router.navigate(["dashboard"])
-      },
-      error: (error) => {
-        Swal.fire("Autenticación Inválida", "Usuario o contraseña inválido", "error")
-      }
-    })
+    if (!this.isTwoFactorEnabled) {
+      // Primera etapa: Validar credenciales
+      this.seguridadService.login(this.user.email, this.user.password).subscribe({
+        next: (data: any) => {
+          this.userId = data.user._id; // Guardar el ID del usuario para la segunda etapa
+          this.isTwoFactorEnabled = true;
+          Swal.fire("Por favor, ingrese el código enviado a su correo.", "info");
+        },
+        error: (error: any) => {
+          Swal.fire("Error de autenticación", "Usuario o contraseña inválidos.", "error");
+        }
+      });
+    } else {
+      // Segunda etapa: Validar código 2FA
+      this.seguridadService.validateTwoFactor(this.twoFactorCode).subscribe({
+        next: (data: any) => {
+          this.seguridadService.saveSession(data);
+          this.router.navigate(["dashboard"]);
+        },
+        error: (error: any) => {
+          Swal.fire("Error de autenticación", "Código 2FA inválido.", "error");
+        }
+      });
+    }
   }
 
-  ngOnInit() {
-  }
-  ngOnDestroy() {
+  ngOnInit(): void {
+    // Inicialización del componente
   }
 
+  ngOnDestroy(): void {
+    // Limpieza del componente
+  }
 }
