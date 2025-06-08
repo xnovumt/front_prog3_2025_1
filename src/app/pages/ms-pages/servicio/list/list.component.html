@@ -1,57 +1,57 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(87deg, #000000 0%, #333333 100%) !important;">
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0">Servicios</h3>
-          <button class="btn btn-primary float-right" (click)="navigateToCreate()">Crear servicio</button>
+      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <h3 class="mb-0" style="color: #FFD700 !important;">Servicios</h3>
+          <button class="btn float-right" (click)="navigateToCreate()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear servicio</button>
         </div>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table align-items-center table-flush">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light" style="background-color: #333333 !important;">
+                <tr>
+                  <th scope="col" style="color: #222222 !important;">ID</th>
+                  <th scope="col" style="color: #222222 !important;">Costo</th>
+                  <th scope="col" style="color: #222222 !important;">Fecha Inicio</th>
+                  <th scope="col" style="color: #222222 !important;">Fecha Fin</th>
+                  <th scope="col" style="color: #222222 !important;">Prioridad</th>
+                  <th scope="col" style="color: #222222 !important;">Tipo</th>
+                  <th scope="col" style="color: #222222 !important;">Estado</th>
+                  <th scope="col" style="color: #222222 !important;">Ubicación</th>
+                  <th scope="col" style="color: #222222 !important;">Resumen</th>
+                  <th scope="col" style="color: #222222 !important;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody style="background-color: #222222 !important;">
+                <tr *ngFor="let servicio of servicios" style="color: #AAAAAA !important;">
+                  <td>{{ servicio.id }}</td>
+                  <td>{{ servicio.costo }}</td>
+                  <td>{{ servicio.f_inicio | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ servicio.f_fin | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ servicio.prioridad }}</td>
+                  <td>{{ servicio.tipo }}</td>
+                  <td>{{ servicio.estado }}</td>
+                  <td>{{ servicio.ubicacion }}</td>
+                  <td>{{ servicio.resumen }}</td>
+                  <td>
+                    <button class="btn btn-sm" (click)="edit(servicio.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Editar</button>
+                    <button class="btn btn-sm ml-1" (click)="delete(servicio.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">ID</th> <th scope="col">Costo</th>
-                <th scope="col">Fecha Inicio</th>
-                <th scope="col">Fecha Fin</th>
-                <th scope="col">Prioridad</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Ubicación</th>
-                <th scope="col">Resumen</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let servicio of servicios">
-                <td>{{ servicio.id }}</td> <td>{{ servicio.costo }}</td>
-                <td>{{ servicio.f_inicio | date:'yyyy-MM-dd' }}</td>
-                <td>{{ servicio.f_fin | date:'yyyy-MM-dd' }}</td>
-                <td>{{ servicio.prioridad }}</td>
-                <td>{{ servicio.tipo }}</td>
-                <td>{{ servicio.estado }}</td>
-                <td>{{ servicio.ubicacion }}</td>
-                <td>{{ servicio.resumen }}</td>
-                <td>
-                  <button class="btn btn-sm btn-primary" (click)="edit(servicio.id)">Editar</button>
-                  <button class="btn btn-sm btn-danger" (click)="delete(servicio.id)">Eliminar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <div *ngIf="servicios && servicios.length === 0" class="text-center mt-3" style="color: #AAAAAA !important;">
+              <p>No hay servicios disponibles.</p>
+            </div>
 
-          <div *ngIf="servicios && servicios.length === 0" class="text-center mt-3">
-            <p>No hay servicios disponibles.</p>
+            <div *ngIf="!servicios" class="text-center mt-3" style="color: #AAAAAA !important;">
+              <p>Cargando servicios...</p>
+            </div>
           </div>
-
-          <div *ngIf="!servicios" class="text-center mt-3">
-            <p>Cargando servicios...</p>
-          </div>
-
         </div>
       </div>
     </div>

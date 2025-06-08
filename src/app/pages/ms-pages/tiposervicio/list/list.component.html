@@ -1,38 +1,36 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(87deg, #000000 0%, #333333 100%) !important;">
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0">Tipos de Servicio</h3>
-          <button class="btn btn-primary float-right" (click)="navigateToCreate()">Crear tipo servicio</button>
-        </div>
+      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <h3 class="mb-0" style="color: #FFD700 !important;">Tipos de Servicio</h3>
+          <button class="btn float-right" (click)="navigateToCreate()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear tipo servicio</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
-              <thead class="thead-light">
+              <thead class="thead-light" style="background-color: #333333 !important;">
                 <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col" style="color: #FFD700 !important;">ID</th>
+                  <th scope="col" style="color: #FFD700 !important;">Nombre</th>
+                  <th scope="col" style="color: #FFD700 !important;">Descripción</th>
+                  <th scope="col" style="color: #FFD700 !important;">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let tiposervicio of TipoServicios">
-                  <td>{{ tiposervicio.id }}</td>  
+              <tbody style="background-color: #222222 !important;">
+                <tr *ngFor="let tiposervicio of TipoServicios" style="color: #AAAAAA !important;">
+                  <td>{{ tiposervicio.id }}</td>
                   <td>{{ tiposervicio.nombre }}</td>
                   <td>{{ tiposervicio.descripcion }}</td>
-                  <td>{{ tiposervicio.maquinarias }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(tiposervicio.id)">Edit</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(tiposervicio.id)">Delete</button>
+                    <button class="btn btn-sm" (click)="edit(tiposervicio.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Edit</button>
+                    <button class="btn btn-sm ml-1" (click)="delete(tiposervicio.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Delete</button>
                   </td>
                 </tr>
                 <tr *ngIf="TipoServicios.length === 0">
-                  <td colspan="4" class="text-center">No service types available.</td>
+                  <td colspan="4" class="text-center" style="color: #AAAAAA !important;">No service types available.</td>
                 </tr>
               </tbody>
             </table>
@@ -41,3 +39,4 @@
       </div>
     </div>
   </div>
+</div>

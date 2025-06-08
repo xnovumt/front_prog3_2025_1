@@ -12,7 +12,7 @@ declare interface RouteInfo {
                 //2->No importa
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '',type:2 },
+    { path: '/tablero', title: 'Tablero',  icon: 'ni-tv-2 text-primary', class: '',type:2 },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '',type:1 },
     { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '',type:1 },
     { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '',type:1 },

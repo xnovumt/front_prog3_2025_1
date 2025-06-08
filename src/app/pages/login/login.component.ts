@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.seguridadService.validateTwoFactor(this.twoFactorCode).subscribe({
         next: (data: any) => {
           this.seguridadService.saveSession(data);
-          this.router.navigate(["dashboard"]);
+          this.router.navigate(["tablero"]);
         },
         error: (error: any) => {
           Swal.fire("Error de autenticación", "Código 2FA inválido.", "error");

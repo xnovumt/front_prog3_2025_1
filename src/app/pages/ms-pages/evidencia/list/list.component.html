@@ -1,30 +1,29 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(87deg, #000000 0%, #333333 100%) !important;">
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0">Evidencias</h3>
-          <button class="btn btn-success float-right" (click)="navigateToCreate()">Crear Evidencias</button>
-
+      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <h3 class="mb-0" style="color: #FFD700 !important;">Evidencias</h3>
+          <button class="btn float-right" (click)="navigateToCreate()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear Evidencias</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
-              <thead class="thead-light">
+              <thead class="thead-light" style="background-color: #333333 !important;">
                 <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Tipo de Archivo</th>
-                  <th scope="col">Contenido Archivo</th>
-                  <th scope="col">Fecha de Carga</th>
-                  <th scope="col">ID Servicio</th>
-                  <th scope="col">ID Novedad</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col" style="color: #000000 !important;">ID</th>
+                  <th scope="col" style="color: #000000 !important;">Tipo de Archivo</th>
+                  <th scope="col" style="color: #000000 !important;">Contenido Archivo</th>
+                  <th scope="col" style="color: #000000 !important;">Fecha de Carga</th>
+                  <th scope="col" style="color: #000000 !important;">ID Servicio</th>
+                  <th scope="col" style="color: #000000 !important;">ID Novedad</th>
+                  <th scope="col" style="color: #000000 !important;">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let evidencia of evidencias">
+              <tbody style="background-color: #222222 !important;">
+                <tr *ngFor="let evidencia of evidencias" style="color: #AAAAAA !important;">
                   <td>{{ evidencia.id }}</td>
                   <td>{{ evidencia.tipo_de_archivo }}</td>
                   <td>{{ evidencia.contenido_archivo }}</td>
@@ -32,12 +31,12 @@
                   <td>{{ evidencia.id_servicio }}</td>
                   <td>{{ evidencia.novedad_id }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(evidencia.id)">Editar</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(evidencia.id)">Eliminar</button>
+                    <button class="btn btn-sm" (click)="edit(evidencia.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Editar</button>
+                    <button class="btn btn-sm ml-1" (click)="delete(evidencia.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Eliminar</button>
                   </td>
                 </tr>
                 <tr *ngIf="evidencias.length === 0">
-                  <td colspan="8" class="text-center">No hay evidencias disponibles.</td>
+                  <td colspan="8" class="text-center" style="color: #AAAAAA !important;">No hay evidencias disponibles.</td>
                 </tr>
               </tbody>
             </table>

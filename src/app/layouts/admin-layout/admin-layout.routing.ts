@@ -6,6 +6,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { AuthenticatedGuard } from 'src/app/guards/authenticated.guard';
+import { LoginComponent } from 'src/app/pages/login/login.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'tablero', component: DashboardComponent },
@@ -13,6 +14,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'tablas', component: TablesComponent },
   { path: 'iconos', component: IconsComponent },
   { path: 'mapas', component: MapsComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: 'facturas', canActivate: [AuthenticatedGuard], loadChildren: () => import('src/app/pages/ms-pages/factura/factura.module').then(m => m.FacturaModule) },
   { path: 'chats', loadChildren: () => import('src/app/pages/ms-pages/chats/chats.module').then(m => m.ChatsModule) },

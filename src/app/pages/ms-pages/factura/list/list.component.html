@@ -1,37 +1,37 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(87deg, #000000 0%, #333333 100%) !important;">
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0">Facturas</h3>
-          <button class="btn btn-success float-right" (click)="navigateToCreate()">Crear Factura</button>
+      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <h3 class="mb-0" style="color: #FFD700 !important;">Facturas</h3>
+          <button class="btn float-right" (click)="navigateToCreate()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear Factura</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
-              <thead class="thead-light">
+              <thead class="thead-light" style="background-color: #333333 !important;">
                 <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Detalle</th>
-                  <th scope="col">ID Cuota</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col" style="color: #000000 !important;">ID</th>
+                  <th scope="col" style="color: #000000 !important;">Detalle</th>
+                  <th scope="col" style="color: #000000 !important;">ID Cuota</th>
+                  <th scope="col" style="color: #000000 !important;">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let factura of facturas">
+              <tbody style="background-color: #222222 !important;">
+                <tr *ngFor="let factura of facturas" style="color: #AAAAAA !important;">
                   <td>{{ factura.id }}</td>
                   <td>{{ factura.detalle }}</td>
                   <td>{{ factura.id_cuota }}</td>
                   <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(factura.id)">Editar</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(factura.id)">Eliminar</button>
-                    <button class="btn btn-sm btn-success" (click)="navigateToCreate()">Crear</button>
+                    <button class="btn btn-sm" (click)="edit(factura.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Editar</button>
+                    <button class="btn btn-sm ml-1" (click)="delete(factura.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Eliminar</button>
+                    <button class="btn btn-sm ml-1" (click)="navigateToCreate()" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Crear</button>
                   </td>
                 </tr>
                 <tr *ngIf="facturas.length === 0">
-                  <td colspan="4" class="text-center">No hay facturas disponibles.</td>
+                  <td colspan="4" class="text-center" style="color: #AAAAAA !important;">No hay facturas disponibles.</td>
                 </tr>
               </tbody>
             </table>
