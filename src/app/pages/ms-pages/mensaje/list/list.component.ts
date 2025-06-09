@@ -1,118 +1,153 @@
 // message/list/list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Mensaje } from 'src/app/models/mensaje.model';
 import { MensajeService } from 'src/app/services/mensajeService/mensaje.service';
+import { Mensaje } from 'src/app/models/mensaje.model';
 import Swal from 'sweetalert2';
-// import { Router } from '@angular/router'; // Import Router if you need navigation
 
 @Component({
-  selector: 'app-list-Mensaje',
+  selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListMensajeComponent implements OnInit {
+export class ListComponent implements OnInit {
 
-  mensajes: Mensaje[] = []; // Array to store Mensajes
+  mensajes: Mensaje[] = [];
+  isLoading: boolean = true;
 
-  // Inject the MensajeService and Router (if needed)
-  constructor(private MensajeService: MensajeService, private router: Router) { }
+  constructor(
+    private mensajeService: MensajeService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    // Call the service to get the list of Mensajes
-    this.MensajeService.list().subscribe(data => {
-      this.mensajes = data; // Assign data to the Mensajes array
+    this.loadMensajes();
+  }
+
+  loadMensajes() {
+    this.isLoading = true;
+    this.mensajeService.list().subscribe({
+      next: (response: any) => {
+        console.log('Respuesta del servidor:', response);
+
+        // Manejar diferentes estructuras de respuesta
+        if (response && response.data && Array.isArray(response.data)) {
+          this.mensajes = response.data;
+        } else if (Array.isArray(response)) {
+          this.mensajes = response;
+        } else {
+          console.error('Estructura de respuesta inesperada:', response);
+          this.mensajes = [];
+        }
+
+        console.log('Mensajes cargados:', this.mensajes);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error al cargar mensajes:', error);
+        this.isLoading = false;
+
+        let errorMessage = 'No se pudieron cargar los mensajes.';
+        if (error.status === 401) {
+          errorMessage = 'Su sesión ha expirado. Por favor, inicie sesión nuevamente.';
+        }
+
+        Swal.fire('Error', errorMessage, 'error');
+      }
     });
   }
 
-  // Methods for edit and delete (adjust ID type based on your Mensaje model)
-  edit(id: number) {
-    if (isNaN(id)) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'El ID proporcionado no es válido.'
-      });
-      return;
-    }
-
-    this.router.navigate([`/mensajes/update`, id]).then(
+  view(id: number) {
+    this.router.navigate(['/mensajes/view', id]).then(
       success => {
-        if (success) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Redirigido',
-            text: 'Navegación exitosa al formulario de edición.'
-          });
-        } else {
+        if (!success) {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'No se pudo navegar al formulario de edición.'
+            text: 'No se pudo navegar al detalle del mensaje.'
           });
         }
-      },
-      error => {
-        console.error('Error al navegar:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al intentar navegar al formulario de edición.'
-        });
+      }
+    );
+  }
+
+  edit(id: number) {
+    this.router.navigate(['/mensajes/update', id]).then(
+      success => {
+        if (!success) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar a la edición del mensaje.'
+          });
+        }
+      }
+    );
+  }
+
+  create() {
+    this.router.navigate(['/mensajes/create']).then(
+      success => {
+        if (!success) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar a la creación de mensaje.'
+          });
+        }
       }
     );
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Eliminar',
-      text: '¿Está seguro que quiere eliminar el registro?',
+      title: '¿Está seguro?',
+      text: '¡No podrá revertir esta acción!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
+      confirmButtonText: 'Sí, eliminar!',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.MensajeService.delete(id).subscribe({
+        this.mensajeService.delete(id).subscribe({
           next: () => {
-            Swal.fire('Eliminado!', 'Registro eliminado correctamente.', 'success');
-            this.ngOnInit(); // Recargar la lista después de eliminar
+            Swal.fire('¡Eliminado!', 'El mensaje ha sido eliminado.', 'success');
+            // Recargar la lista después de eliminar
+            this.loadMensajes();
           },
           error: (error) => {
-            console.error('Error al eliminar el mensaje:', error);
-            Swal.fire('Error', 'No se pudo eliminar el registro.', 'error');
+            console.error('Error al eliminar mensaje:', error);
+            let errorMessage = 'No se pudo eliminar el mensaje.';
+            if (error.error && error.error.message) {
+              errorMessage = error.error.message;
+            }
+            Swal.fire('Error', errorMessage, 'error');
           }
         });
       }
     });
   }
-  navigateToCreate() {
-    this.router.navigate(['/mensajes/create']).then(
-      success => {
-        if (success) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Redirigido',
-            text: 'Navegación exitosa al formulario de creación.'
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo navegar al formulario de creación.'
-          });
-        }
-      },
-      error => {
-        console.error('Error al navegar:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al intentar navegar al formulario de creación.'
-        });
-      }
-    );
+
+  // Método auxiliar para formatear fechas
+  formatDate(dateString: string): string {
+    if (!dateString) return 'N/A';
+
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Fecha inválida';
+
+      return date.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (error) {
+      console.error('Error formateando fecha:', error);
+      return dateString;
+    }
   }
 }

@@ -35,7 +35,7 @@ export class ListProcedimientoMantenimientoComponent implements OnInit {
       return;
     }
 
-    this.router.navigate([`/procedimiento-mantenimiento/update`, id]).then(
+    this.router.navigate([`/procedimiento-mantenimientos/update`, id]).then(
       success => {
         if (success) {
           Swal.fire({
@@ -88,7 +88,7 @@ export class ListProcedimientoMantenimientoComponent implements OnInit {
     })
   }
   navigateToCreate() {
-    this.router.navigate(['/mensajes/procedimiento-mantenimiento/create']).then(
+    this.router.navigate(['/procedimiento-mantenimientos/create']).then(
       success => {
         if (success) {
           Swal.fire({
@@ -110,6 +110,32 @@ export class ListProcedimientoMantenimientoComponent implements OnInit {
           icon: 'error',
           title: 'Error',
           text: 'Ocurrió un error al intentar navegar al formulario de creación.'
+        });
+      }
+    );
+  }
+
+  // Nuevo método para navegar a la lista
+  navigateToList() {
+    this.router.navigate(['/procedimiento-mantenimientos/list']).then(
+      success => {
+        if (success) {
+          console.log('Navegación exitosa a la lista.');
+          // Opcional: puedes agregar un Swal aquí si quieres
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo navegar a la lista.'
+          });
+        }
+      },
+      error => {
+        console.error('Error al navegar a la lista:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al intentar navegar a la lista.'
         });
       }
     );

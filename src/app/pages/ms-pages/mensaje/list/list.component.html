@@ -3,38 +3,105 @@
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
-        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
-          <h3 class="mb-0" style="color: #FFD700 !important;">Mensajes</h3>
-          <button class="btn float-right" (click)="navigateToCreate()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear mensaje</button>
+      <div class="card shadow"
+        style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent"
+          style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="mb-0" style="color: #FFD700 !important;">
+              <i class="fa fa-envelope mr-2"></i>Lista de Mensajes
+            </h3>
+            <button class="btn btn-sm" (click)="create()"
+              style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold;">
+              <i class="fa fa-plus"></i> Crear Mensaje
+            </button>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light" style="background-color: #333333 !important;">
+
+        <div class="card-body p-0" style="background-color: #222222 !important;">
+          <!-- Loading State -->
+          <div *ngIf="isLoading" class="text-center py-4">
+            <div class="spinner-border text-warning" role="status">
+              <span class="sr-only">Cargando mensajes...</span>
+            </div>
+            <p class="mt-2" style="color: #AAAAAA;">Cargando mensajes...</p>
+          </div>
+
+          <!-- Empty State -->
+          <div *ngIf="!isLoading && mensajes.length === 0" class="text-center py-5">
+            <i class="fa fa-envelope-o fa-3x mb-3" style="color: #666666;"></i>
+            <h5 style="color: #AAAAAA;">No hay mensajes disponibles</h5>
+            <p style="color: #666666;">Crea tu primer mensaje para comenzar</p>
+            <button class="btn" (click)="create()"
+              style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold;">
+              <i class="fa fa-plus"></i> Crear Mensaje
+            </button>
+          </div>
+
+          <!-- Mensajes Table -->
+          <div *ngIf="!isLoading && mensajes.length > 0" class="table-responsive">
+            <table class="table table-dark table-hover mb-0" style="background-color: #222222 !important;">
+              <thead style="background-color: #333333 !important;">
                 <tr>
-                  <th scope="col" style="color: #000000 !important;">ID</th>
-                  <th scope="col" style="color: #000000 !important;">Contenido</th>
-                  <th scope="col" style="color: #000000 !important;">Fecha</th>
-                  <th scope="col" style="color: #000000 !important;">ID Chat</th>
-                  <th scope="col" style="color: #000000 !important;">ID Usuario</th>
-                  <th scope="col" style="color: #000000 !important;">Acciones</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444;">#</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444;">Contenido</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444;">De</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444;">Para</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444;">Fecha</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444;">Estado</th>
+                  <th scope="col" style="color: #FFD700 !important; border-color: #444444; text-align: center;">Acciones
+                  </th>
                 </tr>
               </thead>
-              <tbody style="background-color: #222222 !important;">
-                <tr *ngFor="let mensaje of mensajes" style="color: #AAAAAA !important;">
-                  <td>{{ mensaje.id }}</td>
-                  <td>{{ mensaje.contenido ? (mensaje.contenido.length > 50 ? mensaje.contenido.substring(0, 50) + '...' : mensaje.contenido) : '' }}</td>
-                  <td>{{ mensaje.fecha | date:'yyyy-MM-dd HH:mm' }}</td>
-                  <td>{{ mensaje.chat_id }}</td>
-                  <td>{{ mensaje.usuario_id }}</td>
-                  <td>
-                    <button class="btn btn-sm" (click)="edit(mensaje.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Editar</button>
-                    <button class="btn btn-sm ml-1" (click)="delete(mensaje.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Eliminar</button>
+              <tbody>
+                <tr *ngFor="let mensaje of mensajes; let i = index" style="border-color: #444444 !important;">
+                  <th scope="row" style="color: #AAAAAA !important; border-color: #444444;">
+                    {{ mensaje.id }}
+                  </th>
+                  <td style="color: #AAAAAA !important; border-color: #444444;">
+                    <div class="text-truncate" style="max-width: 200px;" [title]="mensaje.contenido">
+                      {{ mensaje.contenido || mensaje.content || 'Sin contenido' }}
+                    </div>
                   </td>
-                </tr>
-                <tr *ngIf="mensajes.length === 0">
-                  <td colspan="6" class="text-center" style="color: #AAAAAA !important;">No hay mensajes disponibles.</td>
+                  <td style="color: #AAAAAA !important; border-color: #444444;">
+                    {{ mensaje.user_from || mensaje.from_user_id || 'N/A' }}
+                  </td>
+                  <td style="color: #AAAAAA !important; border-color: #444444;">
+                    {{ mensaje.user_to || mensaje.to_user_id || 'N/A' }}
+                  </td>
+                  <td style="color: #AAAAAA !important; border-color: #444444;">
+                    {{ formatDate(mensaje.fecha || mensaje.timestamp) }}
+                  </td>
+                  <td style="border-color: #444444;">
+                    <span *ngIf="mensaje.is_read" class="badge badge-success"
+                      style="background-color: #28a745 !important;">
+                      <i class="fa fa-check"></i> Leído
+                    </span>
+                    <span *ngIf="!mensaje.is_read" class="badge badge-warning"
+                      style="background-color: #ffc107 !important; color: #000;">
+                      <i class="fa fa-clock-o"></i> No leído
+                    </span>
+                    <span *ngIf="mensaje.is_read === undefined" class="badge badge-secondary"
+                      style="background-color: #6c757d !important;">
+                      <i class="fa fa-question"></i> Desconocido
+                    </span>
+                  </td>
+                  <td style="border-color: #444444; text-align: center;">
+                    <div class="btn-group" role="group">
+                      <button class="btn btn-sm btn-outline-info" (click)="view(mensaje.id)"
+                        style="border-color: #17a2b8; color: #17a2b8;" title="Ver detalle">
+                        <i class="fa fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" (click)="edit(mensaje.id)"
+                        style="border-color: #ffc107; color: #ffc107;" title="Editar mensaje">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="delete(mensaje.id)"
+                        style="border-color: #dc3545; color: #dc3545;" title="Eliminar mensaje">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>

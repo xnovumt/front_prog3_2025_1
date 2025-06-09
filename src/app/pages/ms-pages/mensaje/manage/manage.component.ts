@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Mensaje } from 'src/app/models/mensaje.model';
 import { MensajeService } from 'src/app/services/mensajeService/mensaje.service';
+import { Mensaje } from 'src/app/models/mensaje.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,17 +10,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
+  mode: number = 1;
+  mensaje: Mensaje = {};
 
-
-  mode: number; //1->View, 2->Create, 3-> Update
-  mensaje: Mensaje;
-
-  constructor(private activateRoute: ActivatedRoute,
-    private someMensaje: MensajeService,
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private mensajeService: MensajeService,
     private router: Router
-  ) {
-    this.mensaje = { id: 0 }
-  }
+  ) { }
 
   ngOnInit(): void {
     const currentUrl = this.activateRoute.snapshot.url.join('/');
@@ -31,92 +28,93 @@ export class ManageComponent implements OnInit {
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
+
     if (this.activateRoute.snapshot.params.id) {
-      this.mensaje.id = this.activateRoute.snapshot.params.id
-      this.getMensaje(this.mensaje.id)
+      this.mensaje.id = this.activateRoute.snapshot.params.id;
+      this.getMensaje(this.mensaje.id);
     }
   }
+
   getMensaje(id: number) {
-    if (!id) {
-      console.error('El ID proporcionado es inválido o undefined:', id);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'El ID proporcionado no es válido.'
-      });
-      return;
-    }
-    console.log('Buscando mensaje con ID:', id); // Log para depuración
-    this.someMensaje.view(id).subscribe({
+    this.mensajeService.view(id).subscribe({
       next: (mensaje) => {
         this.mensaje = mensaje;
-        console.log('mensaje fetched successfully:', this.mensaje);
+        console.log('Mensaje obtenido:', mensaje);
       },
       error: (error) => {
-        console.error('Error fetching mensaje:', error);
+        console.error('Error al obtener mensaje:', error);
+        Swal.fire('Error', 'No se pudo obtener el mensaje.', 'error');
       }
     });
   }
-  back() {
-    this.router.navigate(['mensaje/list'])
-  }
+
   create() {
-    this.someMensaje.create(this.mensaje).subscribe({
+    console.log('Creando mensaje:', this.mensaje);
+    this.mensajeService.create(this.mensaje).subscribe({
       next: (mensaje) => {
-        console.log('mensaje created successfully:', mensaje);
+        console.log('Mensaje creado exitosamente:', mensaje);
         Swal.fire({
-          title: 'Creado!',
-          text: 'Registro creado correctamente.',
+          title: '¡Creado!',
+          text: 'Mensaje creado correctamente.',
           icon: 'success',
         }).then(() => {
-          this.router.navigate(['/mensaje/list']);
+          this.router.navigate(['/mensajes/list']);
         });
       },
       error: (error) => {
-        console.error('Error creating mensaje:', error);
+        console.error('Error al crear mensaje:', error);
+        Swal.fire('Error', 'No se pudo crear el mensaje.', 'error');
       }
     });
   }
+
   update() {
-    this.someMensaje.update(this.mensaje).subscribe({
+    console.log('Actualizando mensaje:', this.mensaje);
+    this.mensajeService.update(this.mensaje).subscribe({
       next: (mensaje) => {
-        console.log('mensaje updated successfully:', mensaje);
+        console.log('Mensaje actualizado exitosamente:', mensaje);
         Swal.fire({
-          title: 'Actualizado!',
-          text: 'Registro actualizado correctamente.',
+          title: '¡Actualizado!',
+          text: 'Mensaje actualizado correctamente.',
           icon: 'success',
         }).then(() => {
-          this.router.navigate(['/mensaje/list']);
+          this.router.navigate(['/mensajes/list']);
         });
       },
       error: (error) => {
-        console.error('Error updating mensaje:', error);
+        console.error('Error al actualizar mensaje:', error);
+        Swal.fire('Error', 'No se pudo actualizar el mensaje.', 'error');
       }
     });
   }
+
+  back() {
+    this.router.navigate(['/mensajes/list']);
+  }
+
   delete(id: number) {
-    console.log("Delete mensaje with id:", id);
     Swal.fire({
-      title: 'Eliminar',
-      text: "Está mensaje que quiere eliminar el registro?",
+      title: '¿Está seguro?',
+      text: '¡No podrá revertir esto!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar',
+      confirmButtonText: 'Sí, eliminarlo!',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.someMensaje.delete(id).
-          subscribe(data => {
-            Swal.fire(
-              'Eliminado!',
-              'Registro eliminado correctamente.',
-              'success'
-            )
-            this.ngOnInit();
-          });
+        this.mensajeService.delete(id).subscribe({
+          next: () => {
+            Swal.fire('¡Eliminado!', 'El mensaje ha sido eliminado.', 'success');
+            this.router.navigate(['/mensajes/list']);
+          },
+          error: (error) => {
+            console.error('Error al eliminar mensaje:', error);
+            Swal.fire('Error', 'No se pudo eliminar el mensaje.', 'error');
+          }
+        });
       }
-    })
+    });
   }
 }

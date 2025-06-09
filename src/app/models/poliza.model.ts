@@ -9,5 +9,10 @@ export class Poliza {
     seguro_id?: number;
     fecha_inicio?: Date;
     fecha_fin?: Date;
-    tipo_poliza?: number;
+    tipo_poliza?: string; // Cambiar de number a string para usar los enums
+    
+    // Relaciones opcionales para cuando se incluyan en las respuestas
+    maquinaria?: Maquina;
+    operario?: Operario;
+    seguro?: Seguro;
 }

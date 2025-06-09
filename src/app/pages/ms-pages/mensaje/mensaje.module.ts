@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ListMensajeComponent } from './list/list.component';
-import { ManageComponent } from './manage/manage.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MensajeRoutingModule } from './mensaje-routing.module';
+import { FormsModule } from '@angular/forms'; // ← Agregar esta importación
+import { RouterModule } from '@angular/router';
 
-
+import { ManageComponent } from './manage/manage.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
-  declarations:[
-    ListMensajeComponent,
-    ManageComponent
-
+  declarations: [
+    ManageComponent,
+    ListComponent
   ],
-  imports:[CommonModule, FormsModule, MensajeRoutingModule, ReactiveFormsModule]
+  imports: [
+    CommonModule,
+    FormsModule, // ← Agregar FormsModule aquí
+    RouterModule
+  ]
 })
-export class MensajeModule {}
+export class MensajeModule { }

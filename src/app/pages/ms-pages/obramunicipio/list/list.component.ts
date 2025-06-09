@@ -26,7 +26,7 @@ export class ListObraMunicipioComponent implements OnInit {
 
   // Methods for edit and delete (adjust ID type based on your model)
   edit(id: number) {
-    this.router.navigate(['obra-municipio/update', id])
+    this.router.navigate(['obra-municipios/update', id])
     // Implement navigation
   }
 
@@ -56,7 +56,7 @@ export class ListObraMunicipioComponent implements OnInit {
     })
   }
   navigateToCreate() {
-    this.router.navigate(['/obra-municipio/create']).then(
+    this.router.navigate(['/obra-municipios/create']).then(
       success => {
         if (success) {
           Swal.fire({

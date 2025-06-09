@@ -47,14 +47,28 @@ export class ManageComponent implements OnInit {
     }
   }
   getSeguro(id: number) {
+    console.log('Obteniendo seguro con ID:', id);
+
     this.someSeguro.view(id).subscribe({
       next: (seguro) => {
+        console.log('Seguro obtenido exitosamente:', seguro);
         this.seguro = seguro;
-        this.theFormGroup.patchValue(seguro); // Carga los datos en el formulario
-        console.log('seguro fetched successfully:', this.seguro);
+
+        // Verificar que el ID se haya asignado correctamente
+        console.log('ID asignado al objeto seguro:', this.seguro.id);
+
+        // Actualizar el FormGroup con los datos obtenidos
+        this.theFormGroup.patchValue({
+          id: seguro.id,
+          nombre: seguro.nombre,
+          descripcion: seguro.descripcion
+        });
+
+        console.log('FormGroup actualizado:', this.theFormGroup.value);
       },
       error: (error) => {
-        console.error('Error fetching seguro:', error);
+        console.error('Error al obtener seguro:', error);
+        Swal.fire('Error', 'No se pudo obtener el seguro.', 'error');
       }
     });
   }
@@ -82,22 +96,61 @@ export class ManageComponent implements OnInit {
   }
   update() {
     this.trySend = true;
-    if (this.theFormGroup.valid) {
-      this.someSeguro.update(this.theFormGroup.value).subscribe({ // Usa theFormGroup.value
-        next: (seguro) => {
-          console.log('seguro updated successfully:', seguro);
-          Swal.fire({
-            title: 'Actualizado!',
-            text: 'Registro actualizado correctamente.',
-            icon: 'success',
-          });
-          this.router.navigate(['/seguros/list']);
-        },
-        error: (error) => {
-          console.error('Error updating seguro:', error);
-        }
-      });
+
+    if (this.theFormGroup.invalid) {
+      Swal.fire('Error', 'Por favor, complete todos los campos obligatorios.', 'error');
+      return;
     }
+
+    // Debug: Verificar el estado actual
+    console.log('Estado actual del seguro:', this.seguro);
+    console.log('Valores del formulario:', this.theFormGroup.value);
+    console.log('ID del seguro a actualizar:', this.seguro.id);
+
+    // Obtener valores del formulario
+    const formData = this.theFormGroup.value;
+    const seguroData = {
+      id: this.seguro.id, // Asegurar que el ID esté presente
+      nombre: formData.nombre,
+      descripcion: formData.descripcion
+    };
+
+    // Verificar que el ID no sea undefined, null o 0
+    if (!seguroData.id || seguroData.id === 0) {
+      console.error('Error: ID del seguro no válido:', seguroData.id);
+      Swal.fire('Error', 'No se puede actualizar: ID no válido.', 'error');
+      return;
+    }
+
+    console.log('Payload final enviado al backend:', seguroData);
+
+    this.someSeguro.update(seguroData).subscribe({
+      next: (seguro) => {
+        console.log('Seguro actualizado exitosamente:', seguro);
+        Swal.fire({
+          title: '¡Actualizado!',
+          text: 'Registro actualizado correctamente.',
+          icon: 'success',
+        }).then(() => {
+          this.router.navigate(['/seguros/list']);
+        });
+      },
+      error: (error) => {
+        console.error('Error al actualizar seguro:', error);
+        console.error('Respuesta completa del servidor:', error);
+        if (error.error && error.error.message) {
+          console.error('Mensaje del servidor:', error.error.message);
+        }
+
+        // Mostrar error específico del servidor
+        let errorMessage = 'No se pudo actualizar el seguro.';
+        if (error.error && error.error.message) {
+          errorMessage = error.error.message;
+        }
+
+        Swal.fire('Error', errorMessage, 'error');
+      }
+    });
   }
   delete(id: number) {
     console.log("Delete seguro with id:", id);

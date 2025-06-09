@@ -1,41 +1,110 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(87deg, #000000 0%, #333333 100%) !important;">
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0">Tus Conversaciones</h3>
-          <button class="btn btn-success float-right" (click)="navigateToCreate()">Buscar Usuario para Chatear</button>
-        </div>
-        <div class="card-body">
-          <div *ngIf="chats.length === 0" class="text-center py-4">
-            <p>No tienes conversaciones iniciadas. Usa el botón "Buscar Usuario para Chatear" para empezar.</p>
+      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="mb-0" style="color: #FFD700 !important;">
+              <i class="fa fa-comments mr-2"></i>Tus Conversaciones
+            </h3>
+            <div>
+              <button class="btn btn-sm mr-2" (click)="refreshConversations()" [disabled]="isLoading"
+                      style="background-color: #28a745 !important; border-color: #28a745 !important; color: white !important;">
+                <i class="fa fa-refresh" [class.fa-spin]="isLoading"></i> Actualizar
+              </button>
+              <button class="btn btn-sm" (click)="navigateToCreate()"
+                      style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold;">
+                <i class="fa fa-plus"></i> Buscar Usuario
+              </button>
+            </div>
           </div>
-          <div class="table-responsive" *ngIf="chats.length > 0">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Compañero de Chat</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Último Mensaje</th>
-                  <th scope="col">Fecha Último Mensaje</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let chat of chats">
-                  <td>{{ chat.name }}</td>
-                  <td>{{ chat.email }}</td>
-                  <td>{{ chat.last_message_content || 'No hay mensajes' }}</td>
-                  <td>{{ chat.last_message_date | date:'short' }}</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" (click)="edit(chat.id)">Abrir Chat</button>
-                    <button class="btn btn-sm btn-danger" (click)="delete(chat.id)">Ocultar</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        </div>
+        
+        <div class="card-body p-0" style="background-color: #222222 !important;">
+          <!-- Loading State -->
+          <div *ngIf="isLoading" class="text-center py-4">
+            <div class="spinner-border text-warning" role="status">
+              <span class="sr-only">Cargando conversaciones...</span>
+            </div>
+            <p class="mt-2" style="color: #AAAAAA;">Cargando conversaciones...</p>
+          </div>
+
+          <!-- Empty State -->
+          <div *ngIf="!isLoading && userConversations.length === 0" class="text-center py-5">
+            <i class="fa fa-comments-o fa-3x mb-3" style="color: #666666;"></i>
+            <h5 style="color: #AAAAAA;">No tienes conversaciones activas</h5>
+            <p style="color: #666666;">Inicia una nueva conversación para comenzar a chatear</p>
+            <button class="btn" (click)="navigateToCreate()"
+                    style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold;">
+              <i class="fa fa-plus"></i> Buscar Usuarios
+            </button>
+          </div>
+
+          <!-- Conversations List -->
+          <div *ngIf="!isLoading && userConversations.length > 0">
+            <div *ngFor="let conversation of userConversations; let i = index" 
+                 class="conversation-item p-3 border-bottom cursor-pointer"
+                 style="border-bottom: 1px solid #444444 !important; transition: background-color 0.2s;"
+                 (click)="edit(getUserId(conversation))"
+                 (mouseenter)="$event.target.style.backgroundColor='#333333'"
+                 (mouseleave)="$event.target.style.backgroundColor='transparent'">
+              
+              <div class="d-flex align-items-center">
+                <!-- Avatar -->
+                <div class="avatar-container mr-3 position-relative">
+                  <div class="rounded-circle d-flex align-items-center justify-content-center"
+                       style="width: 50px; height: 50px; background-color: #FFD700; color: #000; font-weight: bold; font-size: 18px;">
+                    {{ getUserName(conversation).charAt(0).toUpperCase() }}
+                  </div>
+                  <!-- Indicador de mensajes no leídos -->
+                  <span *ngIf="conversation.unread_count && conversation.unread_count > 0"
+                        class="badge badge-danger position-absolute"
+                        style="top: -5px; right: -5px; background-color: #dc3545 !important;">
+                    {{ conversation.unread_count }}
+                  </span>
+                </div>
+
+                <!-- Información de la conversación -->
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <!-- Nombre del usuario -->
+                      <h6 class="mb-1" style="color: #FFD700 !important; font-weight: bold;">
+                        {{ getUserName(conversation) }}
+                      </h6>
+                      
+                      <!-- Último mensaje -->
+                      <p class="mb-0 text-truncate" 
+                         style="color: #AAAAAA !important; max-width: 300px; font-size: 14px;">
+                        {{ conversation.last_message_content || 'No hay mensajes' }}
+                      </p>
+                    </div>
+
+                    <!-- Timestamp y acciones -->
+                    <div class="d-flex flex-column align-items-end">
+                      <small style="color: #666666 !important; font-size: 12px;">
+                        {{ formatTimestamp(conversation.last_message_timestamp) }}
+                      </small>
+                      
+                      <!-- Botón para ocultar conversación -->
+                      <button class="btn btn-sm mt-1" 
+                              (click)="delete(getUserId(conversation)); $event.stopPropagation()"
+                              style="background: none; border: none; color: #666666; padding: 2px;"
+                              title="Ocultar conversación">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Flecha indicadora -->
+                <div class="ml-2">
+                  <i class="fa fa-chevron-right" style="color: #666666;"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
