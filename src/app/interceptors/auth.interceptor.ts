@@ -9,15 +9,15 @@ import {
 import { catchError, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { SecurityService } from '../services/securityService/security.service';
+import { SeguridadService } from '../services/seguridadService/seguridadService';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private securityService: SecurityService,
+  constructor(private seguridadService: SeguridadService,
     private router: Router) { }
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let theUser = this.securityService.activeUserSession
-    const token = theUser["token"];
+    let theUser = this.seguridadService.usuarioSesionActiva
+    const token = theUser?.token;
     // Si la solicitud es para la ruta de "login", no adjuntes el token
     if (request.url.includes('/login') || request.url.includes('/token-validation')) {
       console.log("no se pone token")

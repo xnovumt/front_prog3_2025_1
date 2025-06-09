@@ -1,9 +1,9 @@
+import { Especialidad } from "./especialidad.model";
+import { Maquina } from "./maquina.model";
+import { Seguro } from "./seguro.model";
+
 export class Operario {
     id?: number;
-    name?: string;
-    email?: string;
+    user_id?: string;
     experiencia?: string;
-    periodoInit?: string; // Add periodoInit property
-    periodoEnd?: string;  // Add periodoEnd property
-    user_id?: string; // Add user_id property
 }

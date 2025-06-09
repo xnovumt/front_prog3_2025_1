@@ -10,8 +10,6 @@
           <h3 class="mb-0" *ngIf="mode==1">Detalle</h3>
           <h3 class="mb-0" *ngIf="mode==2">Creación</h3>
           <h3 class="mb-0" *ngIf="mode==3">Actualización</h3>
-
-
         </div>
         <div class="card-body container">
           <div class="row">
@@ -21,46 +19,21 @@
           <br>
           <div class="row">
             <div class="col-3">ID Usuario</div>
-            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="gobernante.id_usuario"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="gobernante.user_id"
                 [disabled]="mode==1">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Periodo Inicio</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="gobernante.periodo_inicio"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="gobernante.periodo_init"
                 [disabled]="mode==1"></div>
           </div>
           <br>
           <div class="row">
             <div class="col-3">Periodo Final</div>
-            <div class="col-9"><input type="date" class="form-control" [(ngModel)]="gobernante.periodo_final"
+            <div class="col-9"><input type="text" class="form-control" [(ngModel)]="gobernante.periodo_end"
                 [disabled]="mode==1"></div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-3">Tipo</div>
-            <div class="col-9">
-              <select class="form-control" [(ngModel)]="gobernante.tipo" [disabled]="mode==1">
-                <option value="municipio">Municipio</option>
-                <option value="departamento">Departamento</option>
-              </select>
-            </div>
-          </div>
-          <br>
-          <div class="row" *ngIf="gobernante.tipo === 'municipio'">
-            <div class="col-3">Municipio</div>
-            <div class="col-9">
-              <input type="text" class="form-control" [(ngModel)]="gobernante.territorio.municipio_id"
-                [disabled]="mode==1">
-            </div>
-          </div>
-          <div class="row" *ngIf="gobernante.tipo === 'departamento'">
-            <div class="col-3">Departamento</div>
-            <div class="col-9">
-              <input type="text" class="form-control" [(ngModel)]="gobernante.territorio.departamento_id"
-                [disabled]="mode==1">
-            </div>
           </div>
           <br>
           <div class="row">
@@ -72,7 +45,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

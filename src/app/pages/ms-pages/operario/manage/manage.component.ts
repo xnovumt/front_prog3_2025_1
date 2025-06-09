@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 })
 export class ManageComponent implements OnInit {
 
-
   mode: number; //1->View, 2->Create, 3-> Update
   operario: Operario;
 
@@ -19,7 +18,11 @@ export class ManageComponent implements OnInit {
     private someOperario: OperarioService,
     private router: Router
   ) {
-    this.operario = { id: 0 }
+    this.operario = {
+      id: 0,
+      user_id: '',
+      experiencia: ''
+    }
   }
 
   ngOnInit(): void {
@@ -36,6 +39,7 @@ export class ManageComponent implements OnInit {
       this.getOperario(this.operario.id)
     }
   }
+
   getOperario(id: number) {
     this.someOperario.view(id).subscribe({
       next: (operario) => {
@@ -47,19 +51,15 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
   back() {
     this.router.navigate(['operario/list'])
   }
+
   create() {
-    const payload = {
-      user_id: this.operario.user_id,
-      experiencia: this.operario.experiencia,
-      periodoInit: this.operario.periodoInit,
-      periodoEnd: this.operario.periodoEnd
-    };
-    this.someOperario.create(payload).subscribe({
-      next: (Operario) => {
-        console.log('Operario created successfully:', Operario);
+    this.someOperario.create(this.operario).subscribe({
+      next: (operario) => {
+        console.log('Operario created successfully:', operario);
         Swal.fire({
           title: 'Creado!',
           text: 'Registro creado correctamente.',
@@ -72,14 +72,9 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
   update() {
-    const payload = {
-      user_id: this.operario.user_id,
-      experiencia: this.operario.experiencia,
-      periodoInit: this.operario.periodoInit,
-      periodoEnd: this.operario.periodoEnd
-    };
-    this.someOperario.update(this.operario.id, payload).subscribe({
+    this.someOperario.update(this.operario.id!, this.operario).subscribe({
       next: (operario) => {
         console.log('Operario updated successfully:', operario);
         Swal.fire({
@@ -94,11 +89,12 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
   delete(id: number) {
     console.log("Delete Operario with id:", id);
     Swal.fire({
       title: 'Eliminar',
-      text: "Está Operario que quiere eliminar el registro?",
+      text: "¿Está seguro que quiere eliminar el registro?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -119,5 +115,4 @@ export class ManageComponent implements OnInit {
       }
     })
   }
-
 }

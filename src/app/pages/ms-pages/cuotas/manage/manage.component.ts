@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cuotas } from 'src/app/models/cuotas.model';
+import { Servicio } from 'src/app/models/servicio.model';
 import { CuotasService } from 'src/app/services/cuotasService/cuotas.service';
+import { ServicioService } from 'src/app/services/servicioService/servicio.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,35 +15,17 @@ export class ManageComponent implements OnInit {
 
   mode: number; // 1->View, 2->Create, 3->Update
   cuota: Cuotas;
-  paymentData = {
-    card: {
-      number: '',
-      exp_year: '',
-      exp_month: '',
-      cvc: ''
-    },
-    customer: {
-      name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      doc_number: ''
-    },
-    due: {
-      id: '',
-      id_servicio: '',
-      valor: ''
-    },
-    description: '',
-    tax: '',
-    tax_base: '',
-    dues: ''
-  };
+  servicios: Servicio[] = []; // Lista de servicios para el selector
 
   constructor(private activateRoute: ActivatedRoute,
     private cuotasService: CuotasService,
+    private servicioService: ServicioService,
     private router: Router) {
-    this.cuota = { id: 0 };
+    this.cuota = {
+      id: 0,
+      id_servicio: undefined,
+      valor: 0
+    };
   }
 
   ngOnInit(): void {
@@ -53,10 +37,26 @@ export class ManageComponent implements OnInit {
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
+
+    // Cargar lista de servicios
+    this.loadServicios();
+
     if (this.activateRoute.snapshot.params.id) {
       this.cuota.id = this.activateRoute.snapshot.params.id;
       this.getCuota(this.cuota.id);
     }
+  }
+
+  loadServicios() {
+    this.servicioService.list().subscribe({
+      next: (servicios) => {
+        this.servicios = servicios;
+        console.log('Servicios cargados:', this.servicios);
+      },
+      error: (error) => {
+        console.error('Error cargando servicios:', error);
+      }
+    });
   }
 
   getCuota(id: number) {
@@ -101,9 +101,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success'
         }).then(() => {
-          this.router.navigate(['/cuotas/list']).then(() => {
-            // Emitir un evento o llamar a un servicio compartido para notificar al componente de la lista
-          });
+          this.router.navigate(['/cuotas/list']);
         });
       },
       error: (error) => {
@@ -135,19 +133,6 @@ export class ManageComponent implements OnInit {
             console.error('Error deleting cuota:', error);
           }
         });
-      }
-    });
-  }
-
-  pay() {
-    this.cuotasService.pay(this.paymentData).subscribe({
-      next: (response) => {
-        Swal.fire('Éxito', 'Pago procesado exitosamente.', 'success');
-        console.log('Payment response:', response);
-      },
-      error: (error) => {
-        Swal.fire('Error', 'Hubo un problema al procesar el pago.', 'error');
-        console.error('Payment error:', error);
       }
     });
   }

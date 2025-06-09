@@ -22,8 +22,9 @@ export class ManageComponent implements OnInit {
   ) {
     this.gobernante = {
       id: 0,
-      tipo: 'municipio', // Default type
-      territorio: {} // Initialize territorio object
+      user_id: '',
+      periodo_init: '',
+      periodo_end: ''
     };
   }
 

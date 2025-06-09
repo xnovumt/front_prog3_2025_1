@@ -1,6 +1,5 @@
-
 import { environment } from 'src/environments/environment';
-import { SecurityService } from './securityService/security.service';
+import { SeguridadService } from './seguridadService/seguridadService';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 
@@ -10,51 +9,51 @@ import { Socket } from 'ngx-socket-io';
 })
 export class WebSocketService extends Socket {
 
-callback: EventEmitter<any> = new EventEmitter();
-nameEvent: string;
+  callback: EventEmitter<any> = new EventEmitter();
+  nameEvent: string;
 
-constructor(private securityService:SecurityService) {
+  constructor(private seguridadService: SeguridadService) {
 
-  const userId = securityService.activeUserSession?.email || '';
+    const userId = seguridadService.usuarioSesionActiva?.email || '';
 
-super({
-    url: environment.url_ms_cinema,
-    options:{
-      query:{
-        "user_id":userId
-            }
-    }
+    super({
+      url: environment.url_ms_cinema,
+      options: {
+        query: {
+          "user_id": userId
+        }
+      }
 
-})
+    })
 
 
-this.nameEvent = ""
+    this.nameEvent = ""
 
-//this.listen()
+    //this.listen()
 
-}
+  }
 
-setNameEvent(nameEvent: string) {
+  setNameEvent(nameEvent: string) {
 
-this.nameEvent = nameEvent
+    this.nameEvent = nameEvent
 
-this.listen()
+    this.listen()
 
-}
+  }
 
-listen = () => {
+  listen = () => {
 
-this.ioSocket.on(this.nameEvent, (res: any) => this.callback.emit(res))
+    this.ioSocket.on(this.nameEvent, (res: any) => this.callback.emit(res))
 
-}
+  }
 
-// Para llamar este método es necesario inyectar el servicio
+  // Para llamar este método es necesario inyectar el servicio
 
-// y enviar el payload
+  // y enviar el payload
 
-// emitEvent=(payload={})=>{
+  // emitEvent=(payload={})=>{
 
-// this.ioSocket.emit(this.nameEvent,payload)
+  // this.ioSocket.emit(this.nameEvent,payload)
 
 
 }
