@@ -24,8 +24,8 @@
               <div class="col-9">
                 <input type="date" class="form-control" formControlName="fecha" [disabled]="mode==1"
                        style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
-                <div *ngIf="theFormGroup?.get('fecha')?.errors && (theFormGroup?.get('fecha')?.dirty || theFormGroup?.get('fecha')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup?.get('fecha')?.errors?.['required']" class="msnError" style="color: #dc3545 !important;">Requerido</strong>
+                <div *ngIf="theFormGroup?.get('fecha_hora')?.errors && (theFormGroup?.get('fecha')?.dirty || theFormGroup?.get('fecha')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup?.get('fecha_hora')?.errors?.['required']" class="msnError" style="color: #dc3545 !important;">Requerido</strong>
                 </div>
               </div>
             </div>
@@ -58,16 +58,7 @@
               </div>
             </div>
             <br>
-            <div class="row" style="color: #AAAAAA !important;">
-              <div class="col-3">Novedades</div>
-              <div class="col-9">
-                <input type="number" class="form-control" formControlName="novedades" [disabled]="mode==1"
-                       style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
-                <div *ngIf="theFormGroup?.get('novedades')?.errors && (theFormGroup?.get('novedades')?.dirty || theFormGroup?.get('novedades')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup?.get('novedades')?.errors?.['required']" class="msnError" style="color: #dc3545 !important;">Requerido</strong>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </form>
         <br>

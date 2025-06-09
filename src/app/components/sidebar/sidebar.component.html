@@ -1,20 +1,20 @@
-<nav class="navbar navbar-vertical navbar-expand-md bg-dark" id="sidenav-main" style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-right: 1px solid #444; transition: all 0.3s;">
+<nav class="navbar navbar-vertical navbar-expand-md bg-dark" id="sidenav-main"
+  style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-right: 1px solid #444; transition: all 0.3s;">
   <div class="container-fluid">
-    <!-- Toggler -->
-    <button class="navbar-toggler text-light" type="button" (click)="isCollapsed=!isCollapsed" aria-controls="sidenav-collapse-main" style="border: 1px solid #d4af37; border-radius: 5px;">
-      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
+      aria-controls="sidenav-collapse-main" style="color: #d4af37; border-color: #d4af37;">
+      <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 30 30\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'%23d4af37\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 7h22M4 15h22M4 23h22\'/%3E%3C/svg%3E');"></span>
     </button>
-    <!-- Brand -->
-    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/tablero']">
-      <img src="./assets/img/brand/tipee.png" class="navbar-brand-img" alt="..." style="filter: brightness(0) invert(1); border-radius: 5px;">
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
+      <img src="./assets/img/brand/tipee.png" class="navbar-brand-img" alt="..." style="filter: brightness(0.9);">
     </a>
-    <!-- User -->
     <ul class="nav align-items-center d-md-none">
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <a class="nav-link nav-link-icon text-light" role="button" ngbDropdownToggle style="transition: all 0.3s;">
           <i class="ni ni-bell-55" style="color: #d4af37;"></i>
         </a>
-        <div class="dropdown-menu-arrow dropdown-menu-right bg-dark text-light" ngbDropdownMenu style="border: 1px solid #444; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+        <div class="dropdown-menu-arrow dropdown-menu-right bg-dark text-light" ngbDropdownMenu
+          style="border: 1px solid #444; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
           <a class="dropdown-item text-light" href="javascript:void(0)" style="font-family: 'Lora', serif;">Action</a>
           <a class="dropdown-item text-light" href="javascript:void(0)" style="font-family: 'Lora', serif;">Another action</a>
           <div class="dropdown-divider" style="border-color: #444;"></div>
@@ -29,7 +29,8 @@
             </span>
           </div>
         </a>
-        <div class="dropdown-menu-arrow dropdown-menu-right bg-dark text-light" ngbDropdownMenu style="border: 1px solid #444; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+        <div class="dropdown-menu-arrow dropdown-menu-right bg-dark text-light" ngbDropdownMenu
+          style="border: 1px solid #444; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
           <div class="dropdown-header noti-title">
             <h6 class="text-overflow m-0 text-light" style="font-family: 'Playfair Display', serif;">Welcome!</h6>
           </div>
@@ -57,44 +58,57 @@
         </div>
       </li>
     </ul>
-    <!-- Collapse -->
     <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
-      <!-- Collapse header -->
-      <div class="navbar-collapse-header d-md-none bg-dark" style="border-bottom: 1px solid #444;">
+      <div class="navbar-collapse-header d-md-none">
         <div class="row">
           <div class="col-6 collapse-brand">
-            <a routerLinkActive="active" [routerLink]="['/tablero']">
-              <img src="./assets/img/brand/red.png" style="filter: brightness(0) invert(1); border-radius: 5px;">
+            <a routerLinkActive="active" [routerLink]="['/dashboard']">
+              <img src="./assets/img/brand/tipee.png" style="filter: brightness(0.9);">
             </a>
           </div>
           <div class="col-6 collapse-close">
-            <button type="button" class="navbar-toggler text-light" (click)="isCollapsed=!isCollapsed" style="border: 1px solid #d4af37; border-radius: 5px;">
-              <span style="background-color: #d4af37;"></span>
-              <span style="background-color: #d4af37;"></span>
+            <button type="button" class="navbar-toggler" (click)="isCollapsed=!isCollapsed" style="color: #d4af37;">
+              <span></span>
+              <span></span>
             </button>
           </div>
         </div>
       </div>
-      <!-- Form -->
       <form class="mt-4 mb-3 d-md-none">
-        <div class="input-group input-group-rounded input-group-merge" style="background-color: #333; border: 1px solid #444; border-radius: 20px;">
-          <input type="search" class="form-control form-control-rounded form-control-prepended text-light" placeholder="Search" aria-label="Search" style="background-color: transparent;">
+        <div class="input-group input-group-rounded input-group-merge">
+          <input type="search" class="form-control form-control-rounded form-control-prepended text-light" placeholder="Search"
+            aria-label="Search" style="background-color: #333; border: 1px solid #444; border-radius: 20px;">
           <div class="input-group-prepend">
-            <div class="input-group-text" style="background-color: transparent; border: none;">
-              <span class="fa fa-search" style="color: #d4af37;"></span>
+            <div class="input-group-text" style="background-color: transparent; border: none; color: #d4af37;">
+              <span class="fa fa-search"></span>
             </div>
           </div>
         </div>
       </form>
-      <!-- Navigation -->
       <ul class="navbar-nav">
-        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-          <a *ngIf="(securityService.existSession()?1:0)==menuItem.type || menuItem.type==2" routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link text-light" style="font-family: 'Lora', serif; transition: all 0.3s;">
-            <i class="ni {{menuItem.icon}}" style="color: #d4af37;"></i>
+        <li *ngFor="let menuItem of menuItems" class="nav-item">
+          <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link text-light"
+             style="font-family: 'Lora', serif; transition: all 0.3s;"
+             [routerLinkActiveOptions]="{ exact: true }"> <i class="ni {{menuItem.icon}}" style="color: #d4af37;"></i>
             {{menuItem.title}}
           </a>
         </li>
+        <li class="nav-item">
+          <a routerLinkActive="active" [routerLink]="['/mapas']" class="nav-link text-light"
+             style="font-family: 'Lora', serif; transition: all 0.3s;"
+             [routerLinkActiveOptions]="{ exact: true }"> <i class="ni ni-pin-3" style="color: #d4af37;"></i>
+            Mapas
+          </a>
+        </li>
+        <li class="nav-item">
+            <a routerLinkActive="active" [routerLink]="['/chats/list']" class="nav-link text-light"
+               style="font-family: 'Lora', serif; transition: all 0.3s;"
+               [routerLinkActiveOptions]="{ exact: true }">
+                <i class="fas fa-comments" style="color: #d4af37;"></i> Chat
+            </a>
+        </li>
       </ul>
-    </div>
+      <hr class="my-3" style="border-color: #444;">
+      </div>
   </div>
 </nav>

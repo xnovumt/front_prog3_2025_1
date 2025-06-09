@@ -15,22 +15,26 @@ import { ComponentsModule } from './components/components.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { NonAuthenticatedGuard } from './guards/non-authenticated.guard';
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ComponentsModule,
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    ComponentsModule
     
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    
   ],
   providers: [
     {

@@ -18,6 +18,7 @@
                   <th scope="col" style="color: #000000 !important;">Longitud</th>
                   <th scope="col" style="color: #000000 !important;">ID Maquina</th>
                   <th scope="col" style="color: #000000 !important;">Acciones</th>
+                  <th scope="col" style="color: #000000 !important;">Ver en Mapa</th>
                 </tr>
               </thead>
               <tbody style="background-color: #222222 !important;">
@@ -30,9 +31,14 @@
                     <button class="btn btn-sm" (click)="edit(gps.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Editar</button>
                     <button class="btn btn-sm ml-1" (click)="delete(gps.id)" style="background-color: #444444 !important; border-color: #555555 !important; color: #FFD700 !important; transition: all 0.3s ease;">Eliminar</button>
                   </td>
+                  <td>
+                    <button class="btn btn-sm" (click)="navigateToMap(gps.id)"  style="background-color: #007bff !important; border-color: #007bff !important; color: #ffffff !important; transition: all 0.3s ease;">
+                      Ver Mapa
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf="gpsPoints.length === 0">
-                  <td colspan="5" class="text-center" style="color: #AAAAAA !important;">No hay puntos GPS disponibles.</td>
+                  <td colspan="6" class="text-center" style="color: #AAAAAA !important;">No hay puntos GPS disponibles.</td>
                 </tr>
               </tbody>
             </table>

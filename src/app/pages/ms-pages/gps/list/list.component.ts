@@ -1,10 +1,9 @@
 // gps/list/list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'; // Correctamente importado
 import { GPS } from 'src/app/models/gps.model';
 import { GPSService } from 'src/app/services/gpsService/gps.service';
 import Swal from 'sweetalert2';
-// import { Router } from '@angular/router'; // Import Router if you need navigation
 
 @Component({
   selector: 'app-list-gps',
@@ -15,7 +14,7 @@ export class ListGpsComponent implements OnInit {
 
   gpsPoints: GPS[] = []; // Array to store GPS points
 
-  constructor(private gpsService: GPSService, private router: Router) { }
+  constructor(private gpsService: GPSService, private router: Router) { } // Router correctamente inyectado
 
   ngOnInit(): void {
     // Call the service to get the list of GPS points
@@ -26,7 +25,7 @@ export class ListGpsComponent implements OnInit {
 
   // Methods for edit and delete (adjust ID type based on your Gps model)
   edit(id: number) {
-    this.router.navigate(['gps/update', id])
+    this.router.navigate(['gps/update', id]) // Correcto para la navegación de edición
     // Implement navigation, e.g: this.router.navigate(['/admin/gps/edit', id]);
   }
 
@@ -50,12 +49,18 @@ export class ListGpsComponent implements OnInit {
               'Registro eliminado correctamente.',
               'success'
             )
-            this.ngOnInit();
+            this.ngOnInit(); // Recargar la lista después de eliminar
           });
       }
     })
-  } navigateToCreate() {
-    this.router.navigate(['/gps/create']).then(
+  }
+
+  navigateToMap(id: number): void{
+     this.router.navigate(['/gps/gps-view', id]);
+  }
+
+  navigateToCreate() {
+    this.router.navigate(['/gps/create']).then( // Correcto para la navegación de creación
       success => {
         if (success) {
           Swal.fire({
@@ -81,4 +86,6 @@ export class ListGpsComponent implements OnInit {
       }
     );
   }
+
+  
 }

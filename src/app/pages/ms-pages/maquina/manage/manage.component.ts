@@ -29,15 +29,13 @@ export class ManageComponent implements OnInit {
     this.GPS = [];
     this.maquina = {
       id: 0,
-      gps: {
-        id: 0
-      }
+
     };
     this.trySend = false;
     this.theFormGroup = this.configFormGroup();
   }
 
-  loadGpsList(){
+  loadGpsList() {
     this.gpsService.list().subscribe(data => {
       this.GPS = data;
     });
@@ -81,8 +79,7 @@ export class ManageComponent implements OnInit {
     this.trySend = true;
     if (this.theFormGroup.valid) {
       const newMaquina = this.theFormGroup.value as Maquina; // Obtener los valores del formulario
-      newMaquina.id = undefined; // Dejar que el backend genere el ID
-      newMaquina.gps = { id: newMaquina.gps as any }; // Asegurar que gps sea un objeto con id
+      newMaquina.id = undefined; // Dejar que el backend genere el ID// Asegurar que gps sea un objeto con id
 
       console.log('Payload enviado al backend:', newMaquina);
       this.someMaquina.create(newMaquina).subscribe({
@@ -110,7 +107,6 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.valid) {
       const updatedMaquina = this.theFormGroup.value as Maquina;
       updatedMaquina.id = this.maquina.id; // Mantener el ID existente
-      updatedMaquina.gps = { id: updatedMaquina.gps as any }; // Asegurar que gps sea un objeto con id
 
       this.someMaquina.update(updatedMaquina).subscribe({
         next: (maquina) => {
@@ -163,9 +159,9 @@ export class ManageComponent implements OnInit {
       estado: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       ubicacion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       disponibilidad: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
-      fecha_asignacion: [''],
-      fecha_retiro: [''],
-      gps: ['', Validators.required] // El valor de este control será el ID del GPS
+      fecha_asignacion: ['', Validators.required], // Added Validators.required
+      fecha_retiro: ['', Validators.required],// Added Validators.required
+      gps: ['', Validators.required] // Added Validators.required
     });
   }
 

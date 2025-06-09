@@ -1,19 +1,23 @@
-import { CommonModule } from '@angular/common';
+// src/app/pages/chat/chat.module.ts
+
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ChatsRoutingModule } from './chats-routing.module';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importar ReactiveFormsModule y FormsModule
+
 import { ListChatComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
-
-
-
+import { ChatRoutingModule } from './chats-routing.module';
 
 @NgModule({
-  declarations:[
+  declarations: [
     ListChatComponent,
     ManageComponent
-
   ],
-  imports:[CommonModule, FormsModule, ChatsRoutingModule]
+  imports: [
+    CommonModule,
+    ChatRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
-export class ChatsModule {}
+export class ChatModule { }

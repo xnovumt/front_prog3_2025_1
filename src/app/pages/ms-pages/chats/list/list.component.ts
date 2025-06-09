@@ -1,8 +1,11 @@
+// src/app/pages/chat/list/list.component.ts
+
 import { Component, OnInit } from '@angular/core';
-import { Chat } from 'src/app/models/chat.model'; // Importa el modelo Chat
-import { ChatsService } from 'src/app/services/chatService/chats.service'; // Importa el servicio ChatsService
+import { Chat } from 'src/app/models/chat.model';
+import { ChatsService } from 'src/app/services/chatService/chats.service'; // Usamos el servicio renombrado
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+// import { AuthService } from 'src/app/services/authService/auth.service'; // Opcional: Importa tu AuthService
 
 @Component({
   selector: 'app-list-chat',
@@ -11,113 +14,95 @@ import { Router } from '@angular/router';
 })
 export class ListChatComponent implements OnInit {
 
-  chats: Chat[] = []; // Arreglo para almacenar chats, tipado con el modelo Chat
+  chats: Chat[] = []; // Ahora 'chats' contiene los ChatPartner (tipo Chat)
+  currentUserId: string | null = null; // Para almacenar el ID del usuario logueado
 
-  // Inyecta el servicio ChatsService y Router (si lo necesitas)
-  constructor(private chatsService: ChatsService, private router: Router) { }
+  constructor(
+    private chatsService: ChatsService, // Inyecta el ChatsService renombrado
+    private router: Router,
+    // private authService: AuthService // Opcional: Inyecta tu AuthService real
+  ) { }
 
   ngOnInit(): void {
-    // Llama al servicio para obtener la lista de chats
-    this.chatsService.list().subscribe(
-      data => {
-        this.chats = data;
-        console.log('Datos recibidos del servicio (subscribe):', data);
-      },
-      error => {
-        console.error('Error en la suscripción del servicio:', error);
-      }
-    );
+    // --- IMPORTANTE: Obtener el ID del usuario logueado ---
+    // Reemplaza esto con la lógica real para obtener el ID del usuario desde tu AuthService.
+    // Ejemplo: this.currentUserId = this.authService.getLoggedInUserId();
+    // Por ahora, para pruebas:
+    this.currentUserId = 'ID_DEL_USUARIO_LOGUEADO_AQUI'; // <--- ¡CÁMBIAME!
+
+    if (this.currentUserId) {
+      this.loadChatPartners(this.currentUserId);
+    } else {
+      console.error('No se pudo obtener el ID del usuario logueado. Asegúrate de implementar AuthService.getLoggedInUserId() correctamente.');
+      // Opcional: Redirigir a la página de login si no hay usuario logueado
+      // this.router.navigate(['/login']);
+    }
   }
 
-  // Métodos para editar y eliminar (ajusta el tipo de ID según tu modelo Chat)
-  edit(id: number) {
-    if (isNaN(id)) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'El ID proporcionado no es válido.'
-      });
+  loadChatPartners(userId: string): void {
+    this.chatsService.listChatPartners(userId).subscribe({
+      next: (partners) => {
+        this.chats = partners;
+        console.log('Chat Partners cargados:', this.chats);
+      },
+      error: (error) => {
+        console.error('Error al cargar partners de chat:', error);
+        Swal.fire('Error', 'No se pudieron cargar los chats.', 'error');
+      }
+    });
+  }
+
+  edit(partnerId: string | number) { // El ID del partner es string
+    if (typeof partnerId === 'number') {
+      partnerId = String(partnerId);
+    }
+
+    if (!this.currentUserId) {
+      console.error('No se puede iniciar el chat sin el ID del usuario logueado.');
+      Swal.fire('Error', 'No se pudo iniciar el chat. ID de usuario no disponible.', 'error');
       return;
     }
 
-    this.router.navigate(['/chats/update', id]).then(
+    this.router.navigate(['/chats', this.currentUserId, partnerId]).then(
       success => {
-        if (success) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Redirigido',
-            text: 'Navegación exitosa al formulario de edición.'
-          });
-        } else {
+        if (!success) {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'No se pudo navegar al formulario de edición.'
+            text: 'No se pudo navegar a la conversación.'
           });
         }
       },
       error => {
-        console.error('Error al navegar:', error);
+        console.error('Error al navegar a la conversación:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Ocurrió un error al intentar navegar al formulario de edición.'
+          text: 'Ocurrió un error al intentar navegar a la conversación.'
         });
       }
     );
   }
 
-  delete(id: number) {
+  delete(id: number | string) {
     Swal.fire({
       title: 'Eliminar',
-      text: '¿Está seguro que quiere eliminar el registro?',
-      icon: 'warning',
+      text: '¿La eliminación de un "chat" aquí no elimina la conversación completa del servidor. Solo oculta el compañero de tu lista?',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
+      confirmButtonText: 'Entendido, eliminar de mi lista',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.chatsService.delete(id).subscribe({
-          next: () => {
-            Swal.fire('Eliminado!', 'Registro eliminado correctamente.', 'success');
-            this.chats = this.chats.filter(chat => chat.id !== id); // Actualizar la lista
-          },
-          error: (error) => {
-            console.error('Error al eliminar el chat:', error);
-            Swal.fire('Error', 'No se pudo eliminar el registro.', 'error');
-          }
-        });
+        this.chats = this.chats.filter(chat => chat.id !== id);
+        Swal.fire('Eliminado de la lista!', 'Este chat ha sido ocultado de tu lista.', 'info');
       }
     });
   }
 
   navigateToCreate() {
-    this.router.navigate(['/chats/create']).then(
-      success => {
-        if (success) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Redirigido',
-            text: 'Navegación exitosa al formulario de creación.'
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo navegar al formulario de creación.'
-          });
-        }
-      },
-      error => {
-        console.error('Error al navegar:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al intentar navegar al formulario de creación.'
-        });
-      }
-    );
+    Swal.fire('Función no implementada', 'Para iniciar un nuevo chat, deberías tener una funcionalidad para buscar usuarios.', 'info');
   }
 }

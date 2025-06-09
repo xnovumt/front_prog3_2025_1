@@ -3,9 +3,9 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { SecurityService } from 'src/app/services/securityService/security.service';
-import { User } from 'src/app/models/user.model';
 import { WebSocketService } from 'src/app/services/web-socket-service.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-navbar',

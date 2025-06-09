@@ -156,10 +156,9 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     return this.theFormBuilder.group({
-      fecha: ['', Validators.required],
+      fecha_hora: ['', Validators.required],
       operario_id: [null, [Validators.required, Validators.pattern('^[0-9]*$')]], // Asegura que solo sean números
       maquina_id: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],   // Asegura que solo sean números
-      novedades: [null, [Validators.required, Validators.pattern('^[0-9]*$')]]     // Asegura que solo sean números
     });
   }
 

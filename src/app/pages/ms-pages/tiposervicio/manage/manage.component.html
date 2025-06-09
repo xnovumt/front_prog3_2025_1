@@ -15,7 +15,7 @@
               <div class="col-3">ID</div>
               <div class="col-9">
                 <input type="text" class="form-control" formControlName="id" disabled
-                       style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                               style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
               </div>
             </div>
             <br>
@@ -23,11 +23,11 @@
               <div class="col-3">Nombre</div>
               <div class="col-9">
                 <input type="text" class="form-control" formControlName="nombre" [disabled]="mode==1"
-                       style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
-                <div *ngIf="theFormGroup.get('nombre')?.errors && (theFormGroup.get('nombre')?.dirty || theFormGroup.get('nombre')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup.get('nombre')?.errors?.['required']" class="msnError" style="color: #dc3545 !important;">Requerido</strong>
-                  <strong *ngIf="theFormGroup.get('nombre')?.errors?.['minlength']" class="msnError" style="color: #dc3545 !important;">Mínimo {{ theFormGroup.get('nombre')?.errors?.['minlength']?.requiredLength }} caracteres</strong>
-                  <strong *ngIf="theFormGroup.get('nombre')?.errors?.['maxlength']" class="msnError" style="color: #dc3545 !important;">Máximo {{ theFormGroup.get('nombre')?.errors?.['maxlength']?.requiredLength }} caracteres</strong>
+                               style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                <div *ngIf="getTheFormGroup['nombre'].errors && (getTheFormGroup['nombre'].dirty || getTheFormGroup['nombre'].touched || trySend)">
+                  <strong *ngIf="getTheFormGroup['nombre'].errors?.['required']" class="msnError" style="color: #dc3545 !important;">Requerido</strong>
+                  <strong *ngIf="getTheFormGroup['nombre'].errors?.['minlength']" class="msnError" style="color: #dc3545 !important;">Mínimo {{ getTheFormGroup['nombre'].errors?.['minlength']?.requiredLength }} caracteres</strong>
+                  <strong *ngIf="getTheFormGroup['nombre'].errors?.['maxlength']" class="msnError" style="color: #dc3545 !important;">Máximo {{ getTheFormGroup['nombre'].errors?.['maxlength']?.requiredLength }} caracteres</strong>
                 </div>
               </div>
             </div>
@@ -36,10 +36,11 @@
               <div class="col-3">Descripción</div>
               <div class="col-9">
                 <input type="text" class="form-control" formControlName="descripcion" [disabled]="mode==1"
-                       style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
-                <div *ngIf="theFormGroup.get('descripcion')?.errors && (theFormGroup.get('descripcion')?.dirty || theFormGroup.get('descripcion')?.touched || trySend)">
-                  <strong *ngIf="theFormGroup.get('descripcion')?.errors?.['minlength']" class="msnError" style="color: #dc3545 !important;">Mínimo {{ theFormGroup.get('descripcion')?.errors?.['minlength']?.requiredLength }} caracteres</strong>
-                  <strong *ngIf="theFormGroup.get('descripcion')?.errors?.['maxlength']" class="msnError" style="color: #dc3545 !important;">Máximo {{ theFormGroup.get('descripcion')?.errors?.['maxlength']?.requiredLength }} caracteres</strong>
+                               style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                <div *ngIf="getTheFormGroup['descripcion'].errors && (getTheFormGroup['descripcion'].dirty || getTheFormGroup['descripcion'].touched || trySend)">
+                  <strong *ngIf="getTheFormGroup['descripcion'].errors?.['required']" class="msnError" style="color: #dc3545 !important;">Requerido</strong>
+                  <strong *ngIf="getTheFormGroup['descripcion'].errors?.['minlength']" class="msnError" style="color: #dc3545 !important;">Mínimo {{ getTheFormGroup['descripcion'].errors?.['minlength']?.requiredLength }} caracteres</strong>
+                  <strong *ngIf="getTheFormGroup['descripcion'].errors?.['maxlength']" class="msnError" style="color: #dc3545 !important;">Máximo {{ getTheFormGroup['descripcion'].errors?.['maxlength']?.requiredLength }} caracteres</strong>
                 </div>
               </div>
             </div>

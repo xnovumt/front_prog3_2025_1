@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MapaGpsComponent } from './mapa-gps.component';
 
-import { ViewMaquinaComponent } from './view-maquina.component';
 
-describe('ViewMaquinaComponent', () => {
-  let component: ViewMaquinaComponent;
-  let fixture: ComponentFixture<ViewMaquinaComponent>;
+describe('MapaGpsComponent', () => {
+  let component: MapaGpsComponent;
+  let fixture: ComponentFixture<MapaGpsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewMaquinaComponent ]
+      declarations: [ MapaGpsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewMaquinaComponent);
+    fixture = TestBed.createComponent(MapaGpsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

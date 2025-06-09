@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GPS } from 'src/app/models/gps.model';
+import { Maquina } from 'src/app/models/maquina.model';
 import { GPSService } from 'src/app/services/gpsService/gps.service';
+import { MaquinaService } from 'src/app/services/maquinaService/maquina.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,12 +16,29 @@ export class ManageComponent implements OnInit {
 
   mode: number = 1; // 1 -> Ver, 2 -> Crear, 3 -> Actualizar
   gps: GPS = { id: 0 };
+  maquina: Maquina[];
+  theFormGroup: FormGroup; // Form Police
+  trySend: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private gpsService: GPSService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private theFormBuilder: FormBuilder,
+    private machineService: MaquinaService,
+  ) {
+
+    this.maquina = [];
+    this.gps = {
+      id: 0,
+      maquina_id : {
+        id: 0,
+      }
+    }
+    this.trySend = false;
+    this.theFormGroup = this.configFormGroup();
+
+   }
 
   ngOnInit(): void {
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
@@ -111,4 +131,18 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
+    loadMachineList(){
+    this.machineService.list().subscribe(data => {
+      this.maquina = data;
+    });
+  }
+  configFormGroup(): FormGroup {
+      return this.theFormBuilder.group({
+        id: [{ value: 0, disabled: true }], // Inicializa y deshabilita el campo 'id'
+        latitud: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+        longitud: ['', Validators.required],
+        maquina_id: ['', Validators.required],
+      });
+    }
 }

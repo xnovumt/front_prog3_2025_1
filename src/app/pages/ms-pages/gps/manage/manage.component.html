@@ -35,10 +35,11 @@
           </div>
           <br>
           <div class="row" style="color: #AAAAAA !important;">
-            <div class="col-3">ID Maquina</div>
-            <div class="col-9">
-              <input type="number" class="form-control" [(ngModel)]="gps.maquina_id" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+            <div class="col-4">ID Maquina</div>
+            <div class="col-8">
+              <select class="form-control" formControlName="maquina" style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                <option *ngFor="let option of maquina" [value]="option.id" style="background-color: #444444 !important; color: #FFD700 !important;">ID: {{ option. id }} - Marca: {{ option.marca }}</option>
+              </select>
             </div>
           </div>
           <br>

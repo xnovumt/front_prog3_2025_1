@@ -7,6 +7,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { AuthenticatedGuard } from 'src/app/guards/authenticated.guard';
 import { LoginComponent } from 'src/app/pages/login/login.component';
+import { RegisterComponent } from 'src/app/pages/register/register.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'tablero', component: DashboardComponent },
@@ -15,9 +16,10 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'iconos', component: IconsComponent },
   { path: 'mapas', component: MapsComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
   { path: 'facturas', canActivate: [AuthenticatedGuard], loadChildren: () => import('src/app/pages/ms-pages/factura/factura.module').then(m => m.FacturaModule) },
-  { path: 'chats', loadChildren: () => import('src/app/pages/ms-pages/chats/chats.module').then(m => m.ChatsModule) },
+  { path: 'chats', loadChildren: () => import('src/app/pages/ms-pages/chats/chats.module').then(m => m.ChatModule) },
   { path: 'maquina-combos', loadChildren: () => import('src/app/pages/ms-pages/maquinacombo/maquinacombo.module').then(m => m.MaquinaComboModule) },
   { path: 'combos', loadChildren: () => import('src/app/pages/ms-pages/combos/combos.module').then(m => m.CombosModule) },
   { path: 'obra', loadChildren: () => import('src/app/pages/ms-pages/obra/obra.module').then(m => m.ObraModule) },

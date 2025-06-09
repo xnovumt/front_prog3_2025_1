@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
-import { SecurityService } from 'src/app/services/securityService/security.service';
+import { Usuario } from 'src/app/models/usuario.model';
+import { SeguridadService } from 'src/app/services/seguridadService/seguridadService';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,47 +10,45 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  user: User;
+  user: Usuario
   twoFactorCode: string = "";
-  isTwoFactorEnabled: boolean = false;
-  userId: string = ""; // Almacenar el ID del usuario para la segunda etapa
+  requiresTwoFactor: boolean = false;
 
-  constructor(private seguridadService: SecurityService, private router: Router) {
-    this.user = { email: "", password: "" };
+  constructor(private seguridadService: SeguridadService, private router: Router) {
+    this.user = { email: "", password: "" }
   }
 
   login() {
-    if (!this.isTwoFactorEnabled) {
-      // Primera etapa: Validar credenciales
-      this.seguridadService.login(this.user.email, this.user.password).subscribe({
-        next: (data: any) => {
-          this.userId = data.user._id; // Guardar el ID del usuario para la segunda etapa
-          this.isTwoFactorEnabled = true;
-          Swal.fire("Por favor, ingrese el código enviado a su correo.", "info");
-        },
-        error: (error: any) => {
-          Swal.fire("Error de autenticación", "Usuario o contraseña inválidos.", "error");
-        }
-      });
-    } else {
-      // Segunda etapa: Validar código 2FA
-      this.seguridadService.validateTwoFactor(this.twoFactorCode).subscribe({
-        next: (data: any) => {
+    this.seguridadService.login(this.user.email, this.user.password).subscribe({
+      next: (data) => {
+        if (data.requiresTwoFactor || data.twoFactorCode) {
+          this.requiresTwoFactor = true;
+          this.twoFactorCode = data.twoFactorCode;
+        } else {
           this.seguridadService.saveSession(data);
-          this.router.navigate(["tablero"]);
-        },
-        error: (error: any) => {
-          Swal.fire("Error de autenticación", "Código 2FA inválido.", "error");
         }
-      });
-    }
+      },
+      error: () => {
+        Swal.fire("Autenticación Inválida", "Usuario o contraseña inválido", "error");
+      }
+    });
   }
 
-  ngOnInit(): void {
-    // Inicialización del componente
+  validateTwoFactorCode() {
+    this.seguridadService.validateTwoFactorCode(this.twoFactorCode).subscribe({
+      next: (data) => {
+        this.seguridadService.saveSession(data);
+        this.router.navigate(["/tablero"]);
+      },
+      error: (error) => {
+        Swal.fire("Código Inválido", "El código de autenticación es incorrecto", "error");
+      }
+    });
   }
 
-  ngOnDestroy(): void {
-    // Limpieza del componente
+  ngOnInit() {
   }
+  ngOnDestroy() {
+  }
+
 }
