@@ -10,8 +10,14 @@ import { environment } from 'src/environments/environment';
 export class MunicipioService {
     constructor(private http: HttpClient) { }
 
+    // GET para listar municipios
     list(): Observable<{ data: Municipio[] }> {
         return this.http.get<{ data: Municipio[] }>(`${environment.url_ms_cinema}/municipios`);
+    }
+
+    // POST para sincronizar municipios (no envía nada en el body)
+    sincronizar(): Observable<any> {
+        return this.http.post(`${environment.url_ms_cinema}/municipios/sincronizar`, {});
     }
 
     view(id: string): Observable<Municipio> {

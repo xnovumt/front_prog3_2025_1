@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListMunicipioComponent } from './list/list.component';
+import { ListDepartamentoComponent } from './list/list.component';
 
 const routes: Routes = [
-    { path: 'list', component: ListMunicipioComponent },
+    { path: 'list', component: ListDepartamentoComponent },
     { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 
@@ -11,4 +11,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class MunicipioRoutingModule { }
+export class DepartamentoRoutingModule { }

@@ -35,7 +35,7 @@ export class ListEspecialidadMaquinariaComponent implements OnInit {
       return;
     }
 
-    this.router.navigate([`/especialidad-maquinaria/update`, id]).then(
+    this.router.navigate([`/especialidad-maquinarias/update`, id]).then(
       success => {
         if (success) {
           Swal.fire({
@@ -88,7 +88,7 @@ export class ListEspecialidadMaquinariaComponent implements OnInit {
     });
   }
   navigateToCreate() {
-    this.router.navigate(['/especialidades/create']).then(
+    this.router.navigate(['/especialidad-maquinarias/create']).then(
       success => {
         if (success) {
           Swal.fire({

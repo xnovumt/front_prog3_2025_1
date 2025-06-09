@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GPS } from 'src/app/models/gps.model';
 import { Maquina } from 'src/app/models/maquina.model';
@@ -14,31 +13,23 @@ import Swal from 'sweetalert2';
 })
 export class ManageComponent implements OnInit {
 
-  mode: number = 1; // 1 -> Ver, 2 -> Crear, 3 -> Actualizar
-  gps: GPS = { id: 0 };
-  maquina: Maquina[];
-  theFormGroup: FormGroup; // Form Police
-  trySend: boolean;
+  mode: number = 1;
+  gps: GPS;
+  maquinas: Maquina[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private gpsService: GPSService,
     private router: Router,
-    private theFormBuilder: FormBuilder,
-    private machineService: MaquinaService,
+    private maquinaService: MaquinaService
   ) {
-
-    this.maquina = [];
     this.gps = {
       id: 0,
-      maquina_id : {
-        id: 0,
-      }
-    }
-    this.trySend = false;
-    this.theFormGroup = this.configFormGroup();
-
-   }
+      latitud: 0,
+      longitud: 0,
+      maquina_id: undefined
+    };
+  }
 
   ngOnInit(): void {
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
@@ -50,11 +41,25 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
 
+    this.loadMaquinas();
+
     const idParam = this.activatedRoute.snapshot.params['id'];
     if (idParam) {
       this.gps.id = Number(idParam);
       this.getGPS(this.gps.id);
     }
+  }
+
+  loadMaquinas(): void {
+    this.maquinaService.list().subscribe({
+      next: (data) => {
+        this.maquinas = data;
+        console.log('Máquinas cargadas:', this.maquinas);
+      },
+      error: (error) => {
+        console.error('Error cargando máquinas:', error);
+      }
+    });
   }
 
   getGPS(id: number): void {
@@ -65,6 +70,7 @@ export class ManageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener el GPS:', error);
+        Swal.fire('Error', 'No se pudo obtener el GPS.', 'error');
       }
     });
   }
@@ -74,7 +80,15 @@ export class ManageComponent implements OnInit {
   }
 
   create(): void {
-    console.log('Payload enviado al backend:', this.gps); // Log the payload for debugging
+    console.log('📊 Validando GPS antes de crear:', this.gps);
+
+    if (!this.validateGPS()) {
+      console.log('❌ Validación falló');
+      Swal.fire('Error', 'Por favor, complete todos los campos obligatorios.', 'error');
+      return;
+    }
+
+    console.log('✅ Validación pasó, enviando al backend:', this.gps);
     this.gpsService.create(this.gps).subscribe({
       next: (createdGPS) => {
         console.log('GPS creado exitosamente:', createdGPS);
@@ -82,16 +96,23 @@ export class ManageComponent implements OnInit {
           title: '¡Creado!',
           text: 'Registro creado correctamente.',
           icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/gps/list']);
         });
-        this.router.navigate(['/gps/list']);
       },
       error: (error) => {
         console.error('Error al crear el GPS:', error);
+        Swal.fire('Error', 'No se pudo crear el GPS.', 'error');
       }
     });
   }
 
   update(): void {
+    if (!this.validateGPS()) {
+      Swal.fire('Error', 'Por favor, complete todos los campos obligatorios.', 'error');
+      return;
+    }
+
     this.gpsService.update(this.gps).subscribe({
       next: (updatedGPS) => {
         console.log('GPS actualizado exitosamente:', updatedGPS);
@@ -99,50 +120,28 @@ export class ManageComponent implements OnInit {
           title: '¡Actualizado!',
           text: 'Registro actualizado correctamente.',
           icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/gps/list']);
         });
-        this.router.navigate(['/gps/list']);
       },
       error: (error) => {
         console.error('Error al actualizar el GPS:', error);
+        Swal.fire('Error', 'No se pudo actualizar el GPS.', 'error');
       }
     });
   }
 
-  delete(id: number): void {
-    Swal.fire({
-      title: 'Eliminar',
-      text: "¿Está seguro que quiere eliminar el registro?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.gpsService.delete(id).subscribe(() => {
-          Swal.fire(
-            '¡Eliminado!',
-            'Registro eliminado correctamente.',
-            'success'
-          );
-          this.router.navigate(['/gps/list']);
-        });
-      }
-    });
+  private validateGPS(): boolean {
+    console.log('🔍 Validando campos:');
+    console.log('  - latitud:', this.gps.latitud, 'válida:', !!this.gps.latitud && this.gps.latitud !== 0);
+    console.log('  - longitud:', this.gps.longitud, 'válida:', !!this.gps.longitud && this.gps.longitud !== 0);
+    console.log('  - maquina_id:', this.gps.maquina_id, 'válida:', !!this.gps.maquina_id);
+    
+    const isValid = (!!this.gps.latitud && this.gps.latitud !== 0) && 
+                   (!!this.gps.longitud && this.gps.longitud !== 0) && 
+                   !!this.gps.maquina_id;
+    
+    console.log('🎯 Resultado validación:', isValid);
+    return isValid;
   }
-
-    loadMachineList(){
-    this.machineService.list().subscribe(data => {
-      this.maquina = data;
-    });
-  }
-  configFormGroup(): FormGroup {
-      return this.theFormBuilder.group({
-        id: [{ value: 0, disabled: true }], // Inicializa y deshabilita el campo 'id'
-        latitud: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-        longitud: ['', Validators.required],
-        maquina_id: ['', Validators.required],
-      });
-    }
 }

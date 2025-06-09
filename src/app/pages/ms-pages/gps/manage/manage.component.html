@@ -3,52 +3,56 @@
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
-        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
-          <h3 class="mb-0" *ngIf="mode==1" style="color: #FFD700 !important;">Detalle</h3>
-          <h3 class="mb-0" *ngIf="mode==2" style="color: #FFD700 !important;">Creación</h3>
-          <h3 class="mb-0" *ngIf="mode==3" style="color: #FFD700 !important;">Actualización</h3>
+      <div class="card shadow" style="background-color: #222222 !important;">
+        <div class="card-header bg-transparent" style="background-color: #333333 !important;">
+          <h3 class="mb-0" *ngIf="mode==1" style="color: #FFD700 !important;">Detalle GPS</h3>
+          <h3 class="mb-0" *ngIf="mode==2" style="color: #FFD700 !important;">Crear GPS</h3>
+          <h3 class="mb-0" *ngIf="mode==3" style="color: #FFD700 !important;">Actualizar GPS</h3>
         </div>
-        <div class="card-body container">
-          <div class="row" style="color: #AAAAAA !important;">
+        <div class="card-body">
+          <div class="row mb-3">
             <div class="col-3">ID</div>
             <div class="col-9">
-              <input type="number" class="form-control" [(ngModel)]="gps.id" disabled
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <input type="number" class="form-control" [(ngModel)]="gps.id" disabled>
             </div>
           </div>
-          <br>
-          <div class="row" style="color: #AAAAAA !important;">
+
+          <div class="row mb-3">
             <div class="col-3">Latitud</div>
             <div class="col-9">
-              <input type="number" class="form-control" [(ngModel)]="gps.latitud" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <input type="number" class="form-control" [(ngModel)]="gps.latitud" [disabled]="mode==1" step="any"
+                placeholder="Ej: -4.4697">
+              <small>Valor actual: {{ gps.latitud }}</small>
             </div>
           </div>
-          <br>
-          <div class="row" style="color: #AAAAAA !important;">
+
+          <div class="row mb-3">
             <div class="col-3">Longitud</div>
             <div class="col-9">
-              <input type="number" class="form-control" [(ngModel)]="gps.longitud" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <input type="number" class="form-control" [(ngModel)]="gps.longitud" [disabled]="mode==1" step="any"
+                placeholder="Ej: -75.2327">
+              <small>Valor actual: {{ gps.longitud }}</small>
             </div>
           </div>
-          <br>
-          <div class="row" style="color: #AAAAAA !important;">
-            <div class="col-4">ID Maquina</div>
-            <div class="col-8">
-              <select class="form-control" formControlName="maquina" style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
-                <option *ngFor="let option of maquina" [value]="option.id" style="background-color: #444444 !important; color: #FFD700 !important;">ID: {{ option. id }} - Marca: {{ option.marca }}</option>
-              </select>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-3"></div>
+
+          <div class="row mb-3">
+            <div class="col-3">Máquina</div>
             <div class="col-9">
-              <button *ngIf="mode==1" class="btn btn-block" (click)="back()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Volver</button>
-              <button *ngIf="mode==2" class="btn btn-block" (click)="create()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear</button>
-              <button *ngIf="mode==3" class="btn btn-block" (click)="update()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Update</button>
+              <select class="form-control" [(ngModel)]="gps.maquina_id" [disabled]="mode==1">
+                <option value="">Seleccione una máquina</option>
+                <option *ngFor="let maquina of maquinas" [value]="maquina.id">
+                  ID: {{ maquina.id }} - {{ maquina.marca || 'Sin marca' }}
+                </option>
+              </select>
+              <small>Valor actual: {{ gps.maquina_id }}</small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button *ngIf="mode==1" class="btn btn-secondary" (click)="back()">Volver</button>
+              <button *ngIf="mode==2" class="btn btn-primary" (click)="create()">Crear</button>
+              <button *ngIf="mode==3" class="btn btn-success" (click)="update()">Actualizar</button>
             </div>
           </div>
         </div>

@@ -3,8 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EspecialidadMaquinaria } from 'src/app/models/especialidad-maquinaria.model';
 import { TipoServicio } from 'src/app/models/tipo-servicio.model';
+import { Maquina } from 'src/app/models/maquina.model';
+import { Especialidad } from 'src/app/models/especialidad.model';
 import { EspecialidadMaquinariaService } from 'src/app/services/especialidadMaquinariaService/especialidad-maquina.service';
 import { TipoServicioService } from 'src/app/services/tipoServicioService/tipo-servicio.service';
+import { MaquinaService } from 'src/app/services/maquinaService/maquina.service';
+import { EspecialidadesService } from 'src/app/services/especialidadesService/especialidades.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,27 +20,31 @@ export class ManageComponent implements OnInit {
 
   mode: number; //1->View, 2->Create, 3-> Update
   especialidadmaquinaria: EspecialidadMaquinaria;
-              theFormGroup: FormGroup; // Form Police
-              trySend: boolean;
-              tipo_servicios: TipoServicio[]
+  theFormGroup: FormGroup;
+  trySend: boolean;
+
+  // Arrays para los selectores
+  tipo_servicios: TipoServicio[] = [];
+  maquinas: Maquina[] = [];
+  especialidades: Especialidad[] = [];
 
   constructor(private activateRoute: ActivatedRoute,
     private someEspecialidadMaquinaria: EspecialidadMaquinariaService,
     private router: Router,
     private theFormBuilder: FormBuilder,
-    private tipoServicioService: TipoServicioService
+    private tipoServicioService: TipoServicioService,
+    private maquinaService: MaquinaService,
+    private especialidadesService: EspecialidadesService
   ) {
-    this.tipo_servicios=[];
-    this.especialidadmaquinaria = { id: 0, tipo_servicio_id: { id: 0}};
-            this.configFormGroup();
-    this.trySend = false
-  }
-
-
-  tipoServiciosList() {
-    this.tipoServicioService.list().subscribe(data=>{
-      this.tipo_servicios=data
-    })
+    this.especialidadmaquinaria = {
+      id: 0,
+      tipo_servicio_id: undefined,
+      maquina_id: undefined,
+      especialidad_id: undefined,
+      tipo_trabajo: ''
+    };
+    this.configFormGroup();
+    this.trySend = false;
   }
 
   ngOnInit(): void {
@@ -48,16 +56,60 @@ export class ManageComponent implements OnInit {
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
+
+    // Cargar todas las listas para los selectores
+    this.loadTipoServicios();
+    this.loadMaquinas();
+    this.loadEspecialidades();
+
     if (this.activateRoute.snapshot.params.id) {
-      this.especialidadmaquinaria.id = this.activateRoute.snapshot.params.id
-      this.getEspecialidadMaquinaria(this.especialidadmaquinaria.id)
+      this.especialidadmaquinaria.id = this.activateRoute.snapshot.params.id;
+      this.getEspecialidadMaquinaria(this.especialidadmaquinaria.id);
     }
   }
+
+  // Métodos para cargar datos de los selectores
+  loadTipoServicios() {
+    this.tipoServicioService.list().subscribe({
+      next: (data) => {
+        this.tipo_servicios = data;
+        console.log('Tipos de servicio cargados:', this.tipo_servicios);
+      },
+      error: (error) => {
+        console.error('Error cargando tipos de servicio:', error);
+      }
+    });
+  }
+
+  loadMaquinas() {
+    this.maquinaService.list().subscribe({
+      next: (data) => {
+        this.maquinas = data;
+        console.log('Máquinas cargadas:', this.maquinas);
+      },
+      error: (error) => {
+        console.error('Error cargando máquinas:', error);
+      }
+    });
+  }
+
+  loadEspecialidades() {
+    this.especialidadesService.list().subscribe({
+      next: (data) => {
+        this.especialidades = data;
+        console.log('Especialidades cargadas:', this.especialidades);
+      },
+      error: (error) => {
+        console.error('Error cargando especialidades:', error);
+      }
+    });
+  }
+
   getEspecialidadMaquinaria(id: number) {
     this.someEspecialidadMaquinaria.view(id).subscribe({
       next: (especialidadmaquinaria) => {
         this.especialidadmaquinaria = especialidadmaquinaria;
-        console.log('especialidadmaquinaria fetched successfully:', this.especialidadmaquinaria);
+        console.log('EspecialidadMaquinaria fetched successfully:', this.especialidadmaquinaria);
       },
       error: (error) => {
         console.error('Error fetching especialidadmaquinaria:', error);
@@ -77,7 +129,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro creado correctamente.',
           icon: 'success',
         }).then(() => {
-          this.router.navigate(['/especialidad-maquinaria/list']); // Redirigir a la lista
+          this.router.navigate(['/especialidad-maquinarias/list']); // Redirigir a la lista
         });
       },
       error: (error) => {
@@ -95,7 +147,7 @@ export class ManageComponent implements OnInit {
           text: 'Registro actualizado correctamente.',
           icon: 'success',
         }).then(() => {
-          this.router.navigate(['/especialidad-maquinaria/list']); // Redirigir a la lista
+          this.router.navigate(['/especialidad-maquinarias/list']); // Redirigir a la lista
         });
       },
       error: (error) => {
@@ -166,16 +218,17 @@ export class ManageComponent implements OnInit {
     );
   }
 
-                          get getTheFormGroup() {
-                            return this.theFormGroup.controls
-                          }
-                        
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      tipo_servicio_id: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
-      tipo_trabajo: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
-      idTipoServicio:[null, Validators.required],
-    })
+      tipo_servicio_id: [null, [Validators.required]],
+      maquina_id: [null, [Validators.required]],
+      especialidad_id: [null, [Validators.required]],
+      tipo_trabajo: ['', [Validators.required, Validators.minLength(2)]]
+    });
+  }
+
+  get getTheFormGroup() {
+    return this.theFormGroup.controls;
   }
 
 }

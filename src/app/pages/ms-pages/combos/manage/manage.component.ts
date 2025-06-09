@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Combo } from 'src/app/models/combo.model';
+import { Servicio } from 'src/app/models/servicio.model';
 import { CombosService } from 'src/app/services/comboService/combos.service';
+import { ServicioService } from 'src/app/services/servicioService/servicio.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,15 +12,22 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
-
-  mode: number; //1->View, 2->Create, 3-> Update
+  mode: number; // 1->View, 2->Create, 3->Update
   combo: Combo;
+  
+  // Array para el selector
+  servicios: Servicio[] = [];
 
-  constructor(private activateRoute: ActivatedRoute,
-    private someCombo: CombosService,
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private combosService: CombosService,
+    private servicioService: ServicioService,
     private router: Router
   ) {
-    this.combo = { id: 0 }
+    this.combo = {
+      id: 0,
+      servicio_id: undefined
+    };
   }
 
   ngOnInit(): void {
@@ -30,80 +39,80 @@ export class ManageComponent implements OnInit {
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
+
+    // Cargar servicios para el selector
+    this.loadServicios();
+
     if (this.activateRoute.snapshot.params.id) {
-      this.combo.id = this.activateRoute.snapshot.params.id
-      this.getCombo(this.combo.id)
+      this.combo.id = this.activateRoute.snapshot.params.id;
+      this.getCombo(this.combo.id);
     }
   }
+
+  // Método para cargar servicios
+  loadServicios() {
+    this.servicioService.list().subscribe({
+      next: (data) => {
+        this.servicios = data;
+        console.log('Servicios cargados:', this.servicios);
+      },
+      error: (error) => {
+        console.error('Error cargando servicios:', error);
+      }
+    });
+  }
+
   getCombo(id: number) {
-    this.someCombo.view(id).subscribe({
+    this.combosService.view(id).subscribe({
       next: (combo) => {
         this.combo = combo;
-        console.log('combo fetched successfully:', this.combo);
+        console.log('Combo fetched successfully:', this.combo);
       },
       error: (error) => {
         console.error('Error fetching combo:', error);
       }
     });
   }
+
   back() {
-    this.router.navigate(['/combos/list']);
+    this.router.navigate(['combos/list']);
   }
+
   create() {
-    this.someCombo.create(this.combo).subscribe({
+    this.combosService.create(this.combo).subscribe({
       next: (combo) => {
-        console.log('combo created successfully:', combo);
+        console.log('Combo created successfully:', combo);
         Swal.fire({
           title: 'Creado!',
-          text: 'Registro creado correctamente.',
+          text: 'Combo creado correctamente.',
           icon: 'success',
-        })
-        this.router.navigate(['/combos/list']);
+        }).then(() => {
+          this.router.navigate(['/combos/list']);
+        });
       },
       error: (error) => {
         console.error('Error creating combo:', error);
+        Swal.fire('Error', 'No se pudo crear el combo.', 'error');
       }
     });
   }
+
   update() {
-    this.someCombo.update(this.combo).subscribe({
+    this.combosService.update(this.combo).subscribe({
       next: (combo) => {
-        console.log('cuota updated successfully:', combo);
+        console.log('Combo updated successfully:', combo);
         Swal.fire({
           title: 'Actualizado!',
-          text: 'Registro actualizado correctamente.',
+          text: 'Combo actualizado correctamente.',
           icon: 'success',
-        })
-        this.router.navigate(['/combos/list']);
+        }).then(() => {
+          this.router.navigate(['/combos/list']);
+        });
       },
       error: (error) => {
         console.error('Error updating combo:', error);
+        Swal.fire('Error', 'No se pudo actualizar el combo.', 'error');
       }
     });
-  }
-  delete(id: number) {
-    console.log("Delete combo with id:", id);
-    Swal.fire({
-      title: 'Eliminar',
-      text: "Está combo que quiere eliminar el registro?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.someCombo.delete(id).
-          subscribe(data => {
-            Swal.fire(
-              'Eliminado!',
-              'Registro eliminado correctamente.',
-              'success'
-            )
-            this.ngOnInit();
-          });
-      }
-    })
   }
 }

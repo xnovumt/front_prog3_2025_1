@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Factura } from 'src/app/models/factura.model';
+import { Cuotas } from 'src/app/models/cuotas.model';
 import { FacturaService } from 'src/app/services/facturaService/factura.service';
+import { CuotasService } from 'src/app/services/cuotasService/cuotas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,12 +14,21 @@ import Swal from 'sweetalert2';
 export class ManageFacturaComponent implements OnInit {
   mode: number; //1->View, 2->Create, 3-> Update
   factura: Factura;
+  
+  // Array para el selector
+  cuotas: Cuotas[] = [];
 
-  constructor(private activateRoute: ActivatedRoute,
+  constructor(
+    private activateRoute: ActivatedRoute,
     private facturaService: FacturaService,
+    private cuotasService: CuotasService,
     private router: Router
   ) {
-    this.factura = { id: 0 };
+    this.factura = { 
+      id: 0,
+      detalle: '',
+      id_cuota: undefined
+    };
   }
 
   ngOnInit(): void {
@@ -29,10 +40,27 @@ export class ManageFacturaComponent implements OnInit {
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
+
+    // Cargar cuotas para el selector
+    this.loadCuotas();
+
     if (this.activateRoute.snapshot.params.id) {
       this.factura.id = this.activateRoute.snapshot.params.id;
       this.getFactura(this.factura.id);
     }
+  }
+
+  // Método para cargar cuotas
+  loadCuotas() {
+    this.cuotasService.list().subscribe({
+      next: (data) => {
+        this.cuotas = data;
+        console.log('Cuotas cargadas:', this.cuotas);
+      },
+      error: (error) => {
+        console.error('Error cargando cuotas:', error);
+      }
+    });
   }
 
   getFactura(id: number) {
@@ -113,7 +141,7 @@ export class ManageFacturaComponent implements OnInit {
         this.facturaService.delete(id).subscribe({
           next: () => {
             Swal.fire('Eliminado!', 'Registro eliminado correctamente.', 'success');
-            this.router.navigate(['/factura/list']);
+            this.router.navigate(['/facturas/list']);
           },
           error: (error) => {
             console.error('Error al eliminar la factura:', error);

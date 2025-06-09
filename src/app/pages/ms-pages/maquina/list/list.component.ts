@@ -62,7 +62,7 @@ export class ListMaquinaComponent implements OnInit {
   }
 
   // Nueva función para el botón "Ver máquina" en la cabecera
-viewAllMachines(): void {
+  viewAllMachines(): void {
     console.log('Botón Ver máquina en la cabecera clickeado.');
     if (this.maquinas.length > 0) {
       this.router.navigate(['/maquinas/view', this.maquinas[0].id]);

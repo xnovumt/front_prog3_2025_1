@@ -3,59 +3,84 @@
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
-      <div class="card shadow" style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
-        <div class="card-header bg-transparent" style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
-          <h3 class="mb-0" *ngIf="mode==1" style="color: #FFD700 !important;">Detalle</h3>
-          <h3 class="mb-0" *ngIf="mode==2" style="color: #FFD700 !important;">Creación</h3>
-          <h3 class="mb-0" *ngIf="mode==3" style="color: #FFD700 !important;">Actualización</h3>
+      <div class="card shadow"
+        style="background-color: #222222 !important; border-radius: 0.8rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4) !important;">
+        <div class="card-header bg-transparent"
+          style="background-color: #333333 !important; border-bottom: 1px solid #444444;">
+          <h3 class="mb-0" *ngIf="mode==1" style="color: #FFD700 !important;">Detalle de Novedad</h3>
+          <h3 class="mb-0" *ngIf="mode==2" style="color: #FFD700 !important;">Crear Novedad</h3>
+          <h3 class="mb-0" *ngIf="mode==3" style="color: #FFD700 !important;">Actualizar Novedad</h3>
         </div>
         <div class="card-body container">
           <div class="row" style="color: #AAAAAA !important;">
             <div class="col-3">ID</div>
             <div class="col-9">
               <input type="number" class="form-control" [(ngModel)]="novedad.id" disabled
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
             </div>
           </div>
           <br>
           <div class="row" style="color: #AAAAAA !important;">
             <div class="col-3">Tipo</div>
             <div class="col-9">
-              <input type="text" class="form-control" [(ngModel)]="novedad.tipo" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <select class="form-control" [(ngModel)]="novedad.tipo" [disabled]="mode==1"
+                style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                <option value="" disabled>Seleccione un tipo</option>
+                <option value="Incidente">Incidente</option>
+                <option value="Falla técnica">Falla técnica</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+                <option value="Observación">Observación</option>
+                <option value="Mejora">Mejora</option>
+                <option value="Emergencia">Emergencia</option>
+              </select>
             </div>
           </div>
           <br>
           <div class="row" style="color: #AAAAAA !important;">
             <div class="col-3">Descripción</div>
             <div class="col-9">
-              <input type="text" class="form-control" [(ngModel)]="novedad.descripcion" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <textarea class="form-control" [(ngModel)]="novedad.descripcion" [disabled]="mode==1" rows="3"
+                style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;"
+                placeholder="Descripción detallada de la novedad..."></textarea>
             </div>
           </div>
           <br>
           <div class="row" style="color: #AAAAAA !important;">
             <div class="col-3">Gravedad</div>
             <div class="col-9">
-              <input type="text" class="form-control" [(ngModel)]="novedad.gravedad" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <select class="form-control" [(ngModel)]="novedad.gravedad" [disabled]="mode==1"
+                style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                <option value="" disabled>Seleccione la gravedad</option>
+                <option value="Baja">Baja</option>
+                <option value="Media">Media</option>
+                <option value="Alta">Alta</option>
+                <option value="Crítica">Crítica</option>
+              </select>
             </div>
           </div>
           <br>
           <div class="row" style="color: #AAAAAA !important;">
-            <div class="col-3">ID Turno</div>
+            <div class="col-3">Turno</div>
             <div class="col-9">
-              <input type="number" class="form-control" [(ngModel)]="novedad.turno_id" [disabled]="mode==1"
-                     style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+              <select class="form-control" [(ngModel)]="novedad.turno_id" [disabled]="mode==1"
+                style="background-color: #444444 !important; border: 1px solid #555555 !important; color: #FFD700 !important;">
+                <option value="" disabled>Seleccione un turno</option>
+                <option *ngFor="let turno of turnos" [value]="turno.id">
+                  {{ turno.id }} - {{ turno.fecha_hora_inicio | date:'short' }} - {{ turno.fecha_hora_fin | date:'short'
+                  }}
+                </option>
+              </select>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-3"></div>
-            <div class="col-9">
-              <button *ngIf="mode==1" class="btn btn-block" (click)="back()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Volver</button>
-              <button *ngIf="mode==2" class="btn btn-block" (click)="create()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear</button>
-              <button *ngIf="mode==3" class="btn btn-block" (click)="update()" style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Actualizar</button>
+            <div class="col-12 text-center">
+              <button *ngIf="mode==1" class="btn mx-2" (click)="back()"
+                style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Volver</button>
+              <button *ngIf="mode==2" class="btn mx-2" (click)="create()"
+                style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Crear</button>
+              <button *ngIf="mode==3" class="btn mx-2" (click)="update()"
+                style="background-color: #FFD700 !important; border-color: #FFD700 !important; color: #000000 !important; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">Actualizar</button>
             </div>
           </div>
         </div>

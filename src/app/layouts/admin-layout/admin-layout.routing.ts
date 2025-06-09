@@ -45,5 +45,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'especialidad-operarios', loadChildren: () => import('src/app/pages/ms-pages/operarioespecialidad/operarioespecialidad.module').then(m => m.OperarioEspecialidadModule) },
   { path: 'especialidades', loadChildren: () => import('src/app/pages/ms-pages/especialidades/especialidades.module').then(m => m.EspecialidadesModule) },
   { path: 'tiposervicios', loadChildren: () => import('src/app/pages/ms-pages/tiposervicio/tiposervicio.module').then(m => m.TipoServicioModule) },
-  { path: 'municipios', loadChildren: () => import('src/app/pages/ms-pages/municipio/municipio.module').then(m => m.MunicipioModule) }
+  { path: 'municipios', loadChildren: () => import('src/app/pages/ms-pages/municipio/municipio.module').then(m => m.MunicipioModule) },
+  { path: 'departamentos', loadChildren: () => import('src/app/pages/ms-pages/departamento/departamento.module').then(m => m.DepartamentoModule) }
 ];

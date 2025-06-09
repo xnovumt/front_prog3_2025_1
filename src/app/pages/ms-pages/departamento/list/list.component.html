@@ -5,28 +5,29 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Municipios</h3>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Departamentos</h3>
+                        </div>
+                        <div class="col text-right">
+                            <button class="btn btn-primary btn-sm" (click)="sincronizar()">
+                                <i class="fa fa-sync"></i> Sincronizar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Departamento</th>
-                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let municipio of municipios">
-                                <td>{{ municipio.id }}</td>
-                                <td>{{ municipio.nombre }}</td>
-                                <td>{{ municipio.departamento_id }}</td>
-                            </tr>
-                            <tr *ngIf="municipios.length === 0">
-                                <td colspan="4" class="text-center">No hay municipios disponibles.</td>
+                            <tr *ngFor="let departamento of departamentos">
+                                <td>{{ departamento.id }}</td>
+                                <td>{{ departamento.nombre }}</td>
                             </tr>
                         </tbody>
                     </table>
